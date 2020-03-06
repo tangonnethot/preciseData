@@ -26,8 +26,10 @@
     "eslint-plugin-react": "^7.1.0",
     "history": "^4.10.1",
     "husky": "^0.12.0",
+    "less": "^3.11.1",
+    "less-loader": "^5.0.0",
     "redbox-react": "^1.4.3",
     "roadhog": "^2.5.0-beta.4",
-    "webpack": "^4.42.0"
+    "webpack": "^3.12.0"
   }
 }
