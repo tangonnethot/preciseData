@@ -1,0 +1,6 @@
+"extraBabelPlugins": [
+    ["import", { "libraryName": "antd", "style": "css" }]
+]
+{
+  "theme": "./src/theme.js"
+}
