@@ -1,6 +1,11 @@
 import React from 'react'
-import { NavBar, Icon, ListView } from 'antd-mobile'
+import { ListView, Badge, SegmentedControl } from 'antd-mobile'
+import TopNav from '../../components/nav'
+import SubjectNav from '../../components/nav/subject'
+
 import Styles from './index.less'
+import {connect} from 'dva'
+
 function MyBody(props) {
     return (
         <div className="am-list-body my-body">
@@ -34,9 +39,11 @@ function genData(pIndex = 0) {
     rowIDs = [...rowIDs];
 }
 
+@connect(({task})=>({task}))
 export default class taskInfo extends React.Component {
     constructor(props) {
         super(props);
+        this.getTaskInfo();
         const getSectionData = (dataBlob, sectionID) => dataBlob[sectionID];
         const getRowData = (dataBlob, sectionID, rowID) => dataBlob[rowID];
 
@@ -59,23 +66,34 @@ export default class taskInfo extends React.Component {
         setTimeout(() => {
             genData();
             this.setState({
-              dataSource: this.state.dataSource.cloneWithRowsAndSections(dataBlobs, sectionIDs, rowIDs),
-              isLoading: false,
-              height: hei,
+                dataSource: this.state.dataSource.cloneWithRowsAndSections(dataBlobs, sectionIDs, rowIDs),
+                isLoading: false,
+                height: hei,
             });
-          }, 600);
+        }, 600);
+    }
+
+    getTaskInfo=()=>{
+        this.props.dispatch({
+            type:"task/getTaskList",
+            payload:{
+                studentId:"679ca2c8df464bd9ac6c9294f82d7113",
+                taskFinishStatus:0,
+                subjectId:100
+            }
+        })
     }
     data = [
         {
             // img: 'https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png',
-            img:"../assets/math.png",
+            img: "../assets/math.png",
             title: '考点4：集合的补强任务',
             des: '截止时间：2019.11.15.',
-            subjectName:"数学",
+            subjectName: "数学",
             taskName: "测试试题任务",
             taskNo: "201976150529372102",
             taskRequire: "任务要求任务要求任务要求任务要求任务要求",
-            subjectId:"103",
+            subjectId: "103",
             taskScene: 1,
             taskScore: 0,
             taskStartTime: "2019-12-12 00:00:00",
@@ -89,11 +107,11 @@ export default class taskInfo extends React.Component {
             // img: 'https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png',
             title: '考点3：测试集合补强任务',
             des: '截止时间：2019.11.15.',
-            subjectName:"语文",
+            subjectName: "语文",
             taskName: "测试试题任务",
             taskNo: "201976150529372102",
             taskRequire: "任务要求任务要求任务要求任务要求任务要求",
-            subjectId:"100",
+            subjectId: "100",
             taskScene: 1,
             taskScore: 0,
             taskStartTime: "2019-10-12 00:00:00",
@@ -102,8 +120,20 @@ export default class taskInfo extends React.Component {
             taskTotalTime: 0,
             taskType: 2,
             updateTime: "2019-12-12 00:00:00"
-        },       
+        },
     ];
+
+    back = () => {
+        console.log("click back")
+    };
+
+    changeSubject = (e) => {
+        console.log(e)
+    };
+
+    changeComplete=(e)=>{
+        console.log(e)
+    }
 
     render() {
         const separator = (sectionID, rowID) => (
@@ -136,17 +166,23 @@ export default class taskInfo extends React.Component {
                     >{obj.title}</div>
                     <div style={{ display: '-webkit-box', display: 'flex', padding: '15px 0' }}>
                         <img style={{ height: '64px', marginRight: '15px' }} src={obj.img} alt="" />
-                        <div style={{ lineHeight: 1 }}>
-                            <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>{obj.des}</div>
+                        <div>
+                            <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>
+                                <Badge text="作业" className={Styles.zuoye_badge} />
+
+                                {obj.des}</div>
                             {/* <div><span style={{ fontSize: '30px', color: '#FF6E27' }}>35</span>¥ {rowID}</div> */}
                         </div>
                     </div>
                 </div>
             );
         };
+
         return (
             <div>
-                <div className={Styles.navbar}>提分任务</div>
+                <TopNav title="提分任务" onLeftClick={this.back}></TopNav>
+                <SubjectNav onchange={this.changeSubject}></SubjectNav>
+                <SegmentedControl selectedIndex={0} values={["待完成","已完成"]} onchange={this.changeComplete}/>
                 <ListView
                     ref={el => this.lv = el}
                     dataSource={this.state.dataSource}

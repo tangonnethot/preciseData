@@ -1,6 +1,14 @@
 {
 "extraBabelPlugins": [
-    ["import", { "libraryName": "antd", "style": "css" }]
+    ["import", { "libraryName": "antd-mobile", "libraryDirectory": "es","style": "css" }]
 ],
-  "theme": "./src/theme.js"
+  "theme": "./src/theme.js",
+  "proxy": {
+     "/precise-web":{
+      "target": "http://172.16.1.159:8090/",
+      "changeOrigin": true,
+      "pathRewrite": { "^/precise-web": "" }
+    }
+  }
+
 }
