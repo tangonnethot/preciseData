@@ -1,18 +1,52 @@
-.zuoye_badge{
-    padding: '0 3px';
-    border:solid 1px @primary-color;
+.tasktype_badge {
+    :global{
+        .am-badge-text{
+            padding         : 3 5px;
+            border          : solid 1px @primary-color;
+            margin-left     : 12px;
+            background-color: @white-color;
+            border-radius   : 2px;
+            color           : @primary-color;
+        }
+    }
+}
+.gradetype_badge{
+    :global{
+        .am-badge-text{
+            padding         : 3 5px;
+            border          : solid 1px @green-btn;
+            margin-left     : 12px;
+            background-color: @white-color;
+            border-radius   : 2px;
+            color           : @green-btn;
+        }
+    }
 }
 
-.selTab{
+.selTab {
     border: solid 1px @primary-color;
-    .selected{
-        color:@white-color;
-        background-color:@primary-color;
+
+    .selected {
+        color           : @white-color;
+        background-color: @primary-color;
     }
+
     color: @primary-color;
 }
+
 .math {
-    height: 38px;
-    // background: url(../assets/math.png) no-repeat center 0;
+    height         : 38px;
+    // background  : url(../assets/math.png) no-repeat center 0;
     background-size: 38px 38px;
-  }
+}
+
+.task_item {
+    padding: 0 15px;
+
+    .titel {
+        line-height  : 50px;
+        color        : @text-font-color;
+        font-size    : 18px;
+        border-bottom: 1px solid #F6F6F6
+    }
+}

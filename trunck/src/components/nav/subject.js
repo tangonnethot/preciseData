@@ -42,7 +42,7 @@ export default class SubjectNav extends React.Component{
         this.subjects.forEach(element => {
             value.push(element.title);
         });
-        console.log(value);
+     
         return(<SegmentedControl className={Styles.subject} onChange={this.onSelChange} values ={value}></SegmentedControl>)
     }
 }

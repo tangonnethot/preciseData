@@ -1,10 +1,13 @@
 import {
-    getTaskList
-}from '../services/task';
+    getTaskList,
+    getTaskModule
+} from '../services/task';
 export default {
     namespace: "task",
     state: {
-        taskList:[]
+        taskList: [],
+        taskname:"",
+        moduleList:[]
     },
     subscriptions: {
         setup({ dispatch, history }) {  // eslint-disable-line
@@ -15,11 +18,22 @@ export default {
         *fetch({ payload }, { call, put }) {  // eslint-disable-line
             yield put({ type: 'save' });
         },
-        *getTaskList({payload},{call,put}){
-            const tasklist = yield getTaskList(payload);
+        *getTaskList({ payload }, { call, put }) {
+            const taskData = yield getTaskList(payload);
+            yield put({
+                type: "save",
+                payload: {
+                    taskList: taskData.data.datalist
+                }
+            })
+        },
+        *getCourseDetail({payload},{call,put}){
+            const taskdetail = yield getTaskModule(payload);
             yield put({
                 type:"save",
-                taskList:tasklist.data
+                payload:{
+                    moduleList:taskdetail.data.datalist
+                }
             })
         }
     },

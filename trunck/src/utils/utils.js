@@ -133,29 +133,29 @@ export const getuuid = () => {
   var s = [];
   var hexDigits = "0123456789abcdef";
   for (var i = 0; i < 32; i++) {
-      s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+    s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
   }
-  s[14] = "4"; 
+  s[14] = "4";
   s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1);
   s[8] = s[13] = s[18] = s[23]
 
   var uuid = s.join("");
   return uuid;
-} 
+}
 
 //文档类型
-export const fileType= ( type ) =>{
-  var arr = ['.doc','.docx','.ppt','.pptx','.pdf'];
+export const fileType = (type) => {
+  var arr = ['.doc', '.docx', '.ppt', '.pptx', '.pdf'];
   return arr.includes(type);
 }
 //音频类型
-export const audioType= ( type ) =>{
+export const audioType = (type) => {
   var arr = ['.mp3'];
   return arr.includes(type);
 }
 //视频类型
-export const videoType= ( type ) =>{
-  var arr = ['.mp4','.avi'];
+export const videoType = (type) => {
+  var arr = ['.mp4', '.avi'];
   return arr.includes(type);
 }
 
@@ -250,8 +250,8 @@ export const judgeTime = (data) => {
  * {name:'二胖', age:22} => name=二胖&age=22
  * @param {*} params
  */
-export const objToSearch = params => {  
-  let result = ""; 
+export const objToSearch = params => {
+  let result = "";
   for (let key in params) {
     (params[key] === 0 || params[key]) && (result += `${key}=${(params[key])}&`);
   }
@@ -406,25 +406,61 @@ export const throttle = (fn, interval = 300, ...args) => {
       }
     }])
  */
-export const loadFile = ( list = []) => {
-  list.map( item => {
+export const loadFile = (list = []) => {
+  list.map(item => {
     let tag = item.tag || 'script',
-        target = item.target || document.getElementsByTagName('head')[0];
+      target = item.target || document.getElementsByTagName('head')[0];
     let attrs = item.attrs || {};
-    if( tag === 'link' ){
-      attrs = Object.assign({},{
-        rel:"stylesheet",
-        type:"text/css"
-      },item.attrs);
+    if (tag === 'link') {
+      attrs = Object.assign({}, {
+        rel: "stylesheet",
+        type: "text/css"
+      }, item.attrs);
     }
     let element = document.createElement(tag);
-    if(attrs && typeof attrs === 'object'){
-      for(let key in attrs){
+    if (attrs && typeof attrs === 'object') {
+      for (let key in attrs) {
         element.setAtrribute ? element.setAtrribute(key, attrs[key]) : element[key] = attrs[key]
       }
     }
     target.append(element)
   });
-  
+
 }
 
+export const convertTaskType = (type) => {
+  switch (type) {
+    case 1:
+    case "1":
+      return "课程";
+    case 2:
+    case "2":
+      return "试题";
+    case 3:
+    case "3":
+      return "试卷";
+    case 4:
+    case "4":
+      return "答题卡";
+    case 5:
+    case "5":
+      return "资料";
+  }
+  return "课程";
+}
+
+export const formatDate1 = (strdate)=>{
+  var date = new Date(strdate);
+  strdate = date.getMonth() + "-" + date.getDay();
+  return strdate;
+}
+
+export const formatDate2=(strdate)=>{
+  var date = new Date(strdate);
+  strdate = date.getFullYear()+ "."+date.getMonth() + "." + date.getDay()+"  "+ date.getHours()+":"+date.getMinutes();
+  return strdate;
+}
+
+export const getUserID=()=>{
+  return "c5d067e05f514403af8608f0c8f11b1a";
+}
