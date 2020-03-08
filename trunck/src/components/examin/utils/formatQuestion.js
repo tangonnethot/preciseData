@@ -70,7 +70,7 @@ const  formatQuestion1 = ( question ) => {
   let questionInfo = {
     "id":question.id,
     "stem":question.content?question.content:"",
-    "options":question.topicBranches.map( item => ({"text":item.brchContent})),
+    "options":question.topicBranches.map( item => ({"text":item.brchContent,"isAnswer":item.isAnswer})),
     "answer":question.topicBranches.map( (item,index) => {
       if( item.isAnswer === 1 ){
         return {"text":item.brchContent,"index":index+1}

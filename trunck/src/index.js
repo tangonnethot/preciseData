@@ -13,6 +13,7 @@ const app = dva({
 // app.model(require('./models/example').default);
 app.model(require('./models/learningSituation').default);
 app.model(require('./models/task').default);
+app.model(require('./models/topicModal').default);//题目基础组件测试数据
 
 // 4. Router
 app.router(require('./router').default);

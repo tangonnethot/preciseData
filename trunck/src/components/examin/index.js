@@ -1,45 +1,51 @@
 import format from './utils/formatQuestion'
 
-import Choice from './choice';
-import Multichoice from './multichoice';
+import {Choice,DoChoice} from './choice';
+import {MultiChoice,DoMultiChoice} from './multichoice';
 import Question from './question';
 import Complex from './complex';
 import { KnowledgeContainer , HeaderContainer , StudentAnswerContainer } from './container';
 
-const KnowledgeChoice = KnowledgeContainer(Choice);
-const KnowledgeMultichoice = KnowledgeContainer(Multichoice);
-const KnowledgeQuestion = KnowledgeContainer(Question);
+// const KnowledgeChoice = KnowledgeContainer(Choice);
+// const KnowledgeMultiChoice = KnowledgeContainer(MultiChoice);
+// const KnowledgeQuestion = KnowledgeContainer(Question);
 
 const HeaderChoice = HeaderContainer(Choice);
-const HeaderMultichoice = HeaderContainer(Multichoice);
-const HeaderQuestion = HeaderContainer(Question);
-const HeaderComplex = HeaderContainer(Complex);
+const HeaderMultiChoice = HeaderContainer(MultiChoice);
+const DoHeaderChoice = HeaderContainer(DoChoice);
+const DoHeaderMultiChoice = HeaderContainer(DoMultiChoice);
+// const HeaderQuestion = HeaderContainer(Question);
+// const HeaderComplex = HeaderContainer(Complex);
 
-const HeaderKnowledgeChoice = HeaderContainer(KnowledgeChoice);
-const HeaderKnowledgeMultichoice = HeaderContainer(KnowledgeMultichoice);
-const HeaderKnowledgeQuestion = HeaderContainer(KnowledgeQuestion);
+// const HeaderKnowledgeChoice = HeaderContainer(KnowledgeChoice);
+// const HeaderKnowledgeMultiChoice = HeaderContainer(KnowledgeMultiChoice);
+// const HeaderKnowledgeQuestion = HeaderContainer(KnowledgeQuestion);
 
-const StudentAnswerChoice = StudentAnswerContainer(HeaderKnowledgeChoice);
-const StudentAnswerMultichoice = StudentAnswerContainer(HeaderKnowledgeMultichoice);
-const StudentAnswerQuestion = StudentAnswerContainer(HeaderKnowledgeQuestion);
+// const StudentAnswerChoice = StudentAnswerContainer(HeaderKnowledgeChoice);
+// const StudentAnswerMultiChoice = StudentAnswerContainer(HeaderKnowledgeMultiChoice);
+// const StudentAnswerQuestion = StudentAnswerContainer(HeaderKnowledgeQuestion);
 
 export {
   format,
   Choice,
-  Multichoice,
+  MultiChoice,
   Question,
   Complex,
-  KnowledgeChoice,
-  KnowledgeMultichoice,
-  KnowledgeQuestion,
+  DoChoice,
+  DoMultiChoice,
+  // KnowledgeChoice,
+  // KnowledgeMultiChoice,
+  // KnowledgeQuestion,
   HeaderChoice,
-  HeaderMultichoice,
-  HeaderQuestion,
-  HeaderComplex,
-  HeaderKnowledgeChoice,
-  HeaderKnowledgeMultichoice,
-  HeaderKnowledgeQuestion,
-  StudentAnswerChoice,
-  StudentAnswerMultichoice,
-  StudentAnswerQuestion
+  HeaderMultiChoice,
+  DoHeaderChoice,
+  DoHeaderMultiChoice,
+  // HeaderQuestion,
+  // HeaderComplex,
+  // HeaderKnowledgeChoice,
+  // HeaderKnowledgeMultiChoice,
+  // HeaderKnowledgeQuestion,
+  // StudentAnswerChoice,
+  // StudentAnswerMultiChoice,
+  // StudentAnswerQuestion
 }
