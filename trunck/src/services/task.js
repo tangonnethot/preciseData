@@ -8,6 +8,12 @@ export const getSysTime = (params = {}) => {
     });
 };
 
+export const getSubjects=(params={})=>{
+    return get(pathJoin(prefix,taskPrefix,"/dic/getSubject"),{...params}).thne(res=>{
+        return res;
+    })
+}
+
 /**获取学生可见的任务列表  
  * @param studentId 学生ID
  * @param taskFinishStatus 任务是否完成；完成状态 0：未完成 1：已完成
@@ -32,10 +38,9 @@ export const getTaskModule = (params = {}) => {
 }
 
 /**查询当前任务下所有模块列表（课程任务下调用此接口）
- * @param taskStudentId 学生任务ID
+ * @param taskStudentModuleId 学生任务ID
 */
 export const getCourseModuleInfo = (params = {}) => {
-
     return get(pathJoin(prefix, taskPrefix, 'task/studentmodule/courseTaskModuleDetail/v1.0'), { ...params }).then(
         res => { return res; }
     );
@@ -44,11 +49,9 @@ export const getCourseModuleInfo = (params = {}) => {
 
 /**学生作答页面（含保存，批阅后，未批阅）数据
  * @param taskStudentId 学生任务ID
- * @param id    模块id ？？？
- * @param moduleId  moduleId ？？？
 */
 export const getTaskDetails = (params = {}) => {
-    return get(pathJoin(prefix, taskPrefix, 'task/studentmodule/detail/v1.0'), { ...params }).then(
+    return get(pathJoin(prefix, taskPrefix, 'task/studentmodule/singleTaskModuleDetail/v1.0'), { ...params }).then(
         res => { return res; }
     );
 }
@@ -57,7 +60,7 @@ export const getTaskDetails = (params = {}) => {
  * @param taskStudentId 学生任务ID
 */
 export const submitTask = (params = {}) => {
-    return post(pathJoin(prefix, taskPrefix, 'task/studentmodule/submit/v1.0'), { ...params }).then(
+    return post(pathJoin(prefix, taskPrefix, 'task/studentmodule/submitStudentTopic/v1.0'), { ...params }).then(
         res => { return res; }
     );
 }
@@ -66,7 +69,7 @@ export const submitTask = (params = {}) => {
  * @param taskStudentId 学生任务ID
 */
 export const saveTask = (params = {}) => {
-    return post(pathJoin(prefix, taskPrefix, 'task/studentmodule/save/v1.0'), { ...params }).then(
+    return post(pathJoin(prefix, taskPrefix, 'task/studentmodule/saveStudentTopic/v1.0'), { ...params }).then(
         res => { return res; }
     );
 }

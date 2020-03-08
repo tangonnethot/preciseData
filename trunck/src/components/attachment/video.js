@@ -5,6 +5,6 @@ export default class Video extends React.Component{
         super(props);
     }
     render(){
-        return(<div></div>) 
+        return(<div>视频</div>) 
     }
 }

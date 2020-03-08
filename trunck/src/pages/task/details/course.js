@@ -2,7 +2,6 @@ import React from 'react'
 import { Card } from 'antd-mobile'
 import { Spin,Button } from 'antd'
 import { getPageQuery } from '../../../utils/utils'
-import task from '../../../models/task';
 import { connect } from 'dva';
 import TopNav from '../../../components/nav';
 import { TaskDescribe, TaskRef, TaskQuestion } from "../../../components/task";
@@ -46,7 +45,13 @@ export default class CourseDetails extends React.Component {
                 </Card>
             }
             if(element.moduleType==2){
-
+                return <Card full="true">
+                <Card.Header title={element.moduleName}
+                    extra={element.answerStatus==0?<Button>开始答题</Button>:<Button>已完成</Button>} />
+                <Card.Body>
+                    <TaskQuestion moduleID={element.id} complete={this.refComplete}></TaskQuestion>
+                </Card.Body>
+            </Card>
             }
         }
         return (<Spin spinning={loading}>
@@ -55,16 +60,7 @@ export default class CourseDetails extends React.Component {
             <TaskDescribe endtime={formatDate2(taskModuleInfo.taskEndTime)} describe={taskModuleInfo.taskRequire} />            
                 {taskModuleInfo.taskStudentModuleList.map(element =>renderCard(element))}
                 </div>
-            }
-                 
-            {/* <Card full="true">
-                <Card.Header title="知识梳理"
-                    extra={<Button>开始学习</Button>} />
-                <Card.Body>
-                    <TaskQuestion></TaskQuestion>
-                </Card.Body>
-            </Card> */}
-        
+            }           
         </Spin>)
     }
 }

@@ -1,7 +1,8 @@
 import {
     getTaskList,
     getTaskModule,
-    getCourseModuleInfo
+    getCourseModuleInfo,
+    getTaskDetails
 
 } from '../services/task';
 export default {
@@ -11,6 +12,7 @@ export default {
         taskname:"",
         taskModuleInfo:{},
         refModuleInfo:{},
+        questionModuleInfo:{},
         loading:true
     },
     subscriptions: {
@@ -41,12 +43,40 @@ export default {
                 }
             })
         },
-        *getCourseModuleInfo({payload},{call,put}){
+        *getRefModuleInfo({payload},{call,put}){
             const coureseinfo = yield getCourseModuleInfo(payload);
             yield put({
                 type:"save",
                 payload:{
+                    refModuleInfo:coureseinfo.data
+                }
+            })
+        },
+        *getQuestionModuleInfo({payload},{call,put}){
+            const coureseinfo = yield getCourseModuleInfo(payload);
+            yield put({
+                type:"save",
+                payload:{
+                    questionModuleInfo:coureseinfo.data
+                }
+            })
+        },
+        *getRefTaskDetail({payload},{call,put}){
+            const coureseinfo = yield getTaskDetails(payload);
+            yield put({
+                type:"save",
+                payload:{
                     refModuleInfo:coureseinfo.data,
+                    loading:false
+                }
+            })
+        },
+        *getQuestionTaskDetail({payload},{call,put}){
+            const coureseinfo = yield getTaskDetails(payload);
+            yield put({
+                type:"save",
+                payload:{
+                    questionModuleInfo:coureseinfo.data,
                     loading:false
                 }
             })
