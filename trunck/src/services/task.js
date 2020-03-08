@@ -1,10 +1,12 @@
-import { get , post } from '../utils/request';
+import { get, post } from '../utils/request';
 import { pathJoin } from '../utils/utils';
-import { prefix , taskPrefix } from '../services/config';
+import { prefix, taskPrefix } from '../services/config';
 
-export const getSysTime = ( params = {} ) => {
-    return get(pathJoin(prefix,taskPrefix, "/task/publish/getSysTime/v1.0"));
-  };
+export const getSysTime = (params = {}) => {
+    return get(pathJoin(prefix, taskPrefix, "/task/publish/getSysTime/v1.0"), { ...params }).thne(res => {
+        return res;
+    });
+};
 
 /**获取学生可见的任务列表  
  * @param studentId 学生ID
@@ -12,44 +14,68 @@ export const getSysTime = ( params = {} ) => {
  * @param subjectId 学科ID 全部学科id：????
  * @param startNum  第几页
  * @param pageSize 每页显示数量
-*/ 
-export const getTaskList=(params={})=>{
-    return get(pathJoin(prefix,taskPrefix,'/task/student/queryPageList/v1.0'));
+*/
+export const getTaskList = (params = {}) => {
+    return get(pathJoin(prefix, taskPrefix, '/task/student/queryPageList/v1.0'), { ...params }).then(
+        res => { return res; }
+    );
 };
 
 /**查询当前任务下所有模块列表（课程任务下调用此接口）
  * @param taskStudentId 学生任务ID
 */
-export const getTaskModule=(params={})=>{
-    return get(pathJoin(prefix,taskPrefix,'task/studentmodule/queryPageList/v1.0'))
+export const getTaskModule = (params = {}) => {
+
+    return get(pathJoin(prefix, taskPrefix, 'task/studentmodule/queryModuleList/v1.0'), { ...params }).then(
+        res => { return res; }
+    );
 }
+
+/**查询当前任务下所有模块列表（课程任务下调用此接口）
+ * @param taskStudentId 学生任务ID
+*/
+export const getCourseModuleInfo = (params = {}) => {
+
+    return get(pathJoin(prefix, taskPrefix, 'task/studentmodule/courseTaskModuleDetail/v1.0'), { ...params }).then(
+        res => { return res; }
+    );
+}
+
 
 /**学生作答页面（含保存，批阅后，未批阅）数据
  * @param taskStudentId 学生任务ID
  * @param id    模块id ？？？
  * @param moduleId  moduleId ？？？
 */
-export const getTaskDetails=(params={})=>{
-    return get(pathJoin(prefix,taskPrefix,'task/studentmodule/detail/v1.0'))
+export const getTaskDetails = (params = {}) => {
+    return get(pathJoin(prefix, taskPrefix, 'task/studentmodule/detail/v1.0'), { ...params }).then(
+        res => { return res; }
+    );
 }
 
 /** 提交学生作答结果
  * @param taskStudentId 学生任务ID
 */
-export const submitTask=(params={})=>{
-    return post(pathJoin(prefix,taskPrefix,'task/studentmodule/submit/v1.0'))
+export const submitTask = (params = {}) => {
+    return post(pathJoin(prefix, taskPrefix, 'task/studentmodule/submit/v1.0'), { ...params }).then(
+        res => { return res; }
+    );
 }
 
 /** 保存学生作答结果
  * @param taskStudentId 学生任务ID
 */
-export const saveTask=(params={})=>{
-    return post(pathJoin(prefix,taskPrefix,'task/studentmodule/save/v1.0'))
+export const saveTask = (params = {}) => {
+    return post(pathJoin(prefix, taskPrefix, 'task/studentmodule/save/v1.0'), { ...params }).then(
+        res => { return res; }
+    );
 }
 
 /** 更改订正答案上传
  * @param taskStudentId 学生任务ID
 */
-export const correctTask=(params={})=>{
-    return post(pathJoin(prefix,taskPrefix,'task/studenttopic/update/v1.0'))
+export const correctTask = (params = {}) => {
+    return post(pathJoin(prefix, taskPrefix, 'task/studenttopic/update/v1.0'), { ...params }).then(
+        res => { return res; }
+    );
 }

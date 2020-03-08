@@ -456,11 +456,13 @@ export const formatDate1 = (strdate)=>{
 }
 
 export const formatDate2=(strdate)=>{
+  if(isNull(strdate)) return '';
   var date = new Date(strdate);
   strdate = date.getFullYear()+ "."+date.getMonth() + "." + date.getDay()+"  "+ date.getHours()+":"+date.getMinutes();
   return strdate;
 }
 
 export const getUserID=()=>{
-  return "c5d067e05f514403af8608f0c8f11b1a";
+  return "68b5ec2ef89f48c2be7cd2b39796b241";
+  // return "c5d067e05f514403af8608f0c8f11b1a";
 }

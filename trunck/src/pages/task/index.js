@@ -104,13 +104,11 @@ export default class taskInfo extends React.Component {
         //     case "1":
 
         // }
-        // console.log(type,id);
     }
 
     render() {
         const { taskList } = this.props.task;
         let index = taskList.length - 1;
-        console.log(taskList);
         const row = (rowData, sectionID, rowID) => {
             if (index < 0) {
                 index = taskList.length - 1;
@@ -118,7 +116,7 @@ export default class taskInfo extends React.Component {
             const obj = taskList[index--];
             if (isNull(obj)) return (<div></div>);
             return (
-                <div key={obj.taskNo} className={Styles.task_item} onClick={this.onShowDetails.bind(this,obj.taskType,obj.taskNo)}>
+                <div key={obj.taskNo} className={Styles.task_item} onClick={this.onShowDetails.bind(this,obj.taskType,obj.id)}>
                     <div className={Styles.title}>{obj.taskName}</div>
                     <div style={{ display: '-webkit-box', display: 'flex', padding: '15px 0' }}>
                         <img style={{ height: '64px', marginRight: '15px' }} src={obj.img} alt="" />

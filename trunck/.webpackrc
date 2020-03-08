@@ -1,6 +1,7 @@
 {
 "extraBabelPlugins": [
-    ["import", { "libraryName": "antd-mobile", "libraryDirectory": "es","style": "css" }]
+    ["import", { "libraryName": "antd-mobile", "libraryDirectory": "es","style": "css" }],
+    ["import", { "libraryName": "antd", "libraryDirectory": "es","style": "css" },"antd"]
 ],
   "theme": "./src/theme.js",
   "proxy": {

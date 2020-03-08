@@ -1,13 +1,17 @@
 import {
     getTaskList,
-    getTaskModule
+    getTaskModule,
+    getCourseModuleInfo
+
 } from '../services/task';
 export default {
     namespace: "task",
     state: {
         taskList: [],
         taskname:"",
-        moduleList:[]
+        taskModuleInfo:{},
+        refModuleInfo:{},
+        loading:true
     },
     subscriptions: {
         setup({ dispatch, history }) {  // eslint-disable-line
@@ -32,7 +36,18 @@ export default {
             yield put({
                 type:"save",
                 payload:{
-                    moduleList:taskdetail.data.datalist
+                    taskModuleInfo:taskdetail.data,
+                    loading:false
+                }
+            })
+        },
+        *getCourseModuleInfo({payload},{call,put}){
+            const coureseinfo = yield getCourseModuleInfo(payload);
+            yield put({
+                type:"save",
+                payload:{
+                    refModuleInfo:coureseinfo.data,
+                    loading:false
                 }
             })
         }

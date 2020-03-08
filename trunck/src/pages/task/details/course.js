@@ -1,10 +1,12 @@
 import React from 'react'
 import { Card } from 'antd-mobile'
+import { Spin,Button } from 'antd'
 import { getPageQuery } from '../../../utils/utils'
 import task from '../../../models/task';
 import { connect } from 'dva';
 import TopNav from '../../../components/nav';
-import {TaskDescribe,TaskRef,TaskQuestion} from "../../../components/task";
+import { TaskDescribe, TaskRef, TaskQuestion } from "../../../components/task";
+import { formatDate2, isNull, getUserID } from '../../../utils/utils';
 
 @connect(({ task }) => ({ task }))
 export default class CourseDetails extends React.Component {
@@ -15,39 +17,54 @@ export default class CourseDetails extends React.Component {
         this.getCourseDetail(taskNo);
     }
 
-    getCourseDetail=(taskNo)=>{
+    getCourseDetail = (taskNo) => {
         this.props.dispatch({
             type: "task/getCourseDetail",
             payload: {
-                taskStudentId: taskNo
+                taskStudentId: "3c5866e44e8c4033ab6e855c2af8fbf3",
+                studentId: "9d43a478532545adaabd9482d67a74da"
+                // taskStudentId: taskNo,
+                // studentId:getUserID()
             }
         })
     }
 
-    refComplete=()=>{
+    refComplete = () => {
         console.log("完成任务");
     }
 
     render() {
-        // console.log(this.props.task.moduleList);
-        const{moduleList,taskname} = this.props.task;
-        return (<div>
-            <TopNav title={taskname} onLeftClick={this.back}></TopNav>
-            <TaskDescribe endtime={"2020.4.5."} describe={"任务详情描述"}/>
-            <Card full="true">
-            <Card.Header title="知识梳理"            
-            extra={<button>开始学习</button>}/>
-            <Card.Body>
-            <TaskRef content={"sdfsdfsdfsdfasdfsadfsdf"} complete={this.refComplete}></TaskRef>
-            </Card.Body>
-            </Card>
-            <Card full="true">
-            <Card.Header title="知识梳理"            
-            extra={<button>开始学习</button>}/>
-            <Card.Body>
-            <TaskQuestion></TaskQuestion>
-            </Card.Body>
-            </Card>
-        </div>)
+        const { taskModuleInfo, loading } = this.props.task;
+        const renderCard = (element)=>{
+            if (element.moduleType == 1) {
+                return <Card full="true">
+                    <Card.Header title={element.moduleName}
+                        extra={element.answerStatus==0?<Button>开始学习</Button>:<Button>已完成</Button>} />
+                    <Card.Body>
+                        <TaskRef moduleID={element.id} complete={this.refComplete}></TaskRef>
+                    </Card.Body>
+                </Card>
+            }
+            if(element.moduleType==2){
+
+            }
+        }
+        return (<Spin spinning={loading}>
+            {isNull(taskModuleInfo)?<div/>:<div>
+            <TopNav title={taskModuleInfo.taskName} onLeftClick={this.back}></TopNav>
+            <TaskDescribe endtime={formatDate2(taskModuleInfo.taskEndTime)} describe={taskModuleInfo.taskRequire} />            
+                {taskModuleInfo.taskStudentModuleList.map(element =>renderCard(element))}
+                </div>
+            }
+                 
+            {/* <Card full="true">
+                <Card.Header title="知识梳理"
+                    extra={<Button>开始学习</Button>} />
+                <Card.Body>
+                    <TaskQuestion></TaskQuestion>
+                </Card.Body>
+            </Card> */}
+        
+        </Spin>)
     }
 }
