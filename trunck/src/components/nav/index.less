@@ -12,6 +12,23 @@
 
 .subject{
     // height: @layou-header-height;
+    :global{
+        .am-segment{
+            border-radius:0px;
+            height: inherit;
+        }
+        .am-segment-item{
+            background-color: @primary-color;
+            color:@white-color;
+            border: none;
+            font-size:16px;
+        }
+        .am-segment-item-selected{
+            background-color: @primary-color;
+            color: @subject-selected !important;
+            border-bottom: 2px @subject-selected;            
+        }
+    }
     font-size:20px;
     height: 50px;
     border: none;

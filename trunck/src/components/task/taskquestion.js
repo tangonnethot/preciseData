@@ -7,10 +7,12 @@ import Attachment from '../attachment'
 export default class TaskQuestion extends React.Component {
     constructor(props) {
         super(props);
-        this.getModuleInfo();
+        if (this.props.taskType == "course")
+            this.getModuleInfo();
     }
 
     getModuleInfo = () => {
+        if (!this.props.moduleID) return;
         this.props.dispatch({
             type: "task/getQuestionModuleInfo",
             payload: {
@@ -21,21 +23,34 @@ export default class TaskQuestion extends React.Component {
     convertContent = () => {
         if (isNull(this.props.task.questionModuleInfo) || isNull(this.props.task.questionModuleInfo.moduleContent)) return null;
         let content = JSON.parse(this.props.task.questionModuleInfo.moduleContent);
-        return content.courseModule;
+        let question = {};
+        if (this.props.taskType == "course") {
+            question.topics = content.courseModule.practises;
+        } else {
+            question = content;
+        }
+        return question;
+        // return content.courseModule;
     }
 
     render() {
         const content = this.convertContent();
         console.log(content);
-        const renderQuestion=(question)=>{
-            return(<div>
+        const renderQuestion = (question) => {
+            let questionContent = "";
+            if (question.hasOwnProperty("topic")) {
+                questionContent = question.topic.content;
+            } else {
+                questionContent = question.content;
+            }
+            return (<div>
                 <div>{question.sort}</div>
-                <div dangerouslySetInnerHTML={{ __html: question.topic.content }}></div>
-                </div>)
+                <div dangerouslySetInnerHTML={{ __html: questionContent }}></div>
+            </div>)
         }
         return (
             isNull(content) ? <div></div> : <div>
-                {content.practises.map(element=>renderQuestion(element)
+                {content.topics.map(element => renderQuestion(element)
                 )}
                 <button onclick={this.props.complete}>完成做答</button>
             </div>)

@@ -3,7 +3,7 @@ import { Router, Route, Switch } from 'dva/router';
 import IndexPage from './routes/IndexPage';
 import TaskInfo from './pages/task';
 // import TaskDetails from './pages/task/taskDetails';
-import {AnswerDetails,AnswerSheet,CourseDetails,Reference,Testing} from './pages/task/details';
+import {AnswerResult,AnswerSheet,CourseDetails,Reference,Testing} from './pages/task/details';
 // import AnswerDetails from './pages/task/details/answer';
 import ErrorBook from './pages/errorBook';
 import LearningSituation from './pages/learningSituation';
@@ -16,7 +16,7 @@ function RouterConfig({ history }) {
         <Route path="/" exact component={IndexPage} />
         <Route path="/task" exact component={TaskInfo}
         ></Route>
-        <Route path="/taskanswerdetails" exact component={AnswerDetails} />
+        <Route path="/taskresult" exact component={AnswerResult} />
         <Route path="/taskanswersheet" exact component={AnswerSheet} />
         <Route path="/taskcourse" exact component={CourseDetails} />
         <Route path="/taskreference" exact component={Reference} />

@@ -8,10 +8,12 @@ import Attachment from '../attachment'
 export default class TaskRef extends React.Component {
     constructor(props) {
         super(props);
-        this.getModuleInfo();
+        if(this.props.isCourse)
+            this.getModuleInfo();
     }
 
     getModuleInfo = () => {
+        if(!this.props.moduleID) return;
         this.props.dispatch({
             type: "task/getRefModuleInfo",
             payload: {
@@ -23,15 +25,24 @@ export default class TaskRef extends React.Component {
     convertContent = () => {
         if (isNull(this.props.task.refModuleInfo) || isNull(this.props.task.refModuleInfo.moduleContent)) return null;
         let content = JSON.parse(this.props.task.refModuleInfo.moduleContent);
-        return content.courseModule;
+        let ref={};
+        if(this.props.isCourse){
+            ref.video=content.courseModule.knowledge.knowledgeVedio;
+            ref.attachment = content.courseModule.knowledge.knowledgeEnclosures;
+            ref.content = content.courseModule.knowledge.knowledgeContent;
+        }else{
+            ref.content = content.content;
+            ref.attachment= content.files;
+        }
+        return ref;        
     }
 
     render() {
         const content = this.convertContent();
         return (
             isNull(content) ? <div></div> : <div>
-                <Attachment video={content.knowledge.knowledgeVedio} docs={content.knowledge.knowledgeEnclosures}></Attachment>
-                <div dangerouslySetInnerHTML={{ __html: content.knowledge.knowledgeContent }}></div>
+                <Attachment video={content.vedio} docs={content.attachment}></Attachment>
+                <div dangerouslySetInnerHTML={{ __html: content.content }}></div>
                 <Button onclick={this.props.complete}>完成学习</Button>
             </div>
         )

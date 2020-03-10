@@ -3,13 +3,14 @@ import { pathJoin } from '../utils/utils';
 import { prefix, taskPrefix } from '../services/config';
 
 export const getSysTime = (params = {}) => {
-    return get(pathJoin(prefix, taskPrefix, "/task/publish/getSysTime/v1.0"), { ...params }).thne(res => {
+    return get(pathJoin(prefix, taskPrefix, "/task/publish/getSysTime/v1.0"), { ...params }).then(res => {
         return res;
     });
 };
 
 export const getSubjects=(params={})=>{
-    return get(pathJoin(prefix,taskPrefix,"/dic/getSubject"),{...params}).thne(res=>{
+    console.log("getsubject");
+    return get(pathJoin(prefix,taskPrefix,"/dic/getSubject"),{...params}).then(res=>{
         return res;
     })
 }
@@ -31,7 +32,6 @@ export const getTaskList = (params = {}) => {
  * @param taskStudentId 学生任务ID
 */
 export const getTaskModule = (params = {}) => {
-
     return get(pathJoin(prefix, taskPrefix, 'task/studentmodule/queryModuleList/v1.0'), { ...params }).then(
         res => { return res; }
     );

@@ -1,8 +1,11 @@
 
 // import { extend } from 'umi-request';
 import { notification } from 'antd';
-import fetch from "dva/fetch"; 
+// import fetch from "dva/fetch"; 
 import { objToSearch, message , cookie } from './utils'; 
+import fetch from 'whatwg-fetch';
+import 'promise-polyfill/src/polyfill';
+
 // import constant from "@/utils/constant";
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
@@ -78,7 +81,8 @@ function checkStatus(response) {
  * @return {object}           An object containing either "data" or "err"
  */
 function request(url, options) {
-  return fetch(encodeURI(url), options)
+
+  return window.fetch(encodeURI(url), options)
     .then(checkStatus)
     .then(parseJSON);
 }
@@ -90,7 +94,7 @@ const defaultParams = {  };
  * @param {String} url
  * @param {Object} data
  */
-export const get = (url, data) => {  
+export const get = (url, data) => {
   data = Object.assign({}, defaultParams, data);
   url =
     url.indexOf("?") >= 0
@@ -136,8 +140,7 @@ export const post = (url, data, isJsonString) => {
       }, 
       body: objToSearch(data)
     });
-  }
-  
+  }  
 };
 
 /**

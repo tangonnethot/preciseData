@@ -62,21 +62,21 @@ export default {
             })
         },
         *getRefTaskDetail({payload},{call,put}){
-            const coureseinfo = yield getTaskDetails(payload);
+            const taskinfo = yield getTaskDetails(payload);
             yield put({
                 type:"save",
                 payload:{
-                    refModuleInfo:coureseinfo.data,
+                    refModuleInfo:taskinfo.data,
                     loading:false
                 }
             })
         },
         *getQuestionTaskDetail({payload},{call,put}){
-            const coureseinfo = yield getTaskDetails(payload);
+            const taskinfo = yield getTaskDetails(payload);
             yield put({
                 type:"save",
                 payload:{
-                    questionModuleInfo:coureseinfo.data,
+                    questionModuleInfo:taskinfo.data,
                     loading:false
                 }
             })

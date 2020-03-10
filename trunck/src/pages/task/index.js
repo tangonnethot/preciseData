@@ -2,7 +2,7 @@ import React from 'react'
 import { ListView, Badge, SegmentedControl } from 'antd-mobile'
 import TopNav from '../../components/nav'
 import SubjectNav from '../../components/nav/subject'
-import { convertTaskType, formatDate1, formatDate2, isNull,getUserID } from '../../utils/utils'
+import { convertTaskType, formatDate1, formatDate2, isNull, getUserID } from '../../utils/utils'
 import Styles from './index.less'
 import { connect } from 'dva'
 
@@ -43,7 +43,7 @@ function genData(pIndex = 0) {
 export default class taskInfo extends React.Component {
     constructor(props) {
         super(props);
-        this.getTaskInfo();
+
         const getSectionData = (dataBlob, sectionID) => dataBlob[sectionID];
         const getRowData = (dataBlob, sectionID, rowID) => dataBlob[rowID];
 
@@ -53,13 +53,17 @@ export default class taskInfo extends React.Component {
             rowHasChanged: (row1, row2) => row1 !== row2,
             sectionHeaderHasChanged: (s1, s2) => s1 !== s2,
         });
-
         this.state = {
             dataSource,
             isLoading: true,
+            taskFinishStatus: 0,
+            selSubject: 0,
             height: document.documentElement.clientHeight * 3 / 4,
         }
+        this.getTaskInfo();
+
     }
+
     componentDidMount() {
         const hei = document.documentElement.clientHeight;// - ReactDOM.findDOMNode(this.lv).parentNode.offsetTop;
 
@@ -75,12 +79,15 @@ export default class taskInfo extends React.Component {
 
     getTaskInfo = () => {
         let studentid = getUserID();
+        let finishStatus = this.state.taskFinishStatus || "0";
+        let subjectid = this.state.selSubject || "";
+        if (subjectid == 0) subjectid = "";
         this.props.dispatch({
             type: "task/getTaskList",
             payload: {
                 studentId: studentid,
-                taskFinishStatus: 0,
-                subjectId: 100
+                taskFinishStatus: finishStatus,
+                subjectId: subjectid
             }
         })
     }
@@ -89,21 +96,53 @@ export default class taskInfo extends React.Component {
         console.log("click back")
     };
 
-    changeSubject = (e) => {
-        console.log(e)
+    changeSubject = (subjectid) => {
+        console.log(subjectid)
+        this.setState({
+            selSubject: subjectid
+        })
+        this.getTaskInfo();
     };
 
     changeComplete = (e) => {
-        console.log(e)
+        console.log(e.nativeEvent.selectedSegmentIndex)
+        this.setState({
+            taskFinishStatus: e.nativeEvent.selectedSegmentIndex
+        })
+        this.getTaskInfo();
     }
 
-    onShowDetails = (type,id) => {
-        this.props.history.push("/taskcourse?taskNo="+id);
-        // switch(type){
-        //     case 1:
-        //     case "1":
+    onShowDetails = (type, id) => {
+        if (this.state.finishStatus > 0)
+            this.props.history.push("/taskresult?taskNo=" + id);
+        else {
 
-        // }
+            switch (type) {
+                case 1:
+                case "1":
+                    this.props.history.push("/taskcourse?taskNo=" + id);
+                    break;
+                case 2:
+                case "2":
+                    this.props.history.push("/tasktesting?taskNo=" + id);
+                    break;
+                case 3:
+                case "3":
+                    this.props.history.push("/tasktesting?taskNo=" + id);
+                    break;
+                case 4:
+                case "4":
+                    this.props.history.push("/taskanswersheet?taskNo=" + id);
+                    break;
+                case 5:
+                case "5":
+                    this.props.history.push("/taskreference?taskNo=" + id);
+                    break;
+                default:
+                    this.props.history.push("/taskcourse?taskNo=" + id);
+            }
+        }
+
     }
 
     render() {
@@ -116,15 +155,15 @@ export default class taskInfo extends React.Component {
             const obj = taskList[index--];
             if (isNull(obj)) return (<div></div>);
             return (
-                <div key={obj.taskNo} className={Styles.task_item} onClick={this.onShowDetails.bind(this,obj.taskType,obj.id)}>
+                <div key={obj.taskNo} className={Styles.task_item} onClick={this.onShowDetails.bind(this, obj.taskType, obj.id)}>
                     <div className={Styles.title}>{obj.taskName}</div>
                     <div style={{ display: '-webkit-box', display: 'flex', padding: '15px 0' }}>
-                        <img style={{ height: '64px', marginRight: '15px' }} src={obj.img} alt="" />
+                        <img style={{ height: '64px', marginRight: '15px' }} src={require("../../assets/math.png")} alt="" />
                         <div>
-                            <Badge text={obj.subjectName.substr(0,1)} />
+                            {/* <Badge text={obj.subjectName.substr(0,1)} /> */}
                             <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>
                                 <Badge text={convertTaskType(obj.taskType)} size="large" className={Styles.tasktype_badge} />
-                                <Badge text={"在线阅"} size="large" className={Styles.gradetype_badge}/>
+                                <Badge text={"在线阅"} size="large" className={Styles.gradetype_badge} />
                                 {formatDate1(obj.taskEndTime)}</div>
                             {/* <div><span style={{ fontSize: '30px', color: '#FF6E27' }}>35</span>¥ {rowID}</div> */}
                         </div>
@@ -133,12 +172,14 @@ export default class taskInfo extends React.Component {
                 </div>
             );
         };
-
+        const { taskFinishStatus, selSubject } = this.state;
         return (
             <div>
                 <TopNav title="提分任务" onLeftClick={this.back}></TopNav>
-                <SubjectNav onchange={this.changeSubject}></SubjectNav>
-                <SegmentedControl selectedIndex={0} values={["待完成", "已完成"]} onchange={this.changeComplete} />
+                <SubjectNav onChange={this.changeSubject}></SubjectNav>
+                <div className={Styles.segment}>
+                    <SegmentedControl selectedIndex={taskFinishStatus} values={["待完成", "已完成"]} onChange={this.changeComplete} />
+                </div>
                 <ListView
                     ref={el => this.lv = el}
                     dataSource={this.state.dataSource}

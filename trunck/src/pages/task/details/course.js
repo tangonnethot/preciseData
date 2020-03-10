@@ -20,10 +20,8 @@ export default class CourseDetails extends React.Component {
         this.props.dispatch({
             type: "task/getCourseDetail",
             payload: {
-                taskStudentId: "3c5866e44e8c4033ab6e855c2af8fbf3",
-                studentId: "9d43a478532545adaabd9482d67a74da"
-                // taskStudentId: taskNo,
-                // studentId:getUserID()
+                taskStudentId: taskNo,
+                studentId:getUserID()
             }
         })
     }
@@ -40,7 +38,7 @@ export default class CourseDetails extends React.Component {
                     <Card.Header title={element.moduleName}
                         extra={element.answerStatus==0?<Button>开始学习</Button>:<Button>已完成</Button>} />
                     <Card.Body>
-                        <TaskRef moduleID={element.id} complete={this.refComplete}></TaskRef>
+                        <TaskRef isCourse={true} moduleID={element.id} complete={this.refComplete}></TaskRef>
                     </Card.Body>
                 </Card>
             }
@@ -49,7 +47,7 @@ export default class CourseDetails extends React.Component {
                 <Card.Header title={element.moduleName}
                     extra={element.answerStatus==0?<Button>开始答题</Button>:<Button>已完成</Button>} />
                 <Card.Body>
-                    <TaskQuestion moduleID={element.id} complete={this.refComplete}></TaskQuestion>
+                    <TaskQuestion taskType={"course"} moduleID={element.id} complete={this.refComplete}></TaskQuestion>
                 </Card.Body>
             </Card>
             }
@@ -60,7 +58,7 @@ export default class CourseDetails extends React.Component {
             <TaskDescribe endtime={formatDate2(taskModuleInfo.taskEndTime)} describe={taskModuleInfo.taskRequire} />            
                 {taskModuleInfo.taskStudentModuleList.map(element =>renderCard(element))}
                 </div>
-            }           
+            }
         </Spin>)
     }
 }
