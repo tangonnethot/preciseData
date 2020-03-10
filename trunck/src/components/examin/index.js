@@ -2,7 +2,7 @@ import format from './utils/formatQuestion'
 
 import {Choice,DoChoice} from './choice';
 import {MultiChoice,DoMultiChoice} from './multichoice';
-import Question from './question';
+import {Question,DoQuestion} from './question';
 import Complex from './complex';
 import { KnowledgeContainer , HeaderContainer , StudentAnswerContainer } from './container';
 
@@ -12,9 +12,10 @@ import { KnowledgeContainer , HeaderContainer , StudentAnswerContainer } from '.
 
 const HeaderChoice = HeaderContainer(Choice);
 const HeaderMultiChoice = HeaderContainer(MultiChoice);
+const HeaderQuestion = HeaderContainer(Question);
 const DoHeaderChoice = HeaderContainer(DoChoice);
 const DoHeaderMultiChoice = HeaderContainer(DoMultiChoice);
-// const HeaderQuestion = HeaderContainer(Question);
+const DoHeaderQuestion = HeaderContainer(DoQuestion);
 // const HeaderComplex = HeaderContainer(Complex);
 
 // const HeaderKnowledgeChoice = HeaderContainer(KnowledgeChoice);
@@ -38,9 +39,10 @@ export {
   // KnowledgeQuestion,
   HeaderChoice,
   HeaderMultiChoice,
+  HeaderQuestion,
   DoHeaderChoice,
   DoHeaderMultiChoice,
-  // HeaderQuestion,
+  DoHeaderQuestion,
   // HeaderComplex,
   // HeaderKnowledgeChoice,
   // HeaderKnowledgeMultiChoice,

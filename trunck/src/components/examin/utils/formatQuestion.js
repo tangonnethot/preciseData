@@ -70,15 +70,15 @@ const  formatQuestion1 = ( question ) => {
   let questionInfo = {
     "id":question.id,
     "stem":question.content?question.content:"",
-    "options":question.topicBranches.map( item => ({"text":item.brchContent,"isAnswer":item.isAnswer})),
-    "answer":question.topicBranches.map( (item,index) => {
+    "options":question.topicBranches && question.topicBranches.map( item => ({"text":item.brchContent,"isAnswer":item.isAnswer})),
+    "answer":question.topicBranches && question.topicBranches.map( (item,index) => {
       if( item.isAnswer === 1 ){
         return {"text":item.brchContent,"index":index+1}
       }
     }).filter( item => item ),
     "analysis":question.analysis ? question.analysis : '',
     "qtype":question.type,
-    "qtypename":question.typeName?question.typeName:"",
+    "qtypename":question.typeName?question.typeName:constant.questionType[question.type],
     "degreeName": constant.questionDifficultyLevel[question.degree]?constant.questionDifficultyLevel[question.degree]:'',
     "score":question.score,
     "videoAddress":question.videoAnalysis,
@@ -87,42 +87,11 @@ const  formatQuestion1 = ( question ) => {
     "knowledges": question.knowledges ? question.knowledges.split(",") : [],
     "isChoice": question.type === 1076 || question.type === 1077,
     "trueTopicInfo":question.trueTopicInfo?question.trueTopicInfo:"",
-    "isTrue":question.isTrue
+    "isTrue":question.isTrue,
+    "topicGroup":question.topicGroup?question.topicGroup:'',
+    "topics":(!question.topics || question.topics.length==0)?null:question.topics.map( item => formatQuestion1(item) ),
+    "topicNo":question.topicNo
   };
-  // if( question.type === 1076){
-  //   questionInfo = Object.assign(questionInfo,{
-  //     answerText:'B',
-  //     score:5,
-  //     isRight:true
-  //   });
-  // }
-  // if( question.type === 1077){
-  //   questionInfo = Object.assign(questionInfo,{
-  //     answerText:'AB',
-  //     score:4,
-  //     isRight:false
-  //   });
-  // }
-  // if( question.type === 1079){
-  //   questionInfo = Object.assign(questionInfo,{
-  //     answerText:[
-  //       {
-  //         url:'http://abcd3.oss.aliyuncs.com/lessonpackage/2443999/57b4477750844371bff0b2383f1e6322/1571895540403/15718955155201709412733/20191024133849_screenmp4_Pl.jpg'
-  //       },
-  //       {
-  //         url:'http://abcd3.oss.aliyuncs.com/lessonpackage/2443999/57b4477750844371bff0b2383f1e6322/1571895540403/15718955155201709412733/20191024133849_screenmp4_Pl.jpg'
-  //       },
-  //       {
-  //         url:'http://abcd3.oss.aliyuncs.com/lessonpackage/2443999/57b4477750844371bff0b2383f1e6322/1571895540403/15718955155201709412733/20191024133849_screenmp4_Pl.jpg'
-  //       },
-  //       {
-  //         url:'http://abcd3.oss.aliyuncs.com/lessonpackage/2443999/57b4477750844371bff0b2383f1e6322/1571895540403/15718955155201709412733/20191024133849_screenmp4_Pl.jpg'
-  //       }
-  //     ],
-  //     score:8,
-  //     isRight:false
-  //   });
-  // }
   return questionInfo;
 }
 

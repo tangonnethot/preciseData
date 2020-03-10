@@ -1,2 +1,37 @@
+@import '~antd/es/style/themes/default.less';
 .question{
+  .answerPic{
+    height: 100px;
+    width: 100px;
+    float: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    img{
+      max-width: 80px;
+      max-height: 80px;
+    }
+    :global{
+      .am-icon-cross-circle-o{
+        
+      }
+    }
+  }
+  .photoBtn{
+    display: inline-block;
+    i{
+      background-image: url(../assets/photoBtn.png);
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: 45px*0.8 38px*0.8;
+      width: 80px;
+      height: 80px;
+      border:1px #e4e4e4 dashed;
+      display: block;
+    }
+    span{
+
+    }
+  }
 }

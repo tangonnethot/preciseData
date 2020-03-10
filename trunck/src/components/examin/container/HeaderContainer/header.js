@@ -12,6 +12,7 @@ const Header = props => {
       <Col>{questionIndex}</Col>
       <Col className={Style.type_name}>{qtypename}</Col>
       <Col className={Style.score}><span>{score}</span>分</Col>
+      { question && question.topicGroup && <Col className={Style.group_name}>{question.topicGroup}</Col>}
     </Row>
   )
 }

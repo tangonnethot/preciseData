@@ -1,5 +1,12 @@
 /* eslint-disable */
-import React from 'react'
+import React , { Fragment } from 'react'
+
+import { 
+  DoHeaderChoice,
+  DoHeaderMultiChoice,
+  DoHeaderQuestion,
+  Complex
+} from '../index';
 
 export default class Answer extends React.Component{
     constructor(props){
@@ -7,50 +14,37 @@ export default class Answer extends React.Component{
     }
 
     render(){
-        // const { userAnswers } = this.state;
-        // const { topics , cTopics , sTopics } = this.props.topicModal;
-        // console.log( topics )
-         return(<div className={Style.questionItem} key={index}>
-                {
-                  item.type == 1076 && <HeaderChoice 
-                                        question={format.formatQuestion1(item)}
-                                        questionIndex={item.topicNo}
-                                        />
-                }
-                {
-                  item.type == 1077 && <HeaderMultiChoice 
-                                        question={format.formatQuestion1(item)}
-                                        questionIndex={item.topicNo}
-                                        />
-                }
-              </div>)
-         
-        //   {
-        //     topics && topics.map( (item,index) => {
-        //       return <div className={Style.questionItem} key={index}>
-        //         {
-        //           item.type == 1076 && <DoHeaderChoice
-        //                                 question={format.formatQuestion1(item)}
-        //                                 optionClick={(ans)=>this.setState({
-        //                                   userAnswers:Object.assign(userAnswers,{[index]:ans})
-        //                                 })}
-        //                                 userAnswer={userAnswers[index]?userAnswers[index]:''}
-        //                                 questionIndex={item.topicNo}
-        //                                 />
-        //         }
-        //         {
-        //           item.type == 1077 && <DoHeaderMultiChoice 
-        //                                 question={format.formatQuestion1(item)}
-        //                                 optionClick={(ans)=>this.setState({
-        //                                   userAnswers:Object.assign(userAnswers,{[index]:ans})
-        //                                 })}
-        //                                 userAnswer={userAnswers[index]?userAnswers[index]:''}
-        //                                 questionIndex={item.topicNo}
-        //                                 />
-        //         }
-        //       </div>
-        //     })
-        //   }
-        
-      }
+        const { question } = this.props;
+        console.log( question )
+         return (
+           <Fragment>
+            {
+              question.qtype == 1076 && <DoHeaderChoice {...this.props}  questionIndex={question.topicNo} />
+            }
+            {
+              question.qtype == 1077 && <DoHeaderMultiChoice {...this.props} questionIndex={question.topicNo} />
+            }
+            {
+              (question.qtype == 1079 || question.qtype == 1080) && <DoHeaderQuestion {...this.props} questionIndex={question.topicNo} />
+            }
+            { question.qtype === 1078 && <Complex question={question} >
+              {
+                question.topics && question.topics.length>0 && question.topics.map( (child,index) => {
+                  return <Fragment key={child.id}>
+                    {
+                      child.qtype == 1076 && <DoHeaderChoice {...this.props} question={child} questionIndex={child.topicNo} />
+                    }
+                    {
+                      child.qtype == 1077 && <DoHeaderMultiChoice {...this.props} question={child} questionIndex={child.topicNo} />
+                    }
+                    {
+                      (child.qtype == 1079 || child.qtype == 1080) && <DoHeaderQuestion {...this.props} question={child} questionIndex={child.topicNo} />
+                    }
+                  </Fragment>
+                })
+              }
+              </Complex> }
+           </Fragment>
+         )
+    }
 }
