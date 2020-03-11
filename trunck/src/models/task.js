@@ -3,7 +3,6 @@ import {
     getTaskModule,
     getCourseModuleInfo,
     getTaskDetails
-
 } from '../services/task';
 export default {
     namespace: "task",
@@ -12,7 +11,9 @@ export default {
         taskname:"",
         taskModuleInfo:{},
         refModuleInfo:{},
-        questionModuleInfo:{},
+        questionModuleInfo:{
+            questionContent:{}
+        },
         loading:true
     },
     subscriptions: {
@@ -54,10 +55,14 @@ export default {
         },
         *getQuestionModuleInfo({payload},{call,put}){
             const coureseinfo = yield getCourseModuleInfo(payload);
+            let data = coureseinfo.data;
+            data.questionContent = JSON.parse(coureseinfo.data.moduleContent).courseModule;
+            data.questionContent.topics = data.questionContent.practises;
+            debugger
             yield put({
                 type:"save",
                 payload:{
-                    questionModuleInfo:coureseinfo.data
+                    questionModuleInfo:data
                 }
             })
         },
@@ -73,14 +78,32 @@ export default {
         },
         *getQuestionTaskDetail({payload},{call,put}){
             const taskinfo = yield getTaskDetails(payload);
+            let data = taskinfo.data;
+            data.questionContent = JSON.parse(taskinfo.data.moduleContent)
             yield put({
                 type:"save",
                 payload:{
-                    questionModuleInfo:taskinfo.data,
+                    questionModuleInfo:data,
                     loading:false
                 }
             })
-        }
+        },
+        *cleanRefData({payload},{call,put}){
+            yield put({
+                type:"save",
+                payload:{
+                    refModuleInfo:{}
+                }
+            })
+        },
+        *cleanCourseData({payload},{call,put}){
+            yield put({
+                type:"save",
+                payload:{
+                    questionModuleInfo:{}
+                }
+            })
+        },
     },
 
     reducers: {

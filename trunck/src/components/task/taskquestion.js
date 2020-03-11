@@ -1,14 +1,21 @@
-import React from 'react'
-import { connect } from "dva"
-import { isNull } from '../../utils/utils'
-import Attachment from '../attachment'
+import React from 'react';
+import { connect } from "dva";
+import {Button} from 'antd';
+import { isNull,startTime,endTime } from '../../utils/utils';
+import Attachment from '../attachment';
+import {Answer} from '../examin/student';
+import Styles from './index.less';
 
 @connect(({ task }) => ({ task }))
 export default class TaskQuestion extends React.Component {
     constructor(props) {
         super(props);
+        startTime();
         if (this.props.taskType == "course")
             this.getModuleInfo();
+        this.state={
+            answerlist:[]
+        }
     }
 
     getModuleInfo = () => {
@@ -20,39 +27,45 @@ export default class TaskQuestion extends React.Component {
             }
         })
     }
-    convertContent = () => {
-        if (isNull(this.props.task.questionModuleInfo) || isNull(this.props.task.questionModuleInfo.moduleContent)) return null;
-        let content = JSON.parse(this.props.task.questionModuleInfo.moduleContent);
-        let question = {};
-        if (this.props.taskType == "course") {
-            question.topics = content.courseModule.practises;
-        } else {
-            question = content;
-        }
-        return question;
-        // return content.courseModule;
+
+    onComplete=()=>{
+        this.props.complete(endTime(),this.answerlist);
+    }
+
+    changeAnswer=(answer,index)=>{
+        this.setState({
+            answerlist:Object.assign(this.state.answerlist,{[index]:answer})
+        })
     }
 
     render() {
-        const content = this.convertContent();
-        console.log(content);
-        const renderQuestion = (question) => {
-            let questionContent = "";
-            if (question.hasOwnProperty("topic")) {
-                questionContent = question.topic.content;
+        // const content = this.convertContent();
+        const {questionContent} = this.props.task.questionModuleInfo;
+        console.log(questionContent);
+        let _this =this;
+        const renderQuestion = (questionItem,index) => {
+            let stemContent;
+            if (questionItem.hasOwnProperty("topic")) {
+                stemContent = questionItem.topic;
             } else {
-                questionContent = question.content;
+                stemContent = questionItem;
             }
-            return (<div>
-                <div>{question.sort}</div>
-                <div dangerouslySetInnerHTML={{ __html: questionContent }}></div>
+            return (<div className={Styles.ques_item}>
+                     <Answer 
+              question={stemContent}
+              optionClick={(ans,index)=>_this.schangeAnswer}
+              userAnswer={this.state.answerlist[index]?this.state.answerlist[index]:''}
+            />
+                {/* <div>{question.sort}</div>
+                <div dangerouslySetInnerHTML={{ __html: stemContent }}></div> */}
             </div>)
         }
         return (
-            isNull(content) ? <div></div> : <div>
-                {content.topics.map(element => renderQuestion(element)
+            isNull(questionContent) ? <div></div> : <div>
+                {questionContent.topics.map(element => renderQuestion(element)
                 )}
-                <button onclick={this.props.complete}>完成做答</button>
+                <div></div>
+                <Button onClick={this.onComplete}>完成做答</Button>
             </div>)
     }
 }

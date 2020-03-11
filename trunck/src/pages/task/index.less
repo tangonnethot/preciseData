@@ -5,7 +5,7 @@
             border          : solid 1px @primary-color;
             margin-left     : 12px;
             background-color: @white-color;
-            border-radius   : 2px;
+            border-radius   : 3px;
             color           : @primary-color;
         }
     }
@@ -26,7 +26,7 @@
             border          : solid 1px @green-btn;
             margin-left     : 12px;
             background-color: @white-color;
-            border-radius   : 2px;
+            border-radius   : 3px;
             color           : @green-btn;
         }
     }
@@ -48,15 +48,34 @@
     // background  : url(../assets/math.png) no-repeat center 0;
     background-size: 38px 38px;
 }
+.lv_item{
+    :global{
+        .list-view-section-body{
+            background-color: ;
 
+        }
+    }
+}
 .task_item {
     margin:15px 0px;
     padding: 0 15px;
+    background-color: @white-color;
+    border-bottom: 1px solid;
 
-    .titel {
+    .title {
         line-height  : 50px;
         color        : @text-font-color;
-        font-size    : 18px;
-        border-bottom: 1px solid #F6F6F6
+        font-size    : @content-big-font-size;
+        font-weight: bold;
+        padding: 19px;
+    }
+    .endTime{
+        float: right;
+        padding:20px 38px;
+        color: @text-font-color-secondary;
+    }
+    .startTime{
+        padding-left: 20px;
+        color: @text-font-color-secondary;
     }
 }

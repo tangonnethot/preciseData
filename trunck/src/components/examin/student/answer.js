@@ -1,20 +1,22 @@
 /* eslint-disable */
 import React , { Fragment } from 'react'
 
-import { 
+import {
+  format, 
   DoHeaderChoice,
   DoHeaderMultiChoice,
   DoHeaderQuestion,
   Complex
 } from '../index';
 
-export default class Answer extends React.Component{
+export default class Answer extends React.PureComponent{
     constructor(props){
         super(props);
     }
 
     render(){
-        const { question } = this.props;
+        // const { question } = this.props;
+        let question = format.formatQuestion1(this.props.question);
         console.log( question )
          return (
            <Fragment>

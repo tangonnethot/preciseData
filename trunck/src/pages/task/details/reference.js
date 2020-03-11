@@ -2,16 +2,21 @@
 import React from 'react';
 import { connect } from 'dva';
 import { Spin, Button } from 'antd';
+import { Toast} from 'antd-mobile';
 import { getPageQuery } from '../../../utils/utils';
 import TopNav from '../../../components/nav';
 import { TaskDescribe, TaskRef } from "../../../components/task";
 import { formatDate2, isNull, getUserID } from '../../../utils/utils';
+import {submitTask} from "../../../services/task"
 @connect(({ task }) => ({ task }))
 export default class Reference extends React.Component {
     constructor(props) {
         super(props);
         const params = getPageQuery();
         let { taskNo } = params;
+        this.state ={
+            taskid:taskNo
+        }
         this.getTaskDetail(taskNo);
     }
 
@@ -19,14 +24,26 @@ export default class Reference extends React.Component {
         this.props.dispatch({
             type: "task/getRefTaskDetail",
             payload: {
-                // taskStudentId: "3440719660c042d4b877833a7938f080",
+                // taskStudentId: "f7e29a58588b469b87e1336e2f07a9ff",
                 taskStudentId: taskid
             }
         })
     }
 
-    refComplete = () => {
-        console.log("完成任务");
+    refComplete = (time) => {
+        let _this =this;
+        submitTask({
+            id:_this.props.task.refModuleInfo.id,
+            // id:"d92a468cd49d4e8ca86193a658047c10",
+            moduleAnswerTime:time,
+            taskStudentTopicList:[]
+        }).then(function(res){
+            if(res.code==200){
+                Toast.success("提交成功",2,()=>{_this.props.history.push("/task")});
+            }else{
+                Toast.fail('提交失败，请稍后重试', 2);
+            }
+        })
     }
 
     render() {

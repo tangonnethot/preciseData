@@ -2,16 +2,12 @@
     background-color: @primary-color;
     color: @white-color;
     padding: 15px;
-    // height: @layou-header-height;
-    // line-height: @layou-header-height;
     vertical-align: middle;
     text-align: center;
     font-size: 24px;
-    // background: url("../assets/back.png")
 }
 
 .subject{
-    // height: @layou-header-height;
     :global{
         .am-segment{
             border-radius:0px;
@@ -21,7 +17,7 @@
             background-color: @primary-color;
             color:@white-color;
             border: none;
-            font-size:16px;
+            font-size:@tab-font-size;
         }
         .am-segment-item-selected{
             background-color: @primary-color;
@@ -29,7 +25,7 @@
             border-bottom: 2px @subject-selected;            
         }
     }
-    font-size:20px;
+    font-size:@nav-font-size;
     height: 50px;
     border: none;
     background-color: @primary-color;
@@ -39,4 +35,12 @@
         font-weight: bold;        
     }
     
+}
+.backimg{
+    float:left;
+    height: 20px;
+    padding: 0px 12px;
+    img{
+        width:14px;
+    }
 }

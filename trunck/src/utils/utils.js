@@ -458,11 +458,25 @@ export const formatDate1 = (strdate)=>{
 export const formatDate2=(strdate)=>{
   if(isNull(strdate)) return '';
   var date = new Date(strdate);
-  strdate = date.getFullYear()+ "."+date.getMonth() + "." + date.getDay()+"  "+ date.getHours()+":"+date.getMinutes();
-  return strdate;
+  let formateDate = date.getFullYear()+ "."+date.getMonth() + "." + date.getDay();
+  let formateTime = date.getHours()+":"+date.getMinutes();
+  return {date:formateDate,
+          time:formateTime};
 }
 
 export const getUserID=()=>{
   // return "9d43a478532545adaabd9482d67a74da";
   return "c5d067e05f514403af8608f0c8f11b1a";
+}
+
+let begintime;
+
+export const startTime=()=>{
+    begintime = new Date();
+}
+
+export const endTime =()=>{
+  let endTime = new Date();
+  let timeFrame= (endTime.getTime()- begintime.getTime())/1000;
+  return parseInt(timeFrame);
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button } from 'antd'
 import { connect } from "dva"
-import { isNull } from '../../utils/utils'
+import { isNull,startTime,endTime } from '../../utils/utils'
 import Attachment from '../attachment'
 
 @connect(({ task }) => ({ task }))
@@ -10,6 +10,7 @@ export default class TaskRef extends React.Component {
         super(props);
         if(this.props.isCourse)
             this.getModuleInfo();
+        startTime();
     }
 
     getModuleInfo = () => {
@@ -37,13 +38,17 @@ export default class TaskRef extends React.Component {
         return ref;        
     }
 
+    onComplete=()=>{
+        this.props.complete(endTime());
+    }
+
     render() {
         const content = this.convertContent();
         return (
             isNull(content) ? <div></div> : <div>
                 <Attachment video={content.vedio} docs={content.attachment}></Attachment>
                 <div dangerouslySetInnerHTML={{ __html: content.content }}></div>
-                <Button onclick={this.props.complete}>完成学习</Button>
+                <Button onClick={this.onComplete}>完成学习</Button>
             </div>
         )
     }

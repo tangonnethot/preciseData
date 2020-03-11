@@ -3,6 +3,7 @@ import { ListView, Badge, SegmentedControl } from 'antd-mobile'
 import TopNav from '../../components/nav'
 import SubjectNav from '../../components/nav/subject'
 import { convertTaskType, formatDate1, formatDate2, isNull, getUserID } from '../../utils/utils'
+import { goHome } from '../../utils/andriod'
 import Styles from './index.less'
 import { connect } from 'dva'
 
@@ -93,7 +94,7 @@ export default class taskInfo extends React.Component {
     }
 
     back = () => {
-        console.log("click back")
+        goHome();
     };
 
     changeSubject = (subjectid) => {
@@ -154,20 +155,21 @@ export default class taskInfo extends React.Component {
             }
             const obj = taskList[index--];
             if (isNull(obj)) return (<div></div>);
+            let formatEndTime = formatDate2(obj.taskEndTime);
             return (
                 <div key={obj.taskNo} className={Styles.task_item} onClick={this.onShowDetails.bind(this, obj.taskType, obj.id)}>
-                    <div className={Styles.title}>{obj.taskName}</div>
-                    <div style={{ display: '-webkit-box', display: 'flex', padding: '15px 0' }}>
-                        <img style={{ height: '64px', marginRight: '15px' }} src={require("../../assets/math.png")} alt="" />
-                        <div>
-                            {/* <Badge text={obj.subjectName.substr(0,1)} /> */}
-                            <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>
-                                <Badge text={convertTaskType(obj.taskType)} size="large" className={Styles.tasktype_badge} />
-                                <Badge text={"在线阅"} size="large" className={Styles.gradetype_badge} />
-                                {formatDate1(obj.taskEndTime)}</div>
-                            {/* <div><span style={{ fontSize: '30px', color: '#FF6E27' }}>35</span>¥ {rowID}</div> */}
-                        </div>
-                        {formatDate2(obj.taskStartTime)}
+                    <div>
+                        {/* <Badge text={obj.subjectName.substr(0,1)} /> */}
+                        <img style={{width:"35px"}} src={require("../../assets/math.png")} alt="" />
+                        <span className={Styles.title}>{obj.taskName}</span>
+                        <span className={Styles.endTime}>{formatDate1(obj.taskStartTime)}</span>
+                    </div>
+                    <div style={{ marginBottom: '10px',paddingLeft:"45px"}}>
+                        <Badge text={convertTaskType(obj.taskType)} size="large" className={Styles.tasktype_badge} />
+                        <Badge text={"在线阅"} size="large" className={Styles.gradetype_badge} />
+                        <span className={Styles.startTime}>截止日期：</span>
+                        <span>{formatEndTime.date}</span>
+                        <span style={{paddingLeft:"16px"}}>{formatEndTime.time}</span>
                     </div>
                 </div>
             );

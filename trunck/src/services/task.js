@@ -9,7 +9,6 @@ export const getSysTime = (params = {}) => {
 };
 
 export const getSubjects=(params={})=>{
-    console.log("getsubject");
     return get(pathJoin(prefix,taskPrefix,"/dic/getSubject"),{...params}).then(res=>{
         return res;
     })
@@ -60,7 +59,7 @@ export const getTaskDetails = (params = {}) => {
  * @param taskStudentId 学生任务ID
 */
 export const submitTask = (params = {}) => {
-    return post(pathJoin(prefix, taskPrefix, 'task/studentmodule/submitStudentTopic/v1.0'), { ...params }).then(
+    return post(pathJoin(prefix, taskPrefix, 'task/studentmodule/submitStudentTopic/v1.0'), { ...params },true).then(
         res => { return res; }
     );
 }
@@ -69,7 +68,7 @@ export const submitTask = (params = {}) => {
  * @param taskStudentId 学生任务ID
 */
 export const saveTask = (params = {}) => {
-    return post(pathJoin(prefix, taskPrefix, 'task/studentmodule/saveStudentTopic/v1.0'), { ...params }).then(
+    return post(pathJoin(prefix, taskPrefix, 'task/studentmodule/saveStudentTopic/v1.0'), { ...params },true).then(
         res => { return res; }
     );
 }
@@ -78,7 +77,7 @@ export const saveTask = (params = {}) => {
  * @param taskStudentId 学生任务ID
 */
 export const correctTask = (params = {}) => {
-    return post(pathJoin(prefix, taskPrefix, 'task/studenttopic/update/v1.0'), { ...params }).then(
+    return post(pathJoin(prefix, taskPrefix, 'task/studenttopic/update/v1.0'), { ...params },true).then(
         res => { return res; }
     );
 }
