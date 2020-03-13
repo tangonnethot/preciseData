@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from "dva";
-import {Button} from 'antd';
-import { isNull,startTime,endTime } from '../../utils/utils';
+import { isNull, startTime, endTime } from '../../utils/utils';
 import Attachment from '../attachment';
-import {Answer} from '../examin/student';
+import { Answer } from '../examin/student';
 import Styles from './index.less';
+import TaskStatistics from './taskStatistics';
 
 @connect(({ task }) => ({ task }))
 export default class TaskQuestion extends React.Component {
@@ -13,9 +13,7 @@ export default class TaskQuestion extends React.Component {
         startTime();
         if (this.props.taskType == "course")
             this.getModuleInfo();
-        this.state={
-            answerlist:[]
-        }
+
     }
 
     getModuleInfo = () => {
@@ -28,22 +26,30 @@ export default class TaskQuestion extends React.Component {
         })
     }
 
-    onComplete=()=>{
-        this.props.complete(endTime(),this.answerlist);
+    onComplete = () => {
+        this.props.complete(endTime(), this.answerlist);
     }
 
-    changeAnswer=(answer,index)=>{
-        this.setState({
-            answerlist:Object.assign(this.state.answerlist,{[index]:answer})
+    onSave = () => {
+        this.props.saveAnswer(endTime(), this.answerlist);
+    }
+
+    changeAnswer = (answer, index) => {
+        this.props.dispatch({
+            type: "task/updateAnswerList",
+            payload: {
+                idx: 4,
+                answer: answer
+            }
         })
     }
 
+
     render() {
-        // const content = this.convertContent();
-        const {questionContent} = this.props.task.questionModuleInfo;
-        console.log(questionContent);
-        let _this =this;
-        const renderQuestion = (questionItem,index) => {
+        const { questionContent } = this.props.task.questionModuleInfo;
+        const { answerList } = this.props.task;
+        let _this = this;
+        const renderQuestion = (questionItem, index) => {
             let stemContent;
             if (questionItem.hasOwnProperty("topic")) {
                 stemContent = questionItem.topic;
@@ -51,21 +57,29 @@ export default class TaskQuestion extends React.Component {
                 stemContent = questionItem;
             }
             return (<div className={Styles.ques_item}>
-                     <Answer 
-              question={stemContent}
-              optionClick={(ans,index)=>_this.schangeAnswer}
-              userAnswer={this.state.answerlist[index]?this.state.answerlist[index]:''}
-            />
-                {/* <div>{question.sort}</div>
-                <div dangerouslySetInnerHTML={{ __html: stemContent }}></div> */}
+                <Answer
+                    question={stemContent}
+                    optionClick={(ans, index) => _this.changeAnswer(ans, index)}
+                    userAnswer={answerList[index] ? answerList[index].answerContent : ''}
+                />
+
             </div>)
         }
+
         return (
-            isNull(questionContent) ? <div></div> : <div>
-                {questionContent.topics.map(element => renderQuestion(element)
+            isNull(questionContent) ? <div></div> : <div className={Styles.questionContainer}>
+                {questionContent.topics.map((element, idx) => renderQuestion(element, idx)
                 )}
-                <div></div>
-                <Button onClick={this.onComplete}>完成做答</Button>
+                <TaskStatistics />
+                {/* <div className={Styles.statistics}>
+                    <div className={Styles.title}>答案统计</div>
+                    <div>{
+                        answerList.map((element,idx)=>renderNumberItem(element,idx))
+                    }</div>
+                </div> */}
+                <div className={Styles.btnContainer}><button className={Styles.savebtn}>保存</button>
+                    <button className={Styles.submitbtn} onClick={this.onComplete}>提交</button>
+                </div>
             </div>)
     }
 }

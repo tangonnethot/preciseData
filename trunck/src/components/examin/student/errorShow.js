@@ -9,7 +9,7 @@ import {
   Complex
 } from '../index';
 
-export default class Result extends React.PureComponent{
+export default class ErrorShow extends React.PureComponent{
     constructor(props){
         super(props);
     }

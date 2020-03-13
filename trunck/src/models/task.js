@@ -4,6 +4,7 @@ import {
     getCourseModuleInfo,
     getTaskDetails
 } from '../services/task';
+import { Select } from 'antd';
 export default {
     namespace: "task",
     state: {
@@ -14,17 +15,19 @@ export default {
         questionModuleInfo:{
             questionContent:{}
         },
+        answerList:[],
         loading:true
     },
     subscriptions: {
         setup({ dispatch, history }) {  // eslint-disable-line
         },
+
     },
 
     effects: {
-        *fetch({ payload }, { call, put }) {  // eslint-disable-line
-            yield put({ type: 'save' });
-        },
+        // *fetch({ payload }, { call, put }) {  // eslint-disable-line
+        //     yield put({ type: 'save' });
+        // },
         *getTaskList({ payload }, { call, put }) {
             const taskData = yield getTaskList(payload);
             yield put({
@@ -62,9 +65,10 @@ export default {
             yield put({
                 type:"save",
                 payload:{
-                    questionModuleInfo:data
+                    questionModuleInfo:data,
+                    answerList:coureseinfo.data.taskStudentTopicList,
                 }
-            })
+            });
         },
         *getRefTaskDetail({payload},{call,put}){
             const taskinfo = yield getTaskDetails(payload);
@@ -84,6 +88,7 @@ export default {
                 type:"save",
                 payload:{
                     questionModuleInfo:data,
+                    answerList:taskinfo.data.taskStudentTopicList,
                     loading:false
                 }
             })
@@ -100,7 +105,8 @@ export default {
             yield put({
                 type:"save",
                 payload:{
-                    questionModuleInfo:{}
+                    questionModuleInfo:{},
+                    taskStudentTopicList:{}
                 }
             })
         },
@@ -110,5 +116,10 @@ export default {
         save(state, action) {
             return { ...state, ...action.payload };
         },
+        updateAnswerList(state,action){
+            debugger
+            state.answerList=Object.assign(state.answerlist,{[action.payload.idx]:action.payload.answer})
+            // return{...state,...action.payload};
+        }
     },
 }

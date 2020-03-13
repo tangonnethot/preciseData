@@ -24,8 +24,8 @@ export default class Reference extends React.Component {
         this.props.dispatch({
             type: "task/getRefTaskDetail",
             payload: {
-                // taskStudentId: "f7e29a58588b469b87e1336e2f07a9ff",
-                taskStudentId: taskid
+                taskStudentId: "20a7b9bbd74a40b4be5a944d52ee48c3",
+                // taskStudentId: taskid
             }
         })
     }

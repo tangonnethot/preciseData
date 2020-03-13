@@ -464,6 +464,13 @@ export const formatDate2=(strdate)=>{
           time:formateTime};
 }
 
+export const getFileExtName=(filename)=>{
+  if(!filename) return "";
+  if(typeof filename!=="string") return "";
+  var namearr = filename.split(".");
+  return namearr[namearr.length()-1];
+}
+
 export const getUserID=()=>{
   // return "9d43a478532545adaabd9482d67a74da";
   return "c5d067e05f514403af8608f0c8f11b1a";
@@ -476,7 +483,9 @@ export const startTime=()=>{
 }
 
 export const endTime =()=>{
+  if(begintime==null) return 0;
   let endTime = new Date();
   let timeFrame= (endTime.getTime()- begintime.getTime())/1000;
+  begintime=null;
   return parseInt(timeFrame);
 }

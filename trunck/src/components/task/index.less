@@ -1,16 +1,110 @@
-.describe{
-    background-color: @task-describe;
-    color: @text-font-color;
-    font-size: @content-font-size;
-    min-height:120px;
-    padding:30px 20px;
-    line-height: 25px;
-    vertical-align: middle;
-    // font-weight: 500;
+.questionContainer {
+    width: inherit;
 }
-.ques_item{
-    margin: 15px 0px;
-    border:solid 1px @border-color;
+
+.describe {
+    background-color: @task-describe;
+    color           : @text-font-color;
+    font-size       : @content-font-size;
+    min-height      : 120px;
+    padding         : 30px 20px;
+    line-height     : 25px;
+    vertical-align  : middle;
+}
+
+.ques_item {
+    margin          : 15px 0px;
+    border          : solid 1px @border-color;
     background-color: @white-color;
-    padding:20px;
+    padding         : 20px;
+}
+
+.statistics {
+    margin          : 15px 0px;
+    background-color: @white-color;
+
+    // padding:0px 0px 20px 0px;
+    .title {
+        background-color: @vice-color;
+        color           : @white-color;
+        width           : 106px;
+        text-align      : center;
+        height          : 40px;
+        line-height     : 40px;
+        vertical-align  : middle;
+        font-size       : @content-big-font-size;
+        margin-bottom   : 15px;
+    }
+
+    .item_number {
+        border        : 1px solid;
+        border-radius : 30px;
+        width         : 50px;
+        height        : 50px;
+        text-align    : center;
+        vertical-align: middle;
+        line-height   : 50px;
+        font-size     : 20px;
+        font-weight   : bold;
+        display       : inline-block;
+        margin        : 18px 0px 38px 26px;
+    }
+
+    .green {
+        background-color: @green-btn;
+        color           : @white-color;
+    }
+}
+
+.btnContainer {
+    margin: 0 auto;
+    width : 600px;
+
+    button {
+        margin       : 36px;
+        width        : 200px;
+        height       : 60px;
+        border       : none;
+        font-size    : @content-big-font-size;
+        border-radius: 8px;
+        cursor       : pointer;
+    }
+
+    .savebtn {
+        background-color: @complete-btn;
+        color           : @white-color;
+
+    }
+
+    .submitbtn {
+        background-color: @vice-color;
+        color           : @white-color;
+    }
+}
+
+.ref_container {
+    background-color: @white-color;
+    padding         : 20px;
+    font-size       : @content-font-size;
+    line-height     : 30px;
+
+    img {
+        max-width: 100%;
+    }
+}
+
+.ref_btn_container {
+    width        : 200px;
+    margin:36px auto;
+
+    .complete_btn {
+        border       : none;
+        font-size    : @content-big-font-size;
+        height       : 60px;
+
+        border-radius: 8px;
+        width : 200px;
+        background-color: @vice-color;
+        color           : @white-color;
+    }
 }

@@ -35,7 +35,6 @@ const radiusBase = '5px';
 const radius8 = '8px';
 
 module.exports = {
-  '@primaryColor': '#00263C',
   '@brandPrimaryTap': '#1890ff',
   '@navTheme': 'dark',
   '@layout': 'topmenu',
