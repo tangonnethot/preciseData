@@ -29,6 +29,11 @@ const fontSize16 = '16px';
 const fontSize18 = '18px';
 const fontSize20 = '20px';
 const fontSize24 = '24px';
+const fontSize26 = "26px";
+const fontSize28 = "28px";
+const fontSize30 = '30px';
+const fontSize32 = '32px';
+const fontSize36 = '36px';
 const fontFamily = 'Microsoft YaHei';
 const marginLength = '15px';
 const radiusBase = '5px';
@@ -69,13 +74,21 @@ module.exports = {
   //盒子外边距 
   '@wrap-margin': marginLength,
   //模块标题/名称 字号 
-  '@modular-font-size':fontSize18, 
+  '@modular-font-size': fontSize28,
   //tab选中标题字号
   '@tab-act-font-size': fontSize24,
   //tab未选中标题字号
   '@tab-font-size': fontSize16,
   //导航字号
-  '@nav-font-size': fontSize20,
+  '@nav-font-size': fontSize28,
+  //导航字号
+  '@nav-big-font-size': fontSize32,
+  // 列表大字号
+  '@list-big-font-size': fontSize28,
+ // 列表字号
+ '@list-font-size': fontSize24,
+  // 列表小字号
+  '@list-small-font-size': fontSize20,
   //logo字号  
   '@log-fFont-size': fontSize20,
   //任务模块分类字号
@@ -101,8 +114,8 @@ module.exports = {
 
   //知识点背景/设置分值背景|| 
   '@label-bg': grey2,
-  //课程标签 || 练习题目总和分析语
-  '@course-label-bg': grey1,
+  //背景色
+  '@body-bg': grey1,
   //边框线颜色
   '@border-color': grey3,
   //学科选中

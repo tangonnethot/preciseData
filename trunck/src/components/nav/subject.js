@@ -59,7 +59,8 @@ export default class SubjectNav extends React.PureComponent{
     render(){
         var  value = ["全部"];
         this.state.subjects.forEach(element => {
-            value.push(element.name);
+            if(element.value<=166 || element.value==265)
+                value.push(element.name);
         });
         return((value.length>0)&&<div className={Styles.subject}>
         <SegmentedControl onChange={this.onSelChange} values ={value} /></div>)
