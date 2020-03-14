@@ -71,6 +71,21 @@ const  formatQuestion1 = ( question ) => {
     "id":question.id,
     "stem":question.content?question.content:"",
     "options":question.topicBranches && question.topicBranches.map( item => ({"text":item.brchContent,"isAnswer":item.isAnswer})),
+    "qtype":question.type,
+    "qtypename":question.typeName?question.typeName:constant.questionType[question.type],
+    "score":question.score,
+    "topicGroup":question.topicGroup?question.topicGroup:'',
+    "topics":(!question.topics || question.topics.length==0)?null:question.topics.map( item => formatQuestion1(item) ),
+    "topicNo":question.topicNo
+  };
+  return questionInfo;
+}
+
+const  formatQuestion2 = ( question ) => {
+  let questionInfo = {
+    "id":question.id,
+    "stem":question.content?question.content:"",
+    "options":question.topicBranches && question.topicBranches.map( item => ({"text":item.brchContent,"isAnswer":item.isAnswer})),
     "answer":question.topicBranches && question.topicBranches.map( (item,index) => {
       if( item.isAnswer === 1 ){
         return {"text":item.brchContent,"index":index+1}
@@ -95,30 +110,6 @@ const  formatQuestion1 = ( question ) => {
   return questionInfo;
 }
 
-const formatQuestion2 = ( question ) => {
-  const branchContent = JSON.parse(question.branchContent) || []
-  let questionInfo = {
-    "id":question.id,
-    "stem":question.content?question.content:"",
-    "options":branchContent.map( (item) => ({"text":item.brchContent})),
-    "answer":branchContent.map( (item,index) => {
-      if( item.isAnswer === 1 ){
-        return {"text":item.brchContent,"index":index+1}
-      }
-    }).filter( item => item ),
-    "analysis":question.analysis ? question.analysis : '',
-    "qtype":question.type,
-    "qtypename":question.typeName?question.typeName:"",
-    "degreeName": constant.questionDifficultyLevel[question.degree]?constant.questionDifficultyLevel[question.degree]:'',
-    "score":question.score,
-    "videoAddress":question.videoAnalysis,
-    "qcode":question.topicNum,
-    "knowledgeIds": question.knowledgeIds ? question.knowledgeIds.split(",") : [],
-    "knowledges": question.knowledges ? question.knowledges.split(",") : [],
-    "isChoice": question.type === 1076 || question.type === 1077
-  };
-  return questionInfo;
-}
 
 export default {
   formatQuestion1,

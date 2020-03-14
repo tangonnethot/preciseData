@@ -7,7 +7,10 @@ const Complex = props => {
   const { stem , options , answer , analysis } = question;
   return (
     <div className={Style.complex}>
-      { question && question.stem && <Stem text={question.stem} /> }
+      { question && question.stem && <div className={Style.complexStem}>
+          <span className={Style.complexTitle}>【复合题】</span>
+          <Stem text={question.stem} />
+        </div> }
       {
         children
       }

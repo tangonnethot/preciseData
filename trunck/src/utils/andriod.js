@@ -32,7 +32,7 @@ export const goHome=()=>{
  * 拍照上传?此处是否应该有上传成功的回调？？？
  */
 export const takeCamera=()=>{
-    ASPrecise.takeCamera();
+    window.ASPrecise && ASPrecise.takeCamera();
 }
 
 /**
