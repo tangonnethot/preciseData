@@ -16,6 +16,7 @@ class Answer extends React.PureComponent{
     }
     render(){
         let question = format.formatQuestion1(this.props.question);
+        
         const props = Object.assign({},this.props,{
           question,
           questionIndex:question.topicNo
@@ -32,12 +33,14 @@ class Answer extends React.PureComponent{
               (question.qtype == 1079 || question.qtype == 1080) && <DoHeaderQuestion {...props} />
             }
             { question.qtype === 1078 && <Complex question={question} >
-              {
+              { 
                 question.topics && question.topics.length>0 && question.topics.map( (child,index) => {
-                  
+                  console.log(this.props.userAnswer);
+                  let arrAnswer = this.props.userAnswer.split(",");
                   const childProps = Object.assign({},this.props,{
                     question:child,
-                    questionIndex:child.topicNo
+                    questionIndex:child.topicNo,
+                    userAnswer:arrAnswer[index]
                   })
                   return <Fragment key={child.id}>
                     {

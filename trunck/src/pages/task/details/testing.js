@@ -32,7 +32,7 @@ export default class Testing extends React.Component{
     answerComplete = (time,anserlist) => {
         let _this =this;
         submitTask({
-            id:this.state.taskid,
+            id:_this.props.task.questionModuleInfo.id,
             moduleAnswerTime:time,
             taskStudentTopicList:anserlist
         }).then(function(res){
@@ -44,12 +44,13 @@ export default class Testing extends React.Component{
         })
     }
 
-    saveAnswer =(time,anserlist)=>{
+    saveAnswer =(time,answerlist)=>{
+        debugger
         let _this =this;
         saveTask({
-            id:this.state.taskid,
+            id:_this.props.task.questionModuleInfo.id,
             moduleAnswerTime:time,
-            taskStudentTopicList:anserlist
+            taskStudentTopicList:answerlist
         }).then(function(res){
             if(res.code==200){
                 Toast.success("提交成功",2,()=>{_this.props.history.push("/task")});
@@ -70,7 +71,7 @@ export default class Testing extends React.Component{
             {isNull(questionModuleInfo) ? <div/> : <div>
                 <TopNav title={questionModuleInfo.moduleName} onLeftClick={this.back}></TopNav>
                 <TaskDescribe endtime={formatDate2(questionModuleInfo.taskEndTime)} describe={questionModuleInfo.taskRequire} question={questionModuleInfo.questionContent.testPaperTop}  />
-                <TaskQuestion taskType={"testing"} complete={this.answerComplete} saveAnswer={this.saveAnswer}></TaskQuestion>
+                <TaskQuestion taskType={"testing"} complete={this.answerComplete.bind(this)} saveAnswer={this.saveAnswer.bind(this)}></TaskQuestion>
             </div>
             }
         </Spin>)

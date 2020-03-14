@@ -13,7 +13,6 @@ export default class TaskQuestion extends React.Component {
         startTime();
         if (this.props.taskType == "course")
             this.getModuleInfo();
-
     }
 
     getModuleInfo = () => {
@@ -26,29 +25,85 @@ export default class TaskQuestion extends React.Component {
         })
     }
 
+    // getAnswerOrder =(topicBranches,content)=>{
+    //     let arrOrder =[];
+    //     if(topicBranches)
+    //     for(let index =0;index<topicBranches.length;index++){
+    //         if(content.find(topicBranches[index].option)>=0){
+    //             arrOrder.push(topicBranches[index].brchOrder)
+    //         }
+    //     }
+    //     return arrOrder.join(",");
+    // }
+
+    // getAnswerBranchOrder = (id,idx,content)=>{
+    //     const {topics} = this.props.task.questionModuleInfo.questionContent;
+    //     if(content==null) return '';
+    //     if(idx>=0 && idx<topics.length &&topics[idx].id==id){
+    //         return this.getAnswerOrder(topics[idx].topicBranches,content);
+    //      }
+    //     this.findAnswer(id,content,topics)
+    //    return '';
+    // }
+
+    // findAnswer=(id,content,questionContent)=>{       
+    //      for(let index =0;index<questionContent.length;index++){
+    //          if(questionContent[index].id==id){
+    //              return this.getAnswerOrder(questionContent[index].topicBranches,content);
+    //          }
+    //          if(questionContent[index].type=="1078"){
+    //             this.findAnswer(id,content,questionContent[index].topics);
+    //          }
+    //      }       
+    // }
+
+    convertAnswerList=()=>{
+        return this.props.task.answerList.map((element,index)=>{
+            if(element.topicType=="1076" ||element.topicType=="1077" ){
+                let arrContent = element.answerContent.split("");
+                let newarrContent =arrContent.map(element=>{
+                    return String.fromCharCode(element.charCodeAt()-16);
+                })
+                element.answerContent = newarrContent.join(",");
+                // if(element.answerContent){
+                //     // element.answerContent = this.getAnswerBranchOrder(element.topicId,index,element.answerContent);
+                // }
+            }
+            return element;
+        }) 
+    }
+
     onComplete = () => {
-        this.props.complete(endTime(), this.answerlist);
+        this.props.complete(endTime(), this.convertAnswerList());
     }
 
     onSave = () => {
-        this.props.saveAnswer(endTime(), this.answerlist);
+        this.props.saveAnswer(endTime(), this.convertAnswerList());
     }
 
-    changeAnswer = (answer, index) => {
+    changeAnswer = (answer, id) => {
+        debugger        
         this.props.dispatch({
             type: "task/updateAnswerList",
             payload: {
-                idx: 4,
+                id: id,
                 answer: answer
             }
         })
     }
 
+    getQuestionAnswer =(questionItem,index)=>{
+        let answer;
+            if(questionItem.type!="1078"){
+                
+            }
+    }
 
     render() {
         const { questionContent } = this.props.task.questionModuleInfo;
         const { answerList } = this.props.task;
         let _this = this;
+        let answeridx =0;
         const renderQuestion = (questionItem, index) => {
             let stemContent;
             if (questionItem.hasOwnProperty("topic")) {
@@ -56,13 +111,26 @@ export default class TaskQuestion extends React.Component {
             } else {
                 stemContent = questionItem;
             }
+
+            let answer=[];
+            debugger
+            if(questionItem.type!="1078"){
+                answer.push(answerList[answeridx].answerContent);
+                answeridx++;
+            }else{
+                let childCount =questionItem.topics.length;
+                for(let j=0;j<childCount;j++){
+                    answer.push(answerList[answeridx].answerContent);
+                    answeridx++;
+                }
+            }
+            console.log(answer);
             return (<div className={Styles.ques_item}>
                 <Answer
                     question={stemContent}
                     optionClick={(ans, index) => _this.changeAnswer(ans, index)}
-                    userAnswer={answerList[index] ? answerList[index].answerContent : ''}
+                    userAnswer={answer.join(",")}
                 />
-
             </div>)
         }
 
@@ -70,14 +138,9 @@ export default class TaskQuestion extends React.Component {
             isNull(questionContent) ? <div></div> : <div className={Styles.questionContainer}>
                 {questionContent.topics.map((element, idx) => renderQuestion(element, idx)
                 )}
-                <TaskStatistics />
-                {/* <div className={Styles.statistics}>
-                    <div className={Styles.title}>答案统计</div>
-                    <div>{
-                        answerList.map((element,idx)=>renderNumberItem(element,idx))
-                    }</div>
-                </div> */}
-                <div className={Styles.btnContainer}><button className={Styles.savebtn}>保存</button>
+                <TaskStatistics />               
+                <div className={Styles.btnContainer}>
+                    <button className={Styles.savebtn} onClick={this.onSave}>保存</button>
                     <button className={Styles.submitbtn} onClick={this.onComplete}>提交</button>
                 </div>
             </div>)

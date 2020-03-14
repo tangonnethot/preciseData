@@ -116,9 +116,14 @@ export default {
             return { ...state, ...action.payload };
         },
         updateAnswerList(state,action){
-            debugger
-            state.answerList=Object.assign(state.answerlist,{[action.payload.idx]:action.payload.answer})
-            // return{...state,...action.payload};
+            let newanswerList = state.answerList;
+            for(let index =0;index<newanswerList.length;index++){
+                if(newanswerList[index].topicId == action.payload.id){
+                    newanswerList[index].answerContent=action.payload.answer;
+                    break; 
+                }
+            }
+            return {...state,...{answerList:newanswerList}}
         }
     },
 }
