@@ -1,5 +1,6 @@
 /* eslint-disable */
-import React , { Fragment } from 'react'
+import React , { Fragment } from 'react';
+import PropTypes from "prop-types";
 
 import {
   format, 
@@ -9,38 +10,44 @@ import {
   Complex
 } from '../index';
 
-export default class Answer extends React.PureComponent{
+class Answer extends React.PureComponent{
     constructor(props){
         super(props);
     }
-
     render(){
-        // const { question } = this.props;
         let question = format.formatQuestion1(this.props.question);
-        console.log( question )
+        const props = Object.assign({},this.props,{
+          question,
+          questionIndex:question.topicNo
+        })
          return (
            <Fragment>
             {
-              question.qtype == 1076 && <DoHeaderChoice {...this.props}  questionIndex={question.topicNo} />
+              question.qtype == 1076 && <DoHeaderChoice {...props} />
             }
             {
-              question.qtype == 1077 && <DoHeaderMultiChoice {...this.props} questionIndex={question.topicNo} />
+              question.qtype == 1077 && <DoHeaderMultiChoice {...props} />
             }
             {
-              (question.qtype == 1079 || question.qtype == 1080) && <DoHeaderQuestion {...this.props} questionIndex={question.topicNo} />
+              (question.qtype == 1079 || question.qtype == 1080) && <DoHeaderQuestion {...props} />
             }
             { question.qtype === 1078 && <Complex question={question} >
               {
                 question.topics && question.topics.length>0 && question.topics.map( (child,index) => {
+                  
+                  const childProps = Object.assign({},this.props,{
+                    question:child,
+                    questionIndex:child.topicNo
+                  })
                   return <Fragment key={child.id}>
                     {
-                      child.qtype == 1076 && <DoHeaderChoice {...this.props} question={child} questionIndex={child.topicNo} />
+                      child.qtype == 1076 && <DoHeaderChoice {...childProps} />
                     }
                     {
-                      child.qtype == 1077 && <DoHeaderMultiChoice {...this.props} question={child} questionIndex={child.topicNo} />
+                      child.qtype == 1077 && <DoHeaderMultiChoice {...childProps} />
                     }
                     {
-                      (child.qtype == 1079 || child.qtype == 1080) && <DoHeaderQuestion {...this.props} question={child} questionIndex={child.topicNo} />
+                      (child.qtype == 1079 || child.qtype == 1080) && <DoHeaderQuestion {...childProps} />
                     }
                   </Fragment>
                 })
@@ -50,3 +57,17 @@ export default class Answer extends React.PureComponent{
          )
     }
 }
+Answer.PropTypes={
+  question:PropTypes.shape({
+    id:PropTypes.string.isRequired,
+    qtypename:PropTypes.string.isRequired,
+    score:PropTypes.number.isRequired,
+    content:PropTypes.string.isRequired,
+    topicBranches:PropTypes.array.isRequired,
+    topicNo:PropTypes.isRequired,
+    topicGroup:PropTypes.string
+  }),
+  optionClick:PropTypes.func.isRequired,
+  userAnswer:PropTypes.string.isRequired
+}
+export default Answer;

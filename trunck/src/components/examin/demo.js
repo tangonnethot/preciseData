@@ -16,23 +16,26 @@ class Demo extends Component{
   constructor(props){
     super(props);
     this.state={
-      userAnswers:{}
+      userAnswer:{}
     }
   }
   render(){
-    const { userAnswers } = this.state;
+    const { userAnswer } = this.state;
     const { topics , cTopics , sTopics } = this.props.topicModal;
-    console.log( topics )
     return <Fragment>
       {
         topics && topics.map( (item,index) => {
           return <div className={Style.questionItem} key={index}>
             <Answer 
-              question={format.formatQuestion1(item)}
-              optionClick={(ans)=>this.setState({
-                userAnswers:Object.assign(userAnswers,{[index]:ans})
-              })}
-              userAnswer={userAnswers[index]?userAnswers[index]:''}
+              question={item}
+              optionClick={(ans,id)=>{
+                this.setState({
+                  userAnswer:Object.assign({},userAnswer,{[id]:ans})
+                },()=>{
+                  console.log(this.state.userAnswer)
+                })
+              }}
+              userAnswer={userAnswer[item.id]?userAnswer[item.id]:''}
             />
           </div>
         })

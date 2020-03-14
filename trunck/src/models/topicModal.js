@@ -938,7 +938,7 @@ export default {
               "isAnswer": 1,
               "option": ""
           }],
-          "videoAnalysis": ""
+          "videoAnalysis": "",
       }, {
           "trueTopicInfo": "",
           "year": 2019,
@@ -1018,15 +1018,17 @@ export default {
           "topics": [{
               "trueTopicInfo": "",
               "year": 2019,
+              "topicNo": 5,
               "topicScene": 0,
               "typeName": "非选择题",
               "type": 1079,
               "content": "盒子里的小皮球取出9个, 还剩下7个, 盒子里原来有几个小皮球？",
               "orgId": "04064c732f5d4073b59789db11ba2260",
               "subjectId": 103,
+              "score": 20.0,
               "enable": true,
               "createrId": "",
-              "id": "042fb56ea858491d8fd670d7862f9fc4",
+              "id": "042fb56ea858491d8fd670d7862f9fc41",
               "sState": 0,
               "subjectName": "数学",
               "gradeName": "一年级",
@@ -1072,6 +1074,7 @@ export default {
           }, {
               "trueTopicInfo": "",
               "year": 2019,
+              "topicNo": 6,
               "topicScene": 0,
               "typeName": "单选题",
               "type": 1076,
