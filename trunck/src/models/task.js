@@ -61,7 +61,6 @@ export default {
             let data = coureseinfo.data;
             data.questionContent = JSON.parse(coureseinfo.data.moduleContent).courseModule;
             data.questionContent.topics = data.questionContent.practises;
-            debugger
             yield put({
                 type:"save",
                 payload:{

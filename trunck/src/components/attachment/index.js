@@ -24,7 +24,6 @@ export default class Attachment extends React.Component {
             docs = JSON.parse(this.props.docs);
         }
         const renderAttachment=(element)=>{
-            debugger
             return(<div className={Styles.attachmentItem} onClick={this.onPreview.bind(this,element.id,element.type,element.url)}>
                         <div><img src={this.getImgbyType(element.type)}></img></div>
                         <div>{element.name}</div>

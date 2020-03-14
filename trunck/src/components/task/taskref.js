@@ -45,7 +45,6 @@ export default class TaskRef extends React.Component {
 
     render() {
         const content = this.convertContent();
-        debugger
         return (
             isNull(content) ? <div></div> : <div>
                 <Attachment video={content.vedio} docs={content.attachment}></Attachment>

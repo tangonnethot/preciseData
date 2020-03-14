@@ -1,33 +1,23 @@
-.tasktype_badge {
+.taskContainer{
     :global{
-        .am-badge-text{
-            padding         : 3 5px;
-            border          : solid 1px @primary-color;
-            margin-left     : 12px;
-            background-color: @white-color;
-            border-radius   : 3px;
-            color           : @primary-color;
+        .am-list-body{
+            background-color: @body-bg;
+            border: none;
         }
     }
 }
-.segment{
-    margin:24px 60px ;
-    :global{
-        .am-segment{
-            height:50px;
-            font-size:20px;
+
+.segment {
+    margin: 24px 60px;
+
+    :global {
+        .am-segment {
+            height   : 50px;
+            font-size: 24px;
         }
-    }
-}
-.gradetype_badge{
-    :global{
-        .am-badge-text{
-            padding         : 3 5px;
-            border          : solid 1px @green-btn;
-            margin-left     : 12px;
-            background-color: @white-color;
-            border-radius   : 3px;
-            color           : @green-btn;
+
+        .am-segment-item {
+            font-size: 24px;
         }
     }
 }
@@ -43,39 +33,55 @@
     color: @primary-color;
 }
 
-.math {
-    height         : 38px;
-    // background  : url(../assets/math.png) no-repeat center 0;
-    background-size: 38px 38px;
-}
-.lv_item{
-    :global{
-        .list-view-section-body{
-            background-color: ;
+.lv_item {
+    :global {
+        .list-view-section-body {
+            background-color: #f0f0f0;
 
         }
     }
 }
+
 .task_item {
-    margin:15px 0px;
-    padding: 0 15px;
+    margin          : 15px 0px;
+    padding         : 18px;
     background-color: @white-color;
-    border-bottom: 1px solid;
 
     .title {
-        line-height  : 50px;
-        color        : @text-font-color;
-        font-size    : @content-big-font-size;
-        font-weight: bold;
-        padding: 19px;
+        line-height: 50px;
+        color      : @text-font-color;
+        font-size  : @list-big-font-size;
+        padding    : 19px;
     }
-    .endTime{
-        float: right;
-        padding:20px 38px;
-        color: @text-font-color-secondary;
+
+    .endTime {
+        float    : right;
+        padding  : 20px 38px;
+        font-size: @list-small-font-size;
+        color    : @text-font-color-secondary;
     }
-    .startTime{
+
+    .startTime {
         padding-left: 20px;
-        color: @text-font-color-secondary;
+        font-size   : @list-small-font-size;
+        color       : @text-font-color-secondary;
+    }
+
+    .label {
+        padding         : 4px 8px;
+        margin-left     : 12px;
+        background-color: @white-color;
+        border-radius   : 5px;
+        font-size       : @content-font-size;
+    }
+
+    .review_label {
+        border: solid 1px @green-btn;
+        color : @green-btn;
+    }
+
+    .task_label{
+        border: solid 1px @primary-color;
+        color : @primary-color;
     }
 }
