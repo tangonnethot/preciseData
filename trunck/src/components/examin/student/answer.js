@@ -35,7 +35,6 @@ class Answer extends React.PureComponent{
             { question.qtype === 1078 && <Complex question={question} >
               { 
                 question.topics && question.topics.length>0 && question.topics.map( (child,index) => {
-                  console.log(this.props.userAnswer);
                   let arrAnswer = this.props.userAnswer.split(",");
                   const childProps = Object.assign({},this.props,{
                     question:child,
