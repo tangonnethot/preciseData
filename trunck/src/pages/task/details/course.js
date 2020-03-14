@@ -1,11 +1,13 @@
 import React from 'react'
-import { Card } from 'antd-mobile'
-import { Spin,Button } from 'antd'
+import { Card,Toast } from 'antd-mobile'
+import { Spin, Button } from 'antd'
 import { getPageQuery } from '../../../utils/utils'
 import { connect } from 'dva';
 import TopNav from '../../../components/nav';
 import { TaskDescribe, TaskRef, TaskQuestion } from "../../../components/task";
 import { formatDate2, isNull, getUserID } from '../../../utils/utils';
+import Styles from './course.less';
+import {submitTask} from "../../../services/task"
 
 @connect(({ task }) => ({ task }))
 export default class CourseDetails extends React.Component {
@@ -14,6 +16,9 @@ export default class CourseDetails extends React.Component {
         const params = getPageQuery();
         let { taskNo } = params;
         this.getCourseDetail(taskNo);
+        this.state={
+            expandIndex:-1
+        }
     }
 
     getCourseDetail = (taskNo) => {
@@ -21,43 +26,72 @@ export default class CourseDetails extends React.Component {
             type: "task/getCourseDetail",
             payload: {
                 taskStudentId: taskNo,
-                studentId:getUserID()
+                studentId: getUserID()
             }
         })
     }
 
-    refComplete = () => {
-        console.log("完成任务");
+    refComplete = (time) => {
+        let _this =this;
+        submitTask({
+            id:_this.props.task.refModuleInfo.id,
+            // id:"d92a468cd49d4e8ca86193a658047c10",
+            moduleAnswerTime:time,
+            taskStudentTopicList:[]
+        }).then(function(res){
+            if(res.code==200){
+                Toast.success("提交成功",2);
+                this.setState({
+                    expandIndex:-1
+                })
+            }else{
+                Toast.fail('提交失败，请稍后重试', 2);
+            }
+        })      
+    }
+
+    expand =(index)=>{
+        this.setState({
+            expandIndex:index
+        })
+    }
+
+    answerComplete=()=>{
+        this.setState({
+            expandIndex:-1
+        })
     }
 
     render() {
         const { taskModuleInfo, loading } = this.props.task;
-        const renderCard = (element)=>{
+        const renderCard = (element,idx) => {
             if (element.moduleType == 1) {
-                return <Card full="true">
+                return <div className={Styles.card_container} Style={idx==this.state.expandIndex?"height:auto":""} ><Card full="true">
                     <Card.Header title={element.moduleName}
-                        extra={element.answerStatus==0?<Button>开始学习</Button>:<Button>已完成</Button>} />
+                        extra={element.answerStatus == 0 ? <Button type="primary" onClick={this.expand.bind(this,idx)}>开始学习</Button> : <Button onClick={this.expand.bind(this,idx)}>查看学习资料</Button>} />
                     <Card.Body>
-                        <TaskRef isCourse={true} moduleID={element.id} complete={this.refComplete}></TaskRef>
+                        <TaskRef isCourse={true} moduleID={element.id} complete={this.refComplete.bind(this,element.id)}></TaskRef>
                     </Card.Body>
                 </Card>
+                </div>
             }
-            if(element.moduleType==2){
-                return <Card full="true">
-                <Card.Header title={element.moduleName}
-                    extra={element.answerStatus==0?<Button>开始答题</Button>:<Button>已完成</Button>} />
-                <Card.Body>
-                    <TaskQuestion taskType={"course"} moduleID={element.id} complete={this.refComplete}></TaskQuestion>
-                </Card.Body>
-            </Card>
+            if (element.moduleType == 2) {
+                return <div className={Styles.card_container} Style={idx==this.state.expandIndex?"height:auto":""}><Card full="true">
+                    <Card.Header title={element.moduleName}
+                        extra={element.answerStatus == 0 ? <Button type="primary" onClick={this.expand.bind(this,idx)}>开始做答</Button> : <Button onClick={this.expand.bind(this,idx)}>查看做答结果</Button>} />
+                    <Card.Body>
+                        <TaskQuestion taskType={"course"} moduleID={element.id} complete={this.answerComplete}></TaskQuestion>
+                    </Card.Body>
+                </Card></div>
             }
         }
         return (<Spin spinning={loading}>
-            {isNull(taskModuleInfo)?<div/>:<div>
-            <TopNav title={taskModuleInfo.taskName} onLeftClick={this.back}></TopNav>
-            <TaskDescribe endtime={formatDate2(taskModuleInfo.taskEndTime)} describe={taskModuleInfo.taskRequire} />            
-                {taskModuleInfo.taskStudentModuleList.map(element =>renderCard(element))}
-                </div>
+            {isNull(taskModuleInfo) ? <div /> : <div clasNam={Styles.course_container}>
+                <TopNav title={taskModuleInfo.taskName} onLeftClick={this.back}></TopNav>
+                <TaskDescribe endtime={formatDate2(taskModuleInfo.taskEndTime)} describe={taskModuleInfo.taskRequire} />
+                {taskModuleInfo.taskStudentModuleList.map((element,index) => renderCard(element,index))}
+                <div style={{height:"60px",backgroundColor:"#f9f9f9"}}></div>
+            </div>
             }
         </Spin>)
     }
