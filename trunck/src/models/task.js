@@ -92,6 +92,18 @@ export default {
                 }
             })
         },
+        *cleanTaskData({payload},{put}){
+            yield put({
+                type:"save",
+                payload:{
+                    taskList:[],
+                    refModuleInfo:{},
+                    questionModuleInfo:{},
+                    answerList:[]
+                }
+            })
+        },
+
         *cleanRefData({payload},{call,put}){
             yield put({
                 type:"save",
@@ -105,7 +117,7 @@ export default {
                 type:"save",
                 payload:{
                     questionModuleInfo:{},
-                    taskStudentTopicList:{}
+                    answerList:[]
                 }
             })
         },

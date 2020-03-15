@@ -25,6 +25,8 @@ const dataBlobs = {};
 let sectionIDs = [];
 let rowIDs = [];
 function genData(pIndex = 0) {
+    sectionIDs=[];
+    rowIDs = [];
     for (let i = 0; i < NUM_SECTIONS; i++) {
         const ii = (pIndex * NUM_SECTIONS) + i;
         const sectionName = `Section ${ii}`;
@@ -46,6 +48,7 @@ function genData(pIndex = 0) {
 export default class taskInfo extends React.Component {
     constructor(props) {
         super(props);
+        this.cleanModalData();
 
         const getSectionData = (dataBlob, sectionID) => dataBlob[sectionID];
         const getRowData = (dataBlob, sectionID, rowID) => dataBlob[rowID];
@@ -67,9 +70,15 @@ export default class taskInfo extends React.Component {
 
     }
 
+    cleanModalData=()=>{
+        this.props.dispatch({
+            type:"task/cleanTaskData"
+        });
+    }
+
     componentDidMount() {
         const hei = document.documentElement.clientHeight;// - ReactDOM.findDOMNode(this.lv).parentNode.offsetTop;
-        this.getTaskInfo();
+        // this.getTaskInfo();
         setTimeout(() => {
             genData();
             this.setState({
@@ -180,7 +189,7 @@ export default class taskInfo extends React.Component {
         let index = taskList.length - 1;
         const row = (rowData, sectionID, rowID) => {
             if (index < 0) {
-                index = taskList.length - 1;
+                return (<div/>)
             }
             const obj = taskList[index--];
             if (isNull(obj)) return (<div></div>);

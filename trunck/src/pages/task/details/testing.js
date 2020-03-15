@@ -37,7 +37,7 @@ export default class Testing extends React.Component{
             taskStudentTopicList:anserlist
         }).then(function(res){
             if(res.code==200){
-                Toast.success("提交成功",2,()=>{_this.props.history.push("/taskresult")});
+                Toast.success("提交成功",2,()=>{_this.props.history.push("/taskresult?taskNo="+_this.state.taskid)});
             }else{
                 Toast.fail('提交失败，请稍后重试', 2);
             }

@@ -1,39 +1,71 @@
 import React from 'react';
 import { connect } from 'dva';
-import {Result} from '../examin/student';
+import {Result,Answer} from '../examin/student';
 import Styles from './index.less';
 import { isNull} from '../../utils/utils';
+import TaskStatistics from './taskStatistics';
 
 class TaskResult extends React.Component{
-    constructor(props){
+    constructor(props) {
         super(props);
+        if (this.props.taskType == "course")
+            this.getModuleInfo();
     }
-    render(){
-        const {questionContent} = this.props.task.questionModuleInfo;
-        const {answerList} = this.props.task;
-        let _this =this;
-        const renderQuestion = (questionItem,index) => {
+
+    getModuleInfo = () => {
+        if (!this.props.moduleID) return;
+        this.props.dispatch({
+            type: "task/getQuestionModuleInfo",
+            payload: {
+                taskStudentModuleId: this.props.moduleID,
+            }
+        })
+    }
+
+     render() {
+        const { questionContent } = this.props.task.questionModuleInfo;
+        const { answerList } = this.props.task;
+        let _this = this;
+        let answeridx =0;
+        const renderQuestion = (questionItem, index) => {
             let stemContent;
             if (questionItem.hasOwnProperty("topic")) {
                 stemContent = questionItem.topic;
             } else {
                 stemContent = questionItem;
             }
+
+            let answer=[];
+            let qtype = stemContent.type;
+            if(qtype!="1078"){
+                answer.push(answerList[answeridx].answerContent);
+                answeridx++;
+            }else{
+                let childCount =stemContent.topics.length;
+                for(let j=0;j<childCount;j++){
+                    answer.push(answerList[answeridx].answerContent);
+                    answeridx++;
+                }
+                
+            }
+            debugger
+            console.log(answer);
             return (<div className={Styles.ques_item}>
-                     <Result 
-              question={stemContent}
-              optionClick={(ans,index)=>_this.changeAnswer(ans,index)}
-              userAnswer={answerList[index]?answerList[index].answerContent:''}
-            />              
+                <Answer
+                    question={stemContent}
+                    optionClick={(ans, index) => _this.changeAnswer(ans, index)}
+                    userAnswer={answer.join(",")}
+                />
             </div>)
         }
 
         return (
-             isNull(questionContent) ? <div></div> : <div className={Styles.questionContainer}>
-                {questionContent.topics.map((element,idx) => renderQuestion(element,idx)
+            isNull(questionContent) ? <div></div> : <div className={Styles.questionContainer}>
+                {questionContent.topics.map((element, idx) => renderQuestion(element, idx)
                 )}
-            </div>
-        )
+                <TaskStatistics />
+                {/* <div className={Styles.ref_btn_container}><button onClick={this.onComplete} className={Styles.complete_btn}>完成学习</button></div>} */}
+            </div>)
     }
 }
 

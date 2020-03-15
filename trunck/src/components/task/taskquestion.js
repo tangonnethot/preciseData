@@ -92,13 +92,6 @@ export default class TaskQuestion extends React.Component {
         })
     }
 
-    getQuestionAnswer =(questionItem,index)=>{
-        let answer;
-            if(questionItem.type!="1078"){
-                
-            }
-    }
-
     render() {
         const { questionContent } = this.props.task.questionModuleInfo;
         const { answerList } = this.props.task;
@@ -113,17 +106,19 @@ export default class TaskQuestion extends React.Component {
             }
 
             let answer=[];
-            debugger
-            if(questionItem.type!="1078"){
+            let qtype = stemContent.type;
+            if(qtype!="1078"){
                 answer.push(answerList[answeridx].answerContent);
                 answeridx++;
             }else{
-                let childCount =questionItem.topics.length;
+                let childCount =stemContent.topics.length;
                 for(let j=0;j<childCount;j++){
                     answer.push(answerList[answeridx].answerContent);
                     answeridx++;
                 }
+                
             }
+            debugger
             console.log(answer);
             return (<div className={Styles.ques_item}>
                 <Answer

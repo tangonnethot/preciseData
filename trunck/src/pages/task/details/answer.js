@@ -63,7 +63,7 @@ class AnswerResult extends React.Component {
             }</div>
         </div>
                 </div>
-                <TaskResult/>
+                <TaskResult moduleID={this.state.taskNo}></TaskResult>
                 {/* <TaskDescribe endtime={formatDate2(questionModuleInfo.taskEndTime)} describe={questionModuleInfo.taskRequire} /> */}
                 {/* <TaskQuestion taskType={"testing"} complete={this.refComplete}></TaskQuestion> */}
             </div>
