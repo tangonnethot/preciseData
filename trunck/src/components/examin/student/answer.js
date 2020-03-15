@@ -35,7 +35,7 @@ class Answer extends React.PureComponent{
             { question.qtype === 1078 && <Complex question={question} >
               { 
                 question.topics && question.topics.length>0 && question.topics.map( (child,index) => {
-                  let arrAnswer = this.props.userAnswer.split(",");
+                  let arrAnswer = this.props.userAnswer.split(";");
                   const childProps = Object.assign({},this.props,{
                     question:child,
                     questionIndex:child.topicNo,
@@ -59,13 +59,13 @@ class Answer extends React.PureComponent{
          )
     }
 }
-Answer.PropTypes={
+Answer.propTypes={
   question:PropTypes.shape({
     id:PropTypes.string.isRequired,
-    qtypename:PropTypes.string.isRequired,
+    qtypename:PropTypes.string,
     score:PropTypes.number.isRequired,
     content:PropTypes.string.isRequired,
-    topicBranches:PropTypes.array.isRequired,
+    topicBranches:PropTypes.array ,
     topicNo:PropTypes.isRequired,
     topicGroup:PropTypes.string
   }),

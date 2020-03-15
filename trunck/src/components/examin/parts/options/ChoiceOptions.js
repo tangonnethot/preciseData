@@ -1,26 +1,33 @@
-import React from 'react';
+import React , { Fragment } from 'react';
 import { convertChar } from '../../utils/utils';
 import Style from './index.less';
 import classNames from 'classnames';
-const ChoiceOption = props => {
+const ChoiceOptionDo = props => {
+  const { text , index , userAnswer } = props;
+  const curOptionChar = convertChar(index+1);
+  const isChecked=userAnswer && userAnswer.indexOf(curOptionChar)>-1;
   return (
-    <div className={props.isAnswer?classNames(Style.option, Style.checked):Style.option}>
-      <div className={classNames(Style.optionChar,Style.choiceOptionChar)}>{convertChar(props.index+1)} </div> 
-      <div className={Style.optionContent} dangerouslySetInnerHTML={{__html:props.text}}></div>
+    <div className={isChecked?classNames(Style.option, Style.checked):Style.option}>
+      <div className={classNames(Style.optionChar,Style.choiceOptionChar)}>{curOptionChar} </div> 
+      <div className={Style.optionContent} dangerouslySetInnerHTML={{__html:text}}></div>
     </div>
   )
 }
-const ChoiceOptions = props => {
+const ChoiceOptionsDo = props => {
   return (
-    <div className={Style.options}>
+    <div className={classNames(Style.options,Style.do)}>
       {
-        props.question.options.map( (item,index) => 
-            <ChoiceOption key={index} text={item.text} index={index} isAnswer={item.isAnswer}/> )
+        props.question.options.map( (item,index) => <ChoiceOptionDo 
+                                              key={index} 
+                                              text={item.text} 
+                                              index={index} 
+                                              {...props}
+                                              /> )
       }
     </div>
   )
 }
-export default ChoiceOptions;
+export default ChoiceOptionsDo;
 
 
 

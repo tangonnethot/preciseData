@@ -1,7 +1,18 @@
 import Stem from './stem';
-import {ChoiceOptions,MultiChoiceOptions,ChoiceOptionsDo,MultiChoiceOptionsDo} from './options';
-import Answer from './answer';
-import Analysis from './analysis';
+import {
+  ChoiceOptions,
+  MultiChoiceOptions,
+  ChoiceOptionsDo,
+  MultiChoiceOptionsDo
+} from './options';
+import {
+  ResultAnswer,
+  RevisedAnswer,
+  UserAnswer
+} from './answer';
+import {
+  VideoAnalysis
+} from './analysis';
 import AnswerAnalysis from './answerAnalysis';
 export {
   Stem ,
@@ -9,7 +20,9 @@ export {
   MultiChoiceOptions,
   ChoiceOptionsDo,
   MultiChoiceOptionsDo,
-  Answer ,
-  Analysis ,
+  ResultAnswer ,
+  UserAnswer,
+  RevisedAnswer,
+  VideoAnalysis ,
   AnswerAnalysis
 }

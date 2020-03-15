@@ -1,13 +1,19 @@
-import React from 'react';
-import { Icon } from 'antd-mobile';
-import { Spin , message } from 'antd';
-import { Stem , AnswerAnalysis } from '../parts';
+import React , { Fragment } from 'react';
+import { Stem , UserAnswer , RevisedAnswer , ResultAnswer , VideoAnalysis } from '../parts';
 import Style from './index.less'
 const Question = props => {
-  const { question } = props;
+  const { question , userAnswer } = props;
   return (
     <div className={Style.question}>
-      { question && question.stem && <Stem text={question.stem} /> }
+      {
+        question && <Fragment>
+          { question.stem && <Stem text={question.stem} /> }
+          { userAnswer && <UserAnswer {...props} /> }
+          { userAnswer && <RevisedAnswer {...props} /> }
+          { question.options && <ResultAnswer {...props} /> }
+          { question.videoAddress && <VideoAnalysis {...props} /> }
+        </Fragment>
+      }
     </div>
   )
 }

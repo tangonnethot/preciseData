@@ -1,20 +1,66 @@
 .answer{
-  color: #898989;  
-  font-size: 14px;
-  display: flex;
+  background-color: #f1f1f1;
+  padding: 8px 14px;
+  margin-top: 8px;
   .title{
-    color: #2c89e8;
-    flex-shrink: 0;
+    color: #43c18a;
   }
-  img{
-    vertical-align: middle;
-    max-width: 100%;
+}
+.userAnswer{
+  .title{
+    color: #fc4260;
+    margin-bottom: 8px;
   }
-  p{
-    -webkit-margin-before: 0em;
-    -webkit-margin-after: 0em;
-    -webkit-margin-start: 0em;
-    -webkit-margin-end: 0em;
-    margin-bottom: 0em;
+  .answerPics{
+    overflow: hidden;
+    .answerPic{
+      height: 80px;
+      width: 80px;
+      float: left;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      img{
+        max-width: 80px;
+        max-height: 80px;
+      }
+    }
+  }
+}
+.revisedAnswer{
+  .answerPic{
+    height: 100px;
+    width: 100px;
+    float: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    img{
+      max-width: 80px;
+      max-height: 80px;
+    }
+    :global{
+      .am-icon-cross-circle-o{
+        
+      }
+    }
+  }
+  .photoBtn{
+    display: inline-block;
+    i{
+      background-image: url(../../assets/photoBtn.png);
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: 45px*0.8 38px*0.8;
+      width: 80px;
+      height: 80px;
+      border:1px #e4e4e4 dashed;
+      display: block;
+    }
+    span{
+
+    }
   }
 }

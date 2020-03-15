@@ -51,10 +51,10 @@ class TaskResult extends React.Component{
             debugger
             console.log(answer);
             return (<div className={Styles.ques_item}>
-                <Answer
+                <Result
                     question={stemContent}
                     optionClick={(ans, index) => _this.changeAnswer(ans, index)}
-                    userAnswer={answer.join(",")}
+                    userAnswer={answer.join(";")}
                 />
             </div>)
         }

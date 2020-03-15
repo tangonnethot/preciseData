@@ -86,6 +86,24 @@ const  formatQuestion2 = ( question ) => {
     "id":question.id,
     "stem":question.content?question.content:"",
     "options":question.topicBranches && question.topicBranches.map( item => ({"text":item.brchContent,"isAnswer":item.isAnswer})),
+    "qtype":question.type,
+    "qtypename":question.typeName?question.typeName:constant.questionType[question.type],
+    "score":question.score,
+    "topicGroup":question.topicGroup?question.topicGroup:'',
+    "topics":(!question.topics || question.topics.length==0)?null:question.topics.map( item => formatQuestion2(item) ),
+    "topicNo":question.topicNo,
+    "degree":question.degree,
+    "videoAddress":question.videoAnalysis,
+    "isChoice":question.type==1076||question.type==1077
+  };
+  return questionInfo;
+}
+
+const  formatQuestion22 = ( question ) => {
+  let questionInfo = {
+    "id":question.id,
+    "stem":question.content?question.content:"",
+    "options":question.topicBranches && question.topicBranches.map( item => ({"text":item.brchContent,"isAnswer":item.isAnswer})),
     "answer":question.topicBranches && question.topicBranches.map( (item,index) => {
       if( item.isAnswer === 1 ){
         return {"text":item.brchContent,"index":index+1}

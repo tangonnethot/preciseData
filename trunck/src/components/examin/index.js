@@ -16,6 +16,9 @@ const HeaderQuestion = HeaderContainer(Question);
 const DoHeaderChoice = HeaderContainer(DoChoice);
 const DoHeaderMultiChoice = HeaderContainer(DoMultiChoice);
 const DoHeaderQuestion = HeaderContainer(DoQuestion);
+const ResultHeaderChoice = HeaderContainer(Choice);
+const ResultHeaderMultiChoice = HeaderContainer(MultiChoice);
+const ResultHeaderQuestion = HeaderContainer(Question);
 // const HeaderComplex = HeaderContainer(Complex);
 
 // const HeaderKnowledgeChoice = HeaderContainer(KnowledgeChoice);
@@ -43,6 +46,9 @@ export {
   DoHeaderChoice,
   DoHeaderMultiChoice,
   DoHeaderQuestion,
+  ResultHeaderChoice,
+  ResultHeaderMultiChoice,
+  ResultHeaderQuestion,
   // HeaderComplex,
   // HeaderKnowledgeChoice,
   // HeaderKnowledgeMultiChoice,

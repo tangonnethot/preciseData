@@ -1,46 +1,57 @@
 /* eslint-disable */
-import React , { Fragment } from 'react'
+import React , { Fragment } from 'react';
+import PropTypes from "prop-types";
 
 import {
   format, 
-  DoHeaderChoice,
-  DoHeaderMultiChoice,
-  DoHeaderQuestion,
+  ResultHeaderChoice,
+  ResultHeaderMultiChoice,
+  ResultHeaderQuestion,
   Complex
 } from '../index';
 
-export default class Result extends React.PureComponent{
+class Result extends React.PureComponent{
     constructor(props){
         super(props);
     }
-
     render(){
-        // const { question } = this.props;
-        let question = format.formatQuestion1(this.props.question);
-        console.log( question )
+        let question = format.formatQuestion2(this.props.question);
+        
+        const props = Object.assign({},this.props,{
+          question,
+          questionIndex:question.topicNo
+        })
          return (
            <Fragment>
             {
-              question.qtype == 1076 && <DoHeaderChoice {...this.props}  questionIndex={question.topicNo} />
+              question.qtype == 1076 && <ResultHeaderChoice {...props} />
             }
             {
-              question.qtype == 1077 && <DoHeaderMultiChoice {...this.props} questionIndex={question.topicNo} />
+              question.qtype == 1077 && <ResultHeaderMultiChoice {...props} />
             }
             {
-              (question.qtype == 1079 || question.qtype == 1080) && <DoHeaderQuestion {...this.props} questionIndex={question.topicNo} />
+              (question.qtype == 1079 || question.qtype == 1080) && <ResultHeaderQuestion {...props} />
             }
             { question.qtype === 1078 && <Complex question={question} >
-              {
+              { 
                 question.topics && question.topics.length>0 && question.topics.map( (child,index) => {
+                  let arrAnswer = this.props.userAnswer.split(";");
+                  let arrScore = this.props.userScore.split(";");
+                  const childProps = Object.assign({},this.props,{
+                    question:child,
+                    questionIndex:child.topicNo,
+                    userAnswer:arrAnswer[index],
+                    userScore:arrScore[index]
+                  })
                   return <Fragment key={child.id}>
                     {
-                      child.qtype == 1076 && <DoHeaderChoice {...this.props} question={child} questionIndex={child.topicNo} />
+                      child.qtype == 1076 && <ResultHeaderChoice {...childProps} />
                     }
                     {
-                      child.qtype == 1077 && <DoHeaderMultiChoice {...this.props} question={child} questionIndex={child.topicNo} />
+                      child.qtype == 1077 && <ResultHeaderMultiChoice {...childProps} />
                     }
                     {
-                      (child.qtype == 1079 || child.qtype == 1080) && <DoHeaderQuestion {...this.props} question={child} questionIndex={child.topicNo} />
+                      (child.qtype == 1079 || child.qtype == 1080) && <ResultHeaderQuestion {...childProps} />
                     }
                   </Fragment>
                 })
@@ -50,3 +61,17 @@ export default class Result extends React.PureComponent{
          )
     }
 }
+Result.propTypes={
+  question:PropTypes.shape({
+    id:PropTypes.string.isRequired,
+    qtypename:PropTypes.string,
+    score:PropTypes.number.isRequired,
+    content:PropTypes.string.isRequired,
+    topicBranches:PropTypes.array,
+    topicNo:PropTypes.isRequired,
+    topicGroup:PropTypes.string
+  }),
+  userAnswer:PropTypes.string,
+  userScore:PropTypes.string
+}
+export default Result;
