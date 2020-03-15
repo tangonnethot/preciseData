@@ -4,7 +4,6 @@ import Style from './index.less';
 
 const Choice = props => {
   const { question } = props;
-  question.videoAddress ="www.bidfds";
   return (
     <div className={Style.choice}>
       {

@@ -4,25 +4,25 @@
   .header{
     display: flex;
     align-items: center;
-    font-size: 16px;
+    font-size: @content-font-size;
     .type_name{
-      color: #2f89fe;
-      border: 1px solid #2f89fe;
+      color: @vice-color;
+      border: 1px solid @vice-color;
       margin: 0 10px;
       padding: 1px 8px;
       border-radius: 4px;
-      font-size: 14px;
+      font-size: @content-small-font-size;
     }
     .score{
-      color: #666;
+      color: @text-font-color-third;
       span{
         color: #ec445f;
       }
     }
     .group_name{
-      background-color: #f0f0f0;
+      background-color: @body-bg;
       padding: 1px 8px;
-      font-size: 14px;
+      font-size: @content-small-font-size;
       border-radius: 8px;
       margin-left: 8px;
     }
@@ -30,6 +30,7 @@
       :global{
         .am-segment{
           margin: 0px 12px;
+          font-size: @content-small-font-size;
           .am-segment-item{
             padding: 0 4px;
           }
@@ -42,14 +43,14 @@
     .userScore{
       padding: 2px 0 ;
       width: 64px;
-      color: #fff;
-      background-color: #43c18a;
+      color: @white-color;
+      background-color: @green-btn;
       position: absolute;
       right: 0;
       text-align: center;
     }
     .wrong{
-      background-color: #ff5671;
+      background-color: @error-answer-color;
     }
   }
 }

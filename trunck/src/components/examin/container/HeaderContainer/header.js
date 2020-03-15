@@ -21,9 +21,11 @@ const Header = props => {
       { question.degree && <div className={Style.degree}>
         <SegmentedControl selectedIndex={degreeIndex} values={['易', '中', '难']} disabled />
         </div> }
-      <div className={userScore<=0?classnames(Style.userScore,Style.wrong):Style.userScore}>
-      { userScore<=0 ? '错误': <Fragment>{userScore}分</Fragment>}
-      </div>
+      {
+        userScore != undefined && <div className={userScore<=0?classnames(Style.userScore,Style.wrong):Style.userScore}>
+        { userScore<=0 ? '错误': <Fragment>{userScore}分</Fragment>}
+        </div>
+      }
     </Row>
   )
 }
