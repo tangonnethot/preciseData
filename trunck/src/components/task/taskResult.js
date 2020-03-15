@@ -63,7 +63,7 @@ class TaskResult extends React.Component{
             isNull(questionContent) ? <div></div> : <div className={Styles.questionContainer}>
                 {questionContent.topics.map((element, idx) => renderQuestion(element, idx)
                 )}
-                <TaskStatistics />
+                {this.props.footer?<TaskStatistics />:<div/>}
                 {/* <div className={Styles.ref_btn_container}><button onClick={this.onComplete} className={Styles.complete_btn}>完成学习</button></div>} */}
             </div>)
     }

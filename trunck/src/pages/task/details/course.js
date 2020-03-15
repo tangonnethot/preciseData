@@ -130,7 +130,7 @@ export default class CourseDetails extends React.Component {
                         <Card.Header title={element.moduleName}
                             extra={<Button type="primary" onClick={this.expand.bind(this, idx)}>查看做答结果</Button>} />
                         <Card.Body>
-                            <TaskResult taskType={"course"} moduleID={element.id}></TaskResult>
+                            <TaskResult taskType={"course"} moduleID={element.id} footer={true}></TaskResult>
                             <div className={Styles.btn_container}>
                                 <button className={Styles.complete_btn} onClick={this.reduceCard}>完成学习</button>
                             </div>
