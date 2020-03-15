@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
-import {Result,Answer} from '../examin/student';
+import {Result} from '../examin/student';
 import Styles from './index.less';
 import { isNull} from '../../utils/utils';
 import TaskStatistics from './taskStatistics';
@@ -36,17 +36,19 @@ class TaskResult extends React.Component{
             }
 
             let answer=[];
+            let score =[];
             let qtype = stemContent.type;
             if(qtype!="1078"){
                 answer.push(answerList[answeridx].answerContent);
+                score.push(answerList[answeridx].answerScore);
                 answeridx++;
             }else{
                 let childCount =stemContent.topics.length;
                 for(let j=0;j<childCount;j++){
                     answer.push(answerList[answeridx].answerContent);
+                    score.push(answerList[answeridx].answerScore);
                     answeridx++;
                 }
-                
             }
             debugger
             console.log(answer);
@@ -55,6 +57,7 @@ class TaskResult extends React.Component{
                     question={stemContent}
                     optionClick={(ans, index) => _this.changeAnswer(ans, index)}
                     userAnswer={answer.join(";")}
+                    userScore={score.join(";")}
                 />
             </div>)
         }

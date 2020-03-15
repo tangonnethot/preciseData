@@ -117,7 +117,7 @@ export default class CourseDetails extends React.Component {
                 </div>
             }
             if (element.moduleType == 2) {
-                if (element.answerStatus == 0) {
+                if (element.answerStatus == 0||element.answerStatus == 1) {
                     return <div className={Styles.card_container} Style={idx == this.state.expandIndex ? "height:auto" : ""}><Card full="true">
                         <Card.Header title={element.moduleName}
                             extra={<Button type="primary" onClick={this.expand.bind(this, idx)}>开始做答</Button>} />
