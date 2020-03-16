@@ -1,8 +1,8 @@
 import format from './utils/formatQuestion'
 
-import {Choice,DoChoice} from './choice';
-import {MultiChoice,DoMultiChoice} from './multichoice';
-import {Question,DoQuestion} from './question';
+import {Choice,DoChoice,ErrorChoice} from './choice';
+import {MultiChoice,DoMultiChoice,ErrorMultiChoice} from './multichoice';
+import {Question,DoQuestion,ErrorQuestion} from './question';
 import Complex from './complex';
 import { KnowledgeContainer , HeaderContainer , StudentAnswerContainer } from './container';
 
@@ -19,15 +19,9 @@ const DoHeaderQuestion = HeaderContainer(DoQuestion);
 const ResultHeaderChoice = HeaderContainer(Choice);
 const ResultHeaderMultiChoice = HeaderContainer(MultiChoice);
 const ResultHeaderQuestion = HeaderContainer(Question);
-// const HeaderComplex = HeaderContainer(Complex);
-
-// const HeaderKnowledgeChoice = HeaderContainer(KnowledgeChoice);
-// const HeaderKnowledgeMultiChoice = HeaderContainer(KnowledgeMultiChoice);
-// const HeaderKnowledgeQuestion = HeaderContainer(KnowledgeQuestion);
-
-// const StudentAnswerChoice = StudentAnswerContainer(HeaderKnowledgeChoice);
-// const StudentAnswerMultiChoice = StudentAnswerContainer(HeaderKnowledgeMultiChoice);
-// const StudentAnswerQuestion = StudentAnswerContainer(HeaderKnowledgeQuestion);
+const ErrorHeaderChoice = HeaderContainer(ErrorChoice);
+const ErrorHeaderMultiChoice = HeaderContainer(ErrorMultiChoice);
+const ErrorHeaderQuestion = HeaderContainer(ErrorQuestion);
 
 export {
   format,
@@ -37,9 +31,6 @@ export {
   Complex,
   DoChoice,
   DoMultiChoice,
-  // KnowledgeChoice,
-  // KnowledgeMultiChoice,
-  // KnowledgeQuestion,
   HeaderChoice,
   HeaderMultiChoice,
   HeaderQuestion,
@@ -49,11 +40,7 @@ export {
   ResultHeaderChoice,
   ResultHeaderMultiChoice,
   ResultHeaderQuestion,
-  // HeaderComplex,
-  // HeaderKnowledgeChoice,
-  // HeaderKnowledgeMultiChoice,
-  // HeaderKnowledgeQuestion,
-  // StudentAnswerChoice,
-  // StudentAnswerMultiChoice,
-  // StudentAnswerQuestion
+  ErrorHeaderChoice,
+  ErrorHeaderMultiChoice,
+  ErrorHeaderQuestion,
 }

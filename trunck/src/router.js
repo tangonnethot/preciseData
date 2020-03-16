@@ -7,6 +7,11 @@ import {AnswerResult,AnswerSheet,CourseDetails,Reference,Testing} from './pages/
 // import AnswerDetails from './pages/task/details/answer';
 import ErrorBook from './pages/errorBook';
 import LearningSituation from './pages/learningSituation';
+import {
+  DoDemo,
+  ResultDemo,
+  ErrorDemo
+} from './components/examin/demo/index';
 
 
 function RouterConfig({ history }) {
@@ -24,7 +29,9 @@ function RouterConfig({ history }) {
         {/* <Route path="/taskdetails" exact component={TaskDetails} /> */}
         <Route path="/errorbook" exact component={ErrorBook} />
         <Route path="/learningsituation" exact component={LearningSituation} />
-
+        <Route path="/dodemo" exact component={DoDemo} />
+        <Route path="/resultDemo" exact component={ResultDemo} />
+        <Route path="/errorDemo" exact component={ErrorDemo} />
       </Switch>
     </Router>
   );
