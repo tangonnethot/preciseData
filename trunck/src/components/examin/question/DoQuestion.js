@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 import { Icon } from 'antd-mobile';
 import { Spin , message } from 'antd';
-import { Stem , AnswerAnalysis } from '../parts';
-import Style from './index.less'
+import { Stem  } from '../parts';
+import Style from './index.less';
 import {
   takeCamera
 } from '../../../utils/andriod';

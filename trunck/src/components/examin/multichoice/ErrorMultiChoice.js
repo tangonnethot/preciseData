@@ -2,7 +2,7 @@ import React , { Fragment } from 'react';
 import { Stem , MultiChoiceOptions , ResultAnswer , VideoAnalysis } from '../parts';
 import Style from './index.less';
 
-const MultiChoice = props => {
+const ErrorMultiChoice = props => {
   const { question } = props;
   return (
     <div className={Style.multiChoice}>
@@ -17,4 +17,4 @@ const MultiChoice = props => {
     </div>
   )
 }
-export default MultiChoice;
+export default ErrorMultiChoice;

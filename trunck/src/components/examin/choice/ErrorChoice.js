@@ -1,15 +1,15 @@
 import React , { Fragment } from 'react';
-import { Stem , MultiChoiceOptions , ResultAnswer , VideoAnalysis } from '../parts';
+import { Stem , ChoiceOptions , ResultAnswer , VideoAnalysis } from '../parts';
 import Style from './index.less';
 
-const MultiChoice = props => {
+const ErrorChoice = props => {
   const { question } = props;
   return (
-    <div className={Style.multiChoice}>
+    <div className={Style.choice}>
       {
         question && <Fragment>
           { question.stem && <Stem text={question.stem} /> }
-          { question.options && <MultiChoiceOptions {...props } /> }
+          { question.options && <ChoiceOptions {...props } /> }
           { question.options && <ResultAnswer {...props} /> }
           { question.videoAddress && <VideoAnalysis {...props} /> }
         </Fragment>
@@ -17,4 +17,5 @@ const MultiChoice = props => {
     </div>
   )
 }
-export default MultiChoice;
+
+export default ErrorChoice;

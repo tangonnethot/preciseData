@@ -678,6 +678,7 @@ export default {
         ],
         //试题
         topics:[{
+          "videoAnalysis":"http://www.baidu.com",
           "trueTopicInfo": "",
           "year": 2019,
           "topicNo": "1",
@@ -1157,7 +1158,7 @@ export default {
                       "totalCount": 0
                   },
                   "brchOrder": 2,
-                  "isAnswer": 1,
+                  "isAnswer": 0,
                   "option": ""
               }, {
                   "brchContent": "可是，那轻纱般的薄翼却已在小孩们的两颗太阳中，留下了一季的闪耀。",

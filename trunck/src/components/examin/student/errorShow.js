@@ -1,46 +1,57 @@
 /* eslint-disable */
-import React , { Fragment } from 'react'
+import React , { Fragment } from 'react';
+import PropTypes from "prop-types";
 
 import {
   format, 
-  DoHeaderChoice,
-  DoHeaderMultiChoice,
-  DoHeaderQuestion,
+  ErrorHeaderChoice,
+  ErrorHeaderMultiChoice,
+  ErrorHeaderQuestion,
   Complex
 } from '../index';
 
-export default class ErrorShow extends React.PureComponent{
+class ErrorShow extends React.PureComponent{
     constructor(props){
         super(props);
     }
-
     render(){
-        // const { question } = this.props;
-        let question = format.formatQuestion1(this.props.question);
-        console.log( question )
+        let question = format.formatQuestion2(this.props.question);
+        
+        const props = Object.assign({},this.props,{
+          question,
+          questionIndex:question.topicNo
+        })
          return (
            <Fragment>
             {
-              question.qtype == 1076 && <DoHeaderChoice {...this.props}  questionIndex={question.topicNo} />
+              question.qtype == 1076 && <ErrorHeaderChoice {...props} />
             }
             {
-              question.qtype == 1077 && <DoHeaderMultiChoice {...this.props} questionIndex={question.topicNo} />
+              question.qtype == 1077 && <ErrorHeaderMultiChoice {...props} />
             }
             {
-              (question.qtype == 1079 || question.qtype == 1080) && <DoHeaderQuestion {...this.props} questionIndex={question.topicNo} />
+              (question.qtype == 1079 || question.qtype == 1080) && <ErrorHeaderQuestion {...props} />
             }
             { question.qtype === 1078 && <Complex question={question} >
-              {
+              { 
                 question.topics && question.topics.length>0 && question.topics.map( (child,index) => {
+                  let arrAnswer = this.props.userAnswer.split(";");
+                  let arrScore = this.props.userScore.split(";");
+                  const childProps = Object.assign({},this.props,{
+                    question:child,
+                    questionIndex:child.topicNo,
+                    userAnswer:arrAnswer[index],
+                    userScore:arrScore[index]
+                  })
                   return <Fragment key={child.id}>
                     {
-                      child.qtype == 1076 && <DoHeaderChoice {...this.props} question={child} questionIndex={child.topicNo} />
+                      child.qtype == 1076 && <ErrorHeaderChoice {...childProps} />
                     }
                     {
-                      child.qtype == 1077 && <DoHeaderMultiChoice {...this.props} question={child} questionIndex={child.topicNo} />
+                      child.qtype == 1077 && <ErrorHeaderMultiChoice {...childProps} />
                     }
                     {
-                      (child.qtype == 1079 || child.qtype == 1080) && <DoHeaderQuestion {...this.props} question={child} questionIndex={child.topicNo} />
+                      (child.qtype == 1079 || child.qtype == 1080) && <ErrorHeaderQuestion {...childProps} />
                     }
                   </Fragment>
                 })
@@ -50,3 +61,17 @@ export default class ErrorShow extends React.PureComponent{
          )
     }
 }
+ErrorShow.propTypes={
+  question:PropTypes.shape({
+    id:PropTypes.string.isRequired,
+    qtypename:PropTypes.string,
+    score:PropTypes.number.isRequired,
+    content:PropTypes.string.isRequired,
+    topicBranches:PropTypes.array,
+    topicNo:PropTypes.isRequired,
+    topicGroup:PropTypes.string
+  }),
+  userAnswer:PropTypes.string,
+  userScore:PropTypes.string
+}
+export default ErrorShow;
