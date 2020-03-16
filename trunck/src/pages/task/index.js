@@ -119,7 +119,6 @@ export default class taskInfo extends React.Component {
     }
 
     onShowDetails = (type,status, id) => {
-        debugger
         if (status > 0 && (type!=1||type!="1") && (type!=5||type!="5"))
             this.props.history.push("/taskresult?taskNo=" + id);
         else {

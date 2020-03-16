@@ -50,8 +50,6 @@ class TaskResult extends React.Component{
                     answeridx++;
                 }
             }
-            debugger
-            console.log(answer);
             return (<div className={Styles.ques_item}>
                 <Result
                     question={stemContent}

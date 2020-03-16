@@ -449,43 +449,76 @@ export const convertTaskType = (type) => {
   return "课程";
 }
 
-export const formatDate1 = (strdate)=>{
+export const formatDate1 = (strdate) => {
   var date = new Date(strdate);
   strdate = date.getMonth() + "-" + date.getDay();
   return strdate;
 }
 
-export const formatDate2=(strdate)=>{
-  if(isNull(strdate)) return '';
+export const formatDate2 = (strdate) => {
+  if (isNull(strdate)) return '';
   var date = new Date(strdate);
-  let formateDate = date.getFullYear()+ "."+date.getMonth() + "." + date.getDay();
-  let formateTime = date.getHours()+":"+date.getMinutes();
-  return {date:formateDate,
-          time:formateTime};
+  let formateDate = date.getFullYear() + "." + date.getMonth() + "." + date.getDay();
+  let formateTime = date.getHours() + ":" + date.getMinutes();
+  return {
+    date: formateDate,
+    time: formateTime
+  };
 }
 
-export const getFileExtName=(filename)=>{
-  if(!filename) return "";
-  if(typeof filename!=="string") return "";
+export const getFileExtName = (filename) => {
+  if (!filename) return "";
+  if (typeof filename !== "string") return "";
   var namearr = filename.split(".");
-  return namearr[namearr.length()-1];
+  return namearr[namearr.length() - 1];
 }
 
-export const getUserID=()=>{
+export const parseCookie = () => {
+  let arrcookies = document.cookie ? document.cookie.split('; ') : [];
+  let result={};
+  // arrcookies.forEach(element=>{
+  for (let index = 0; index < arrcookies.length; index++) {
+    let parts = arrcookies[index].split('=');
+    let name = parts.shift();
+    // let cookie = parts.join('=');
+    result[name] = parts;
+  }
+  return result;
+}
+
+export const getCookie = (name) => {
+  let result = parseCookie();
+  return result[name];
+}
+
+export const setCookie = (name, value, expires) => {
+  document.cookie = [
+    name, '=', value,
+    expires ? '; expires=' + expires.toUTCString() : '', // use expires attribute, max-age is not supported by IE
+    // options.path    ? '; path=' + options.path : '',
+    // options.domain  ? '; domain=' + options.domain : '',
+    // options.secure  ? '; secure' : ''
+  ].join('')
+}
+
+export const getUserID = () => {
+  // setCookie("userid", "c5d067e05f514403af8608f0c8f11b1a");
+  return getCookie("userid");
+
   // return "9d43a478532545adaabd9482d67a74da";
-  return "c5d067e05f514403af8608f0c8f11b1a";
+  // return "c5d067e05f514403af8608f0c8f11b1a";
 }
 
 let begintime;
 
-export const startTime=()=>{
-    begintime = new Date();
+export const startTime = () => {
+  begintime = new Date();
 }
 
-export const endTime =()=>{
-  if(begintime==null) return 0;
+export const endTime = () => {
+  if (begintime == null) return 0;
   let endTime = new Date();
-  let timeFrame= (endTime.getTime()- begintime.getTime())/1000;
-  begintime=null;
+  let timeFrame = (endTime.getTime() - begintime.getTime()) / 1000;
+  begintime = null;
   return parseInt(timeFrame);
 }

@@ -45,7 +45,6 @@ export default class Testing extends React.Component{
     }
 
     saveAnswer =(time,answerlist)=>{
-        debugger
         let _this =this;
         saveTask({
             id:_this.props.task.questionModuleInfo.id,

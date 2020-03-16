@@ -32,7 +32,6 @@ export default class CourseDetails extends React.Component {
     }
 
     refComplete = (time) => {
-        debugger
         let _this = this;
         submitTask({
             id: _this.props.task.refModuleInfo.id,
@@ -58,7 +57,6 @@ export default class CourseDetails extends React.Component {
     }
 
     reduceCard = () => {
-        debugger
         this.setState({
             expandIndex: -1
         })

@@ -82,7 +82,6 @@ export default class TaskQuestion extends React.Component {
     }
 
     changeAnswer = (answer, id) => {
-        debugger        
         this.props.dispatch({
             type: "task/updateAnswerList",
             payload: {
@@ -118,7 +117,6 @@ export default class TaskQuestion extends React.Component {
                 }
                 
             }
-            debugger
             console.log(answer);
             return (<div className={Styles.ques_item}>
                 <Answer

@@ -1,14 +1,24 @@
 import React from 'react'
 import Styles from './index.less'
 import {getFileExtName} from '../../utils/utils'
+import {previewFile,playVideo,playAudio} from "../../utils/andriod"
 export default class Attachment extends React.Component {
     constructor(props) {
         super(props);
     }
-
-    onPreview=(id,type,url)=>{
+    onPreview=(id,type,url,name)=>{
         console.log(id);
+
+        if(type=="video"){
+            playVideo(id);
+        }
+        if(getFileExtName(name)=="mp3"){
+            playAudio(url,name);
+        }else{
+            previewFile(url);
+        }           
     }
+
     getImgbyType=(type,name)=>{
         if(type=="video"){
             return require("../../assets/video.png");
@@ -24,7 +34,7 @@ export default class Attachment extends React.Component {
             docs = JSON.parse(this.props.docs);
         }
         const renderAttachment=(element)=>{
-            return(<div className={Styles.attachmentItem} onClick={this.onPreview.bind(this,element.id,element.type,element.url)}>
+            return(<div className={Styles.attachmentItem} onClick={this.onPreview.bind(this,element.id,element.type,element.url,element.name)}>
                         <div><img src={this.getImgbyType(element.type)}></img></div>
                         <div>{element.name}</div>
                     </div>)
