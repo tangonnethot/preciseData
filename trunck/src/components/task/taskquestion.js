@@ -5,6 +5,7 @@ import Attachment from '../attachment';
 import { Answer } from '../examin/student';
 import Styles from './index.less';
 import TaskStatistics from './taskStatistics';
+import { Spin,Empty } from 'antd';
 
 @connect(({ task }) => ({ task }))
 export default class TaskQuestion extends React.Component {
@@ -58,11 +59,20 @@ export default class TaskQuestion extends React.Component {
     // }
 
     convertAnswerList=()=>{
-        return this.props.task.answerList.map((element,index)=>{
-            if(element.topicType=="1076" ||element.topicType=="1077" ){
-                let arrContent = element.answerContent.split("");
+        let answerList  = this.props.task.moduleContentList[this.props.moduleID].answerList;
+        return answerList.map((element,index)=>{
+            if(element.answerContent &&(element.topicType=="1076" ||element.topicType=="1077" )){
+                let arrContent = element.answerContent.split(",").join("").split("");
+
                 let newarrContent =arrContent.map(element=>{
-                    return String.fromCharCode(element.charCodeAt()-16);
+                    debugger
+                    if("A"<=element&&element<="Z")
+                         return String.fromCharCode(element.charCodeAt()-16);
+                    if("a"<=element&&element<="z"){
+                        return String.fromCharCode(element.charCodeAt()-48);
+                    }
+                    if("0"<element && element<10)
+                        return element;
                 })
                 element.answerContent = newarrContent.join(",");
                 // if(element.answerContent){
@@ -85,15 +95,31 @@ export default class TaskQuestion extends React.Component {
         this.props.dispatch({
             type: "task/updateAnswerList",
             payload: {
+                moduleid:this.props.moduleID,
                 id: id,
                 answer: answer
             }
         })
     }
 
+    convertAnswer=(qtype,answerContent)=>{
+        if(answerContent && (qtype==1076 || qtype ==1077)){
+            let arrAnswer = answerContent.split("");
+            let newData =arrAnswer.map(element=>{
+                if(!isNaN(parseInt(element)))
+                    return String.fromCharCode(element.charCodeAt()+16);
+                return element;
+            })
+            return newData.join(",");            
+        }
+        return answerContent;
+    }
+
     render() {
-        const { questionContent } = this.props.task.questionModuleInfo;
-        const { answerList } = this.props.task;
+        if(!this.props.task.moduleContentList[this.props.moduleID])
+            return(<Spin/>);
+        const { questionContent } = this.props.task.moduleContentList[this.props.moduleID].questionModuleInfo;
+        const { answerList } = this.props.task.moduleContentList[this.props.moduleID];
         let _this = this;
         let answeridx =0;
         const renderQuestion = (questionItem, index) => {
@@ -107,22 +133,22 @@ export default class TaskQuestion extends React.Component {
             let answer=[];
             let qtype = stemContent.type;
             if(qtype!="1078"){
-                answer.push(answerList[answeridx].answerContent);
+                answer.push(this.convertAnswer(qtype,answerList[answeridx].answerContent));
                 answeridx++;
             }else{
                 let childCount =stemContent.topics.length;
                 for(let j=0;j<childCount;j++){
-                    answer.push(answerList[answeridx].answerContent);
+                    answer.push(this.convertAnswer(qtype,answerList[answeridx].answerContent));
                     answeridx++;
                 }
                 
             }
             console.log(answer);
-            return (<div className={Styles.ques_item}>
+            return (<div key={stemContent.topicNum} className={Styles.ques_item}>
                 <Answer
                     question={stemContent}
                     optionClick={(ans, index) => _this.changeAnswer(ans, index)}
-                    userAnswer={answer.join(",")}
+                    userAnswer={answer.join(";")}
                 />
             </div>)
         }
@@ -131,7 +157,7 @@ export default class TaskQuestion extends React.Component {
             isNull(questionContent) ? <div></div> : <div className={Styles.questionContainer}>
                 {questionContent.topics.map((element, idx) => renderQuestion(element, idx)
                 )}
-                <TaskStatistics />               
+                <TaskStatistics answerList={answerList} />               
                 <div className={Styles.btnContainer}>
                     <button className={Styles.savebtn} onClick={this.onSave}>保存</button>
                     <button className={Styles.submitbtn} onClick={this.onComplete}>提交</button>

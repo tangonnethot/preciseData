@@ -30,8 +30,13 @@ class AnswerResult extends React.Component {
 
 
     render() {
-        const { loading, questionModuleInfo, answerList } = this.props.task;
-        console.log(questionModuleInfo);
+        const { loading } = this.props.task;
+        if (!this.props.task.moduleContentList[this.state.taskid])
+            return (<Spin></Spin>);
+
+        const { questionModuleInfo } = this.props.task.moduleContentList[this.state.taskid];
+        const { answerList } = this.props.task.moduleContentList[this.state.taskid];
+
         const renderNumberItem = (item, index) => {
             return (!item.answerContent ? <div className={Styles.item_number} >{index + 1}</div> :
                 item.isRight ?
@@ -66,8 +71,8 @@ class AnswerResult extends React.Component {
                             }</div>
                         </div>
                     </div>
-                    <div style={{marginTop:"90px"}}>
-                    <TaskResult moduleID={this.state.taskid}></TaskResult>
+                    <div style={{ marginTop: "90px" }}>
+                        <TaskResult moduleID={this.state.taskid}></TaskResult>
                     </div>
                     {/* <TaskDescribe endtime={formatDate2(questionModuleInfo.taskEndTime)} describe={questionModuleInfo.taskRequire} /> */}
                     {/* <TaskQuestion taskType={"testing"} complete={this.refComplete}></TaskQuestion> */}

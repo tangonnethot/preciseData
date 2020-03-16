@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'dva';
-import {Result} from '../examin/student';
+import { Result } from '../examin/student';
 import Styles from './index.less';
-import { isNull} from '../../utils/utils';
+import {Spin} from "antd";
+import { isNull } from '../../utils/utils';
 import TaskStatistics from './taskStatistics';
 
-class TaskResult extends React.Component{
+class TaskResult extends React.Component {
     constructor(props) {
         super(props);
         if (this.props.taskType == "course")
@@ -22,11 +23,13 @@ class TaskResult extends React.Component{
         })
     }
 
-     render() {
-        const { questionContent } = this.props.task.questionModuleInfo;
-        const { answerList } = this.props.task;
+    render() {
+        if (!this.props.task.moduleContentList[this.props.moduleID])
+            return (<Spin />);
+        const { questionContent } = this.props.task.moduleContentList[this.props.moduleID].questionModuleInfo;
+        const { answerList } = this.props.task.moduleContentList[this.props.moduleID];
         let _this = this;
-        let answeridx =0;
+        let answeridx = 0;
         const renderQuestion = (questionItem, index) => {
             let stemContent;
             if (questionItem.hasOwnProperty("topic")) {
@@ -35,16 +38,16 @@ class TaskResult extends React.Component{
                 stemContent = questionItem;
             }
 
-            let answer=[];
-            let score =[];
+            let answer = [];
+            let score = [];
             let qtype = stemContent.type;
-            if(qtype!="1078"){
+            if (qtype != "1078") {
                 answer.push(answerList[answeridx].answerContent);
                 score.push(answerList[answeridx].answerScore);
                 answeridx++;
-            }else{
-                let childCount =stemContent.topics.length;
-                for(let j=0;j<childCount;j++){
+            } else {
+                let childCount = stemContent.topics.length;
+                for (let j = 0; j < childCount; j++) {
                     answer.push(answerList[answeridx].answerContent);
                     score.push(answerList[answeridx].answerScore);
                     answeridx++;
@@ -64,10 +67,10 @@ class TaskResult extends React.Component{
             isNull(questionContent) ? <div></div> : <div className={Styles.questionContainer}>
                 {questionContent.topics.map((element, idx) => renderQuestion(element, idx)
                 )}
-                {this.props.footer?<TaskStatistics />:<div/>}
+                {this.props.footer ? <TaskStatistics answerList={answerList} /> : <div />}
                 {/* <div className={Styles.ref_btn_container}><button onClick={this.onComplete} className={Styles.complete_btn}>完成学习</button></div>} */}
             </div>)
     }
 }
 
-export default connect((task)=>(task))(TaskResult);
+export default connect((task) => (task))(TaskResult);

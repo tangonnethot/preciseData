@@ -1,6 +1,6 @@
 import React from 'react'
 import Styles from './index.less'
-import {getFileExtName} from '../../utils/utils'
+import {getFileExtName,isNull} from '../../utils/utils'
 import {previewFile,playVideo,playAudio} from "../../utils/andriod"
 export default class Attachment extends React.Component {
     constructor(props) {
@@ -30,6 +30,7 @@ export default class Attachment extends React.Component {
 
     render() {
         let docs = this.props.docs;
+        if(isNull(docs)) return(<div/>);
         if(typeof this.props.docs == "string"){
             docs = JSON.parse(this.props.docs);
         }

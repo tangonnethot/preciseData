@@ -5,7 +5,7 @@ import { getPageQuery } from '../../../utils/utils'
 import { connect } from 'dva';
 import TopNav from '../../../components/nav';
 import { TaskDescribe, TaskRef, TaskQuestion, TaskResult } from "../../../components/task";
-import { formatDate2, isNull, getUserID } from '../../../utils/utils';
+import { formatDate2, isNull, getUserID, startTime } from '../../../utils/utils';
 import Styles from './course.less';
 import { submitTask, saveTask } from "../../../services/task"
 
@@ -54,6 +54,7 @@ export default class CourseDetails extends React.Component {
         this.setState({
             expandIndex: index
         })
+        startTime();
     }
 
     reduceCard = () => {
@@ -62,10 +63,10 @@ export default class CourseDetails extends React.Component {
         })
     }
 
-    answerComplete = (time, anserlist) => {
+    answerComplete = (id, time, anserlist) => {
         let _this = this;
         submitTask({
-            id: _this.props.task.questionModuleInfo.id,
+            id: id,
             moduleAnswerTime: time,
             taskStudentTopicList: anserlist
         }).then(function (res) {
@@ -80,10 +81,10 @@ export default class CourseDetails extends React.Component {
         })
     }
 
-    saveAnswer = (time, answerlist) => {
+    saveAnswer = (id, time, answerlist) => {
         let _this = this;
         saveTask({
-            id: _this.props.task.questionModuleInfo.id,
+            id: id,
             moduleAnswerTime: time,
             taskStudentTopicList: answerlist
         }).then(function (res) {
@@ -107,24 +108,24 @@ export default class CourseDetails extends React.Component {
                         extra={element.answerStatus == 0 ? <Button type="primary" onClick={this.expand.bind(this, idx)}>开始学习</Button> : <Button type="primary" onClick={this.expand.bind(this, idx)}>查看学习资料</Button>} />
                     <Card.Body>
                         <TaskRef isCourse={true} moduleID={element.id} complete={this.refComplete.bind(this)}></TaskRef>
-                        {element.answerStatus>0?<div className={Styles.btn_container}>
-                                <button className={Styles.complete_btn} onClick={this.reduceCard}>完成学习</button>
-                            </div>:<div/>}
+                        {element.answerStatus > 0 ? <div className={Styles.btn_container}>
+                            <button className={Styles.complete_btn} onClick={this.reduceCard}>完成学习</button>
+                        </div> : <div />}
                     </Card.Body>
                 </Card>
                 </div>
             }
             if (element.moduleType == 2) {
-                if (element.answerStatus == 0||element.answerStatus == 1) {
-                    return <div className={Styles.card_container} Style={idx == this.state.expandIndex ? "height:auto" : ""}><Card full="true">
+                if (element.answerStatus == 0 || element.answerStatus == 1) {
+                    return <div className={Styles.card_container} key={element.id} Style={idx == this.state.expandIndex ? "height:auto" : ""}><Card full="true">
                         <Card.Header title={element.moduleName}
                             extra={<Button type="primary" onClick={this.expand.bind(this, idx)}>开始做答</Button>} />
                         <Card.Body>
-                            <TaskQuestion taskType={"course"} moduleID={element.id} complete={this.answerComplete.bind(this)} saveAnswer={this.saveAnswer.bind(this)}></TaskQuestion>
+                            <TaskQuestion taskType={"course"} moduleID={element.id} complete={this.answerComplete.bind(this, element.id)} saveAnswer={this.saveAnswer.bind(this, element.id)}></TaskQuestion>
                         </Card.Body>
                     </Card></div>
                 } else {
-                    return <div className={Styles.card_container} Style={idx == this.state.expandIndex ? "height:auto" : ""}><Card full="true">
+                    return <div className={Styles.card_container} key={element.id} Style={idx == this.state.expandIndex ? "height:auto" : ""}><Card full="true">
                         <Card.Header title={element.moduleName}
                             extra={<Button type="primary" onClick={this.expand.bind(this, idx)}>查看做答结果</Button>} />
                         <Card.Body>

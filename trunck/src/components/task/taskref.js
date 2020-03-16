@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button } from 'antd'
+import { Empty } from 'antd'
 import { connect } from "dva"
 import { isNull, startTime, endTime } from '../../utils/utils'
 import Attachment from '../attachment'
@@ -46,7 +46,7 @@ export default class TaskRef extends React.Component {
     render() {
         const content = this.convertContent();
         return (
-            isNull(content) ? <div></div> : <div>
+            isNull(content) ? <Empty></Empty> : <div>
                 <Attachment video={content.vedio} docs={content.attachment}></Attachment>
                 <div dangerouslySetInnerHTML={{ __html: content.content }} className={Styles.ref_container}></div>
                 {this.props.task.refModuleInfo.answerStatus > 1 ? <div /> :

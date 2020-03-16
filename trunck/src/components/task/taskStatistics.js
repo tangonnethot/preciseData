@@ -9,8 +9,8 @@ class TaskStatistics extends React.Component{
     }
 
     render(){
-        const {answerList} = this.props.task;
-
+        const {answerList} = this.props;
+        
         const renderNumberItem=(item,index)=>{
             return(!item.answerContent?<div className={Styles.item_number} >{index+1}</div>:
             <div className={classnames(Styles.item_number,Styles.green)} >{index+1}</div>)
@@ -19,7 +19,7 @@ class TaskStatistics extends React.Component{
             <div className={Styles.statistics}>
             <div className={Styles.title}>答案统计</div>
             <div>{
-                answerList.map((element,idx)=>renderNumberItem(element,idx))
+                answerList&& answerList.map((element,idx)=>renderNumberItem(element,idx))
             }</div>
         </div>
         )

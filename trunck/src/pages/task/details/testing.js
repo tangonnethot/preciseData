@@ -32,7 +32,7 @@ export default class Testing extends React.Component{
     answerComplete = (time,anserlist) => {
         let _this =this;
         submitTask({
-            id:_this.props.task.questionModuleInfo.id,
+            id:_this.props.task.moduleContentList[_this.state.taskid].questionModuleInfo.id,
             moduleAnswerTime:time,
             taskStudentTopicList:anserlist
         }).then(function(res){
@@ -47,7 +47,7 @@ export default class Testing extends React.Component{
     saveAnswer =(time,answerlist)=>{
         let _this =this;
         saveTask({
-            id:_this.props.task.questionModuleInfo.id,
+            id:_this.props.task.moduleContentList[_this.state.taskid].questionModuleInfo.id,
             moduleAnswerTime:time,
             taskStudentTopicList:answerlist
         }).then(function(res){
@@ -59,18 +59,17 @@ export default class Testing extends React.Component{
         })
     }
 
-    // getQuestionInfo=()=>{
-    //     let  = JSON.parse(this.props.task.questionModuleInfo.moduleContent);
-    // }
-
     render(){
-        const { loading, questionModuleInfo } = this.props.task;
+        const {loading} = this.props.task;
+        if(!this.props.task.moduleContentList[this.state.taskid])
+            return(<Spin></Spin>)
+        const {questionModuleInfo} = this.props.task.moduleContentList[this.state.taskid];
 
         return (<Spin spinning={loading}>
             {isNull(questionModuleInfo) ? <div/> : <div>
                 <TopNav title={questionModuleInfo.moduleName} onLeftClick={this.back}></TopNav>
                 <TaskDescribe endtime={formatDate2(questionModuleInfo.taskEndTime)} describe={questionModuleInfo.taskRequire} question={questionModuleInfo.questionContent.testPaperTop}  />
-                <TaskQuestion taskType={"testing"} complete={this.answerComplete.bind(this)} saveAnswer={this.saveAnswer.bind(this)}></TaskQuestion>
+                <TaskQuestion moduleID={this.state.taskid} taskType={"testing"} complete={this.answerComplete.bind(this)} saveAnswer={this.saveAnswer.bind(this)}></TaskQuestion>
             </div>
             }
         </Spin>)

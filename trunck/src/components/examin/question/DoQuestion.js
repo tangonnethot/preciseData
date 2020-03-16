@@ -18,7 +18,7 @@ class DoQuestion extends React.Component {
   }
   componentDidMount=()=>{
     const { question , userAnswer } = this.props;
-    const userAnswerArr= userAnswer.length>0 ? userAnswer.split(","):["img/bd_logo1.png"];
+    const userAnswerArr= (userAnswer&&userAnswer.length)>0 ? userAnswer.split(","):["img/bd_logo1.png"];
     this.setState({
       loadArr:Object.assign({},this.state.loadArr,{[question.id]:false}),
       userAnswerObj:Object.assign({},this.state.userAnswerObj,{[question.id]:userAnswerArr}),
@@ -54,7 +54,7 @@ class DoQuestion extends React.Component {
   render(){
     const { question , userAnswer } = this.props;
     const ossHost = 'https://www.baidu.com';
-    const userAnswerArr= userAnswer.length>0 ? userAnswer.split(","):["img/bd_logo1.png"];
+    const userAnswerArr= (userAnswer&&userAnswer.length>0) ? userAnswer.split(","):["img/bd_logo1.png"];
     return (
       <Fragment>
         { this.props.question && <Spin spinning={this.state.loadArr[this.props.question.id]} tip="上传中……">
