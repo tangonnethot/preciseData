@@ -33,7 +33,7 @@ export default class Reference extends React.Component {
     refComplete = (time) => {
         let _this =this;
         submitTask({
-            id:_this.props.task.refModuleInfo.id,
+            id:_this.props.task.moduleContentList[_this.state.taskid].refModuleInfo.id,
             // id:"d92a468cd49d4e8ca86193a658047c10",
             moduleAnswerTime:time,
             taskStudentTopicList:[]
@@ -47,13 +47,18 @@ export default class Reference extends React.Component {
     }
 
     render() {
-        const { loading, refModuleInfo } = this.props.task;
-        console.log(refModuleInfo);
+        const { loading} = this.props.task;
+        if(!this.props.task.moduleContentList[this.state.taskid])
+            return(<Spin></Spin>);
+
+        const{refModuleInfo} = this.props.task.moduleContentList[this.state.taskid];
+
+        // console.log(refModuleInfo);
         return (<Spin spinning={loading}>
             {isNull(refModuleInfo) ? <div/> : <div>
                 <TopNav title={refModuleInfo.moduleName} onLeftClick={this.back}></TopNav>
                 <TaskDescribe endtime={formatDate2(refModuleInfo.taskEndTime)} describe={refModuleInfo.taskRequire} />
-                <TaskRef isCourse={false} complete={this.refComplete}></TaskRef>
+                <TaskRef isCourse={false} moduleID={this.state.taskid} complete={this.refComplete}></TaskRef>
             </div>
             }
         </Spin>)

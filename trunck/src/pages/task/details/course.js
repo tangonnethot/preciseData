@@ -31,19 +31,20 @@ export default class CourseDetails extends React.Component {
         })
     }
 
-    refComplete = (time) => {
+    refComplete = (id,time) => {
         let _this = this;
         submitTask({
-            id: _this.props.task.refModuleInfo.id,
+            id: id,
             // id:"d92a468cd49d4e8ca86193a658047c10",
             moduleAnswerTime: time,
             taskStudentTopicList: []
         }).then(function (res) {
             if (res.code == 200) {
                 Toast.success("提交成功", 2);
-                _this.setState({
-                    expandIndex: -1
-                })
+                window.location.reload();
+                // _this.setState({
+                //     expandIndex: -1
+                // })
             } else {
                 Toast.fail('提交失败，请稍后重试', 2);
             }
@@ -72,9 +73,11 @@ export default class CourseDetails extends React.Component {
         }).then(function (res) {
             if (res.code == 200) {
                 Toast.success("提交成功", 2);
-                _this.setState({
-                    expandIndex: -1
-                })
+                window.location.reload();
+
+                // _this.setState({
+                //     expandIndex: -1
+                // })
             } else {
                 Toast.fail('提交失败，请稍后重试', 2);
             }
@@ -107,7 +110,7 @@ export default class CourseDetails extends React.Component {
                     <Card.Header title={element.moduleName}
                         extra={element.answerStatus == 0 ? <Button type="primary" onClick={this.expand.bind(this, idx)}>开始学习</Button> : <Button type="primary" onClick={this.expand.bind(this, idx)}>查看学习资料</Button>} />
                     <Card.Body>
-                        <TaskRef isCourse={true} moduleID={element.id} complete={this.refComplete.bind(this)}></TaskRef>
+                        <TaskRef isCourse={true} moduleID={element.id} complete={this.refComplete.bind(this,element.id)}></TaskRef>
                         {element.answerStatus > 0 ? <div className={Styles.btn_container}>
                             <button className={Styles.complete_btn} onClick={this.reduceCard}>完成学习</button>
                         </div> : <div />}
