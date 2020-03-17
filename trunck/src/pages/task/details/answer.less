@@ -1,57 +1,83 @@
-.blue_container{
+.blue_container {
     background-color: @primary-color;
-    height: 600px;
-    margin: 0 auto;
-    text-align: center;
-    color:@white-color;
-    font-size:@content-big-font-size;
-    .time_container{
-        margin:0 auto;
-        margin-top:20px;
-        background-color:#2f89fe;
-        border-radius:10px;
-        height: 32px;
-        width: 420px;
-        color: @topic-title-bg;
-    }
-    
-}
-.paddingLeft10{
-    padding-left:10px;
+    height          : 600px;
+    position        : absolute;
+    top             : 88px;
+    left            : 0;
+    width           : 100%;
+    z-index         : -1;
 }
 
-.paddingLeft20{
-    padding-left:20px;
+.container {
+    margin    : 0 auto;
+    text-align: center;
+    color     : @white-color;
+    font-size : @content-big-font-size;
+
+    .number {
+        height: 45px;
+    }
+
+    .time_container {
+        margin          : 0 auto;
+        margin-top      : 15px;
+        background-color: @ztree-act-bg; 
+        border-radius   : 15px;
+        height          : 32px;
+        width           : 420px;
+        color           : @primary-color;
+    }
 }
-.statistics{
-    margin: 0 auto;
-    margin-top:28px;
-    border-top:  #0978d3 solid 10px;
-    border-radius: 8px;
-    width:80%;
-    background-color: @white-color;
-    padding:20px;
-    text-align: left;
-    color: @text-font-color;
-    .item_number{
-        border:1px solid;
-        border-radius: 30px;
-        width:50px;
-        height: 50px;
-        text-align: center;
+
+.paddingLeft10 {
+    padding-left: 10px;
+}
+
+.paddingLeft20 {
+    padding-left: 20px;
+}
+
+.border {
+    height          : 10px;
+    width           : 80%;
+    margin          : 0 auto;
+    border-radius   : 15px;
+    background-color: @bg-style;
+    margin          : 28px auto 0 auto;
+}
+
+.statistics {
+    margin                    : -3px auto 0 auto;
+    border-bottom-left-radius : 10px;
+    border-bottom-right-radius: 10px;
+    width                     : 78%;
+    background-color          : @white-color;
+    padding                   : 20px;
+    text-align                : left;
+    color                     : @text-font-color;
+    box-shadow                : 0px 4px 8px rgba(0, 0, 0, 0.3);
+
+    .item_number {
+        border        : 1px solid;
+        border-radius : 30px;
+        width         : 50px;
+        height        : 50px;
+        text-align    : center;
         vertical-align: middle;
-        line-height: 50px;
-        font-size: 20px;
-        font-weight: bold;
-        display: inline-block;
-        margin:18px 0px 38px 26px;
+        line-height   : 50px;
+        font-size     : 20px;
+        font-weight   : bold;
+        display       : inline-block;
+        margin        : 18px 0px 38px 26px;
     }
-    .green{
+
+    .green {
         background-color: @green-btn;
-        color: @white-color;
+        color           : @white-color;
     }
-    .red{
+
+    .red {
         background-color: @error-color;
-        color: @white-color;
+        color           : @white-color;
     }
 }
