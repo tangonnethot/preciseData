@@ -15,10 +15,11 @@ export const playAudio = (url,name,isSeek)=>{
 }
 /**
  * 视频播放
- * @param {string} url 视频播放地址
+ * @param {string} name 视频名称
+ * @param {string} id 视频OSS id
  */
-export const playVideo=(url)=>{
-    PlayerHelper.startVideo(url);
+export const playVideo=(name,id)=>{
+    PlayerHelper.startVideo(name,id);
 }
 
 /**
