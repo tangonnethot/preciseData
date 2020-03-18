@@ -70,7 +70,6 @@ function checkStatus(response) {
   error.response = response;
   throw error;
 }
-
  
 
 /**
@@ -124,7 +123,7 @@ export const post = (url, data, isJsonString) => {
         "X-Requested-With": "XMLHttpRequest",
         Accept: "application/json, text/javascript, */*; q=0.01",
         'content-type': 'application/json',
-        'X-XSRF-TOKEN':cookie.get('XSRF-TOKEN')
+        'X-XSRF-TOKEN':"8cdb3d57-22f2-4b2f-a371-9adb8e4591ff"
       },
       body: JSON.stringify(data)  
     });
