@@ -65,7 +65,6 @@ export default class TaskQuestion extends React.Component {
                 let arrContent = element.answerContent.split(",").join("").split("");
 
                 let newarrContent =arrContent.map(element=>{
-                    debugger
                     if("A"<=element&&element<="Z")
                          return String.fromCharCode(element.charCodeAt()-16);
                     if("a"<=element&&element<="z"){
@@ -143,7 +142,6 @@ export default class TaskQuestion extends React.Component {
                 }
                 
             }
-            console.log(answer);
             return (<div key={stemContent.topicNum} className={Styles.ques_item}>
                 <Answer
                     question={stemContent}

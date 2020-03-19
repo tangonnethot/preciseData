@@ -32,17 +32,18 @@ export const goHome=()=>{
 /**
  * 拍照上传?此处是否应该有上传成功的回调？？？
  */
-export const takeCamera=()=>{
-    window.ASPrecise && ASPrecise.takeCamera();
+export const takeCamera=(qid)=>{
+
+    window.ASPrecise && ASPrecise.takeCamera(qid);
 }
 
 /**
  * 文件上传
  * @param {string} fileName 文件名称
  */
-export const upload=(fileName)=>{
+export const upload=(qid,fileName)=>{
     let aliUrl="";
-    ASPrecise.uploadAccessory(aliUrl,fileName);
+    ASPrecise.uploadAccessory(qid,aliUrl,fileName);
 }
 
 /**
@@ -52,3 +53,18 @@ export const upload=(fileName)=>{
 export const previewFile=(url)=>{
     fileReview.reviewFile(url) 
 }
+
+
+// let _arrLoading={};
+
+window._arrCB={};
+export const registerCB=(id,cb)=>{
+    window._arrCB[id]=cb;
+};
+window.receiveAndroidUrl=(flag,id,url)=>{
+    if(!window._arrCB.hasOwnProperty(id)) return;
+    if(typeof window._arrCB[id] == "function"){
+        window._arrCB[id](flag,id,url);            
+    }
+    delete window._arrCB[id];
+};

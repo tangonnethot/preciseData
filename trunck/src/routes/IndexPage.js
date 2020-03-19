@@ -1,12 +1,21 @@
 import React from 'react';
 import { connect } from 'dva';
-import {Link } from 'dva/router'
+import { List } from 'antd-mobile';
+import { Link } from 'dva/router'
 function IndexPage() {
   return (
     <div>
-      <div><Link to="/task">任务</Link></div>
-      <div><Link to="/learningsituation">学情</Link></div>
-      <div><Link to="/errorbook">错题本</Link></div>
+      <List>
+        <List.Item>
+          <Link to="/task"><div>任务</div></Link>
+        </List.Item>
+        <List.Item>
+          <Link to="/learningsituation"><div>学情</div></Link>
+        </List.Item>
+        <List.Item>
+          <Link to="/errorbook"><div>错题本</div></Link>
+        </List.Item>
+      </List>
     </div>
   );
 }

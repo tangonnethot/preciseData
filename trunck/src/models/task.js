@@ -11,7 +11,7 @@ export default {
         taskList: [],
         taskname: "",
         taskModuleInfo: {},
-        refModuleInfo: {},
+        // refModuleInfo: {},
         // questionModuleInfo:{
         //     questionContent:{}
         // },
@@ -51,8 +51,9 @@ export default {
         *getRefModuleInfo({ payload }, { call, put }) {
             const coureseinfo = yield getCourseModuleInfo(payload);
             yield put({
-                type: "save",
+                type: "saveModuleInfo",
                 payload: {
+                    id:coureseinfo.data.id,
                     refModuleInfo: coureseinfo.data
                 }
             })
@@ -74,9 +75,15 @@ export default {
         *getRefTaskDetail({ payload }, { call, put }) {
             const taskinfo = yield getTaskDetails(payload);
             yield put({
-                type: "save",
+                type: "saveModuleInfo",
                 payload: {
-                    refModuleInfo: taskinfo.data,
+                    id:taskinfo.data.taskStudentId,
+                    refModuleInfo: taskinfo.data         
+                }
+            });
+            yield put({
+                type:"save",
+                payload:{
                     loading: false
                 }
             })

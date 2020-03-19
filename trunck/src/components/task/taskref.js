@@ -1,5 +1,5 @@
 import React from 'react'
-import { Empty } from 'antd'
+import { Empty,Spin } from 'antd'
 import { connect } from "dva"
 import { isNull, startTime, endTime } from '../../utils/utils'
 import Attachment from '../attachment'
@@ -25,8 +25,12 @@ export default class TaskRef extends React.Component {
     }
 
     convertContent = () => {
-        if (isNull(this.props.task.refModuleInfo) || isNull(this.props.task.refModuleInfo.moduleContent)) return null;
-        let content = JSON.parse(this.props.task.refModuleInfo.moduleContent);
+        if (isNull(this.props.task.moduleContentList[this.props.moduleID])||
+            isNull(this.props.task.moduleContentList[this.props.moduleID].refModuleInfo) ||
+            isNull(this.props.task.moduleContentList[this.props.moduleID].refModuleInfo.moduleContent)) 
+            return null;
+
+        let content = JSON.parse(this.props.task.moduleContentList[this.props.moduleID].refModuleInfo.moduleContent);
         let ref = {};
         if (this.props.isCourse) {
             ref.video = content.courseModule.knowledge.knowledgeVedio;
@@ -45,11 +49,15 @@ export default class TaskRef extends React.Component {
 
     render() {
         const content = this.convertContent();
+        if(!this.props.task.moduleContentList[this.props.moduleID])
+            return(<Spin/>);
+
+        const {refModuleInfo} = this.props.task.moduleContentList[this.props.moduleID];
         return (
             isNull(content) ? <Empty></Empty> : <div>
                 <Attachment video={content.vedio} docs={content.attachment}></Attachment>
                 <div dangerouslySetInnerHTML={{ __html: content.content }} className={Styles.ref_container}></div>
-                {this.props.task.refModuleInfo.answerStatus > 1 ? <div /> :
+                {refModuleInfo.answerStatus > 1 ? <div /> :
                     <div className={Styles.ref_btn_container}><button onClick={this.onComplete} className={Styles.complete_btn}>完成学习</button></div>}
             </div>
         )
