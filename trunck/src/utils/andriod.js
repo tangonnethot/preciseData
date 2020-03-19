@@ -60,10 +60,12 @@ window._arrCB={};
 export const registerCB=(id,cb)=>{
     window._arrCB[id]=cb;
 };
-window.receiveAndroidUrl=(flag,id,url)=>{
+window.receiveAndroidUrl=(flag,filename,path,id)=>{
+    alert(filename);
+    alert(path);
     if(!window._arrCB.hasOwnProperty(id)) return;
     if(typeof window._arrCB[id] == "function"){
-        window._arrCB[id](flag,id,url);            
+        window._arrCB[id](flag,id,path);            
     }
     delete window._arrCB[id];
 };

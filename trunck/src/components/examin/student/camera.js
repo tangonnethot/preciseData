@@ -21,7 +21,7 @@ class Camera extends React.Component{
       }
 
     takeCamera=()=>{
-        takeCamera();
+        takeCamera(this.props.questionid);
         registerCB(this.props.questionid,this.receiveAndroidUrl.bind(this));
         this.props.takeCamera();
       }
