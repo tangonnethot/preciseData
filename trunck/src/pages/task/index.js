@@ -18,7 +18,7 @@ function MyBody(props) {
 };
 
 const NUM_SECTIONS = 1;
-const NUM_ROWS_PER_SECTION = 5;
+const NUM_ROWS_PER_SECTION = 15;
 let pageIndex = 0;
 
 const dataBlobs = {};
@@ -185,12 +185,12 @@ export default class taskInfo extends React.Component {
 
     render() {
         const { taskList } = this.props.task;
-        let index = taskList.length - 1;
+        let index =0;
         const row = (rowData, sectionID, rowID) => {
-            if (index < 0) {
+            if (index > taskList.length-1) {
                 return (<div/>)
             }
-            const obj = taskList[index--];
+            const obj = taskList[index++];
             if (isNull(obj)) return (<div></div>);
             let formatEndTime = formatDate2(obj.taskEndTime);
             

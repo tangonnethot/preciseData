@@ -53,7 +53,6 @@ export default class TaskRef extends React.Component {
             return(<Spin/>);
 
         const {refModuleInfo} = this.props.task.moduleContentList[this.props.moduleID];
-        debugger
         return (
             isNull(content) ? <Empty></Empty> : <div>
                 <Attachment video={content.vedio} docs={content.attachment}></Attachment>
