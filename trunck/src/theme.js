@@ -1,10 +1,11 @@
 //蓝色
 const blue1 = '#f2f6ff';
-const blue2 = '#b4dbff';
+const blue2 = '#bae0ff';
 const blue4 = '#6b9aff';
 const blue5 = '#2f89fe';
 const blue6 = "#1767ec";
 const blue7 = '#087fed';
+const blue8 = '#0979d4';
 //黄色
 const yellow6 = "#fffdf3";
 const yellow5 = '#ffc937';
@@ -54,7 +55,7 @@ module.exports = {
   '@iconfontUrl': '',
   '@version': 'V1.0.007(64c4349936)',
   //全局主色
-  '@primary-color': blue6,
+  '@primary-color': blue5,
   //字体
   '@font-family': fontFamily,
   //导航高度
@@ -65,6 +66,8 @@ module.exports = {
   '@complete-btn': orange5,
   //按钮  取消  上一步  下一步
   '@cancel-btn': blue7,
+  //背景点缀色
+  '@bg-style': blue8, 
   //按钮  绿色
   '@green-btn': green5,
   // 错误色

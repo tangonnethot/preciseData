@@ -1,87 +1,124 @@
-.taskContainer{
-    :global{
-        .am-list-body{
-            background-color: @body-bg;
-            border: none;
-        }
-    }
+.taskContainer {
+	:global {
+		.am-list-body {
+			background-color: @body-bg;
+			border          : none;
+		}
+	}
 }
 
 .segment {
-    margin: 24px 60px;
+	margin: 24px 60px;
 
-    :global {
-        .am-segment {
-            height   : 50px;
-            font-size: 24px;
-        }
+	:global {
+		.am-segment {
+			height   : 50px;
+			font-size: 24px;
+		}
 
-        .am-segment-item {
-            font-size: 24px;
-        }
-    }
+		.am-segment-item {
+			font-size: 24px;
+		}
+	}
 }
 
 .selTab {
-    border: solid 1px @primary-color;
+	border: solid 1px @primary-color;
 
-    .selected {
-        color           : @white-color;
-        background-color: @primary-color;
-    }
+	.selected {
+		color           : @white-color;
+		background-color: @primary-color;
+	}
 
-    color: @primary-color;
+	color: @primary-color;
 }
 
 .lv_item {
-    :global {
-        .list-view-section-body {
-            background-color: #f0f0f0;
+	:global {
+		.list-view-section-body {
+			background-color: #f0f0f0;
 
-        }
-    }
+		}
+	}
 }
 
 .task_item {
-    margin          : 15px 0px;
-    padding         : 18px;
-    background-color: @white-color;
+	margin          : 15px 0px;
+	padding         : 18px;
+	background-color: @white-color;
 
-    .title {
-        line-height: 50px;
-        color      : @text-font-color;
-        font-size  : @list-big-font-size;
-        padding    : 19px;
-    }
+	.title {
+		line-height: 50px;
+		color      : @text-font-color;
+		font-size  : @list-big-font-size;
+		padding    : 19px;
+	}
 
-    .endTime {
-        float    : right;
-        padding  : 20px 38px;
-        font-size: @list-small-font-size;
-        color    : @text-font-color-secondary;
-    }
+	.markingPeople {
+		line-height: 50px;
+		color      : @primary-color;
+		font-size  : @list-font-size;
+		padding    : 19px;
+	}
 
-    .startTime {
-        padding-left: 20px;
-        font-size   : @list-small-font-size;
-        color       : @text-font-color-secondary;
-    }
+	.endTime {
+		float    : right;
+		padding  : 20px 38px;
+		font-size: @list-small-font-size;
+		color    : @text-font-color-secondary;
+	}
 
-    .label {
-        padding         : 4px 8px;
-        margin-left     : 12px;
-        background-color: @white-color;
-        border-radius   : 5px;
-        font-size       : @content-font-size;
-    }
+	.marking {
+		float    : right;
+		padding  : 27px 38px;
+		font-size: @list-small-font-size;
+		color    : @text-font-color-secondary; 
+		span {
+			float: left;
+			color: @complete-btn;
+		}
+	}
 
-    .review_label {
-        border: solid 1px @green-btn;
-        color : @green-btn;
-    }
+	.markingDefault {
+		float    : right;
+		padding  : 27px 38px;
+		font-size: @list-small-font-size; 
+		span {
+			float: left; 
+		}
+	}
 
-    .task_label{
-        border: solid 1px @primary-color;
-        color : @primary-color;
-    }
+	.startTime {
+		padding-left: 20px;
+		font-size   : @list-small-font-size;
+		color       : @text-font-color-secondary;
+	}
+
+	.label {
+		padding         : 4px 8px;
+		margin-left     : 12px;
+		background-color: @white-color;
+		border-radius   : 5px;
+		font-size       : @content-font-size;
+	}
+
+	.review_label {
+		border: solid 1px @green-btn;
+		color : @green-btn;
+	}
+
+	.task_label {
+		border: solid 1px @primary-color;
+		color : @primary-color;
+	}
+}
+
+.taskmarkingContainer {
+	.tasklist {
+		.tasklistli {
+			background-color: #fff;
+			width           : 100%;
+		}
+	}
+
 }
