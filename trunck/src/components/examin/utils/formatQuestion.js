@@ -94,7 +94,8 @@ const  formatQuestion2 = ( question ) => {
     "topicNo":question.topicNo,
     "degree":question.degree,
     "videoAddress":question.videoAnalysis,
-    "isChoice":question.type==1076||question.type==1077
+    "isChoice":question.type==1076||question.type==1077,
+    "analysis":question.analysis
   };
   return questionInfo;
 }
