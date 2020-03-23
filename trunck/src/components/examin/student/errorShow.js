@@ -35,13 +35,9 @@ class ErrorShow extends React.PureComponent{
             { question.qtype === 1078 && <Complex question={question} >
               { 
                 question.topics && question.topics.length>0 && question.topics.map( (child,index) => {
-                  let arrAnswer = this.props.userAnswer.split(";");
-                  let arrScore = this.props.userScore.split(";");
                   const childProps = Object.assign({},this.props,{
                     question:child,
-                    questionIndex:child.topicNo,
-                    userAnswer:arrAnswer[index],
-                    userScore:arrScore[index]
+                    questionIndex:child.topicNo
                   })
                   return <Fragment key={child.id}>
                     {
@@ -71,7 +67,6 @@ ErrorShow.propTypes={
     topicNo:PropTypes.isRequired,
     topicGroup:PropTypes.string
   }),
-  userAnswer:PropTypes.string,
-  userScore:PropTypes.string
+  answerScoreList:PropTypes.array.isRequired
 }
 export default ErrorShow;

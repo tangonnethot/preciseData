@@ -1,3 +1,20 @@
+.answerPic{
+  height: 80px;
+  width: 80px;
+  margin: 4px;
+  float: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  img{
+    max-width: 80px;
+    max-height: 80px;
+  }
+}
+.answerPics{
+  overflow: hidden;
+}
 .answer{
   font-size: @content-font-size;
   background-color: #f1f1f1;
@@ -13,58 +30,15 @@
     color: #fc4260;
     margin-bottom: 8px;
   }
-  .answerPics{
-    overflow: hidden;
-    .answerPic{
-      height: 80px;
-      width: 80px;
-      float: left;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-      img{
-        max-width: 80px;
-        max-height: 80px;
-      }
-    }
-  }
 }
 .revisedAnswer{
-  font-size: @content-font-size;
-  .answerPic{
-    height: 100px;
-    width: 100px;
-    float: left;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    img{
-      max-width: 80px;
-      max-height: 80px;
-    }
-    :global{
-      .am-icon-cross-circle-o{
-        
-      }
-    }
+  .title{
+    color: @text-font-color;
   }
-  .photoBtn{
-    display: inline-block;
-    font-size: @content-small-font-size;
-    i{
-      background-image: url(../../assets/photoBtn.png);
-      background-repeat: no-repeat;
-      background-position: center center;
-      background-size: 45px*0.8 38px*0.8;
-      width: 80px;
-      height: 80px;
-      border:1px #e4e4e4 dashed;
-      display: block;
-    }
-    span{
-
-    }
+  font-size: @content-font-size;
+}
+.errorAnswer{
+  .title{
+    font-weight: bold;
   }
 }

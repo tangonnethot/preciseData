@@ -10,7 +10,6 @@ class Camera extends React.Component{
     }
     
     receiveAndroidUrl(flag,id,url){
-        debugger
         if( flag ){
           message.success("上传成功");
           this.props.success(url); 
@@ -21,17 +20,18 @@ class Camera extends React.Component{
       }
 
     takeCamera=()=>{
-        takeCamera();
+        takeCamera(this.props.questionid);
         registerCB(this.props.questionid,this.receiveAndroidUrl.bind(this));
         this.props.takeCamera();
       }
 
     render(){
+        const btnText = this.props.btnText || '拍照上传答案';
         return(<div onClick={this.takeCamera} className={Styles.photoBtn}>
             <i></i>
-            <span>拍照上传答案</span>
+            <span>{btnText}</span>
           </div>)
     }
 }
 
-export default connect(({task})=>{task})(Camera)
+export default connect(({task})=>({task}))(Camera)

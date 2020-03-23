@@ -36,11 +36,13 @@ class Result extends React.PureComponent{
               { 
                 question.topics && question.topics.length>0 && question.topics.map( (child,index) => {
                   let arrAnswer = this.props.userAnswer.split(";");
+                  let arrRAnswer = this.props.revisedAnswer.split(";");
                   let arrScore = this.props.userScore.split(";");
                   const childProps = Object.assign({},this.props,{
                     question:child,
                     questionIndex:child.topicNo,
                     userAnswer:arrAnswer[index],
+                    rAnswer:arrRAnswer[index],
                     userScore:arrScore[index]
                   })
                   return <Fragment key={child.id}>

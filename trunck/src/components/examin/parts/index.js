@@ -7,11 +7,14 @@ import {
 } from './options';
 import {
   ResultAnswer,
+  DoAnswer,
   RevisedAnswer,
-  UserAnswer
+  UserAnswer,
+  ErrorAnswer
 } from './answer';
 import {
-  VideoAnalysis
+  VideoAnalysis,
+  ErrorAnalysis
 } from './analysis';
 import AnswerAnalysis from './answerAnalysis';
 export {
@@ -21,8 +24,11 @@ export {
   ChoiceOptionsDo,
   MultiChoiceOptionsDo,
   ResultAnswer ,
+  DoAnswer,
   UserAnswer,
+  ErrorAnswer,
   RevisedAnswer,
   VideoAnalysis ,
+  ErrorAnalysis,
   AnswerAnalysis
 }
