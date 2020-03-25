@@ -81,3 +81,33 @@ export const correctTask = (params = {}) => {
         res => { return res; }
     );
 }
+
+/** 批阅/被阅任务列表
+ * @param type 消息类型 0:待阅任务列表 2:被阅任务列表
+*/
+export const markingTaskList = (params = {}) => {
+    return get(pathJoin(prefix, taskPrefix, 'task/student/getNoticeList/v1.0'), { ...params },true).then(
+        res => { return res; }
+    );
+}
+
+
+/** 批阅单个学生/成绩详情页面
+ * @param studentModuleId  
+ * @param type  
+*/
+export const getMarkingTopic = (params = {}) => {
+    return get(pathJoin(prefix, taskPrefix, 'task/class/getStudentAnswerDetails/v1.0'), { ...params },true).then(
+        res => { return res; }
+    );
+}
+
+/**
+ * 批阅任务
+ * @param {*} params 
+ */
+export const manualExaminesTopic = ( params = {} ) => {
+    return post(pathJoin(prefix,taskPrefix, "task/teacher/manualExaminesTopic/v1.0"), {
+      ...params
+    },true);
+  };

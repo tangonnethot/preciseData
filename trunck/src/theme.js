@@ -9,7 +9,8 @@ const blue8 = '#0979d4';
 //黄色
 const yellow6 = "#fffdf3";
 const yellow5 = '#ffc937';
-
+//紫色
+const violet3 = '#a663de';
 //橙色
 const orange5 = '#ffa632';
 //红色
@@ -147,6 +148,8 @@ module.exports = {
   '@error-answer-color': red4,
   //ztree选中
   '@ztree-act-bg': blue2,
+  //互阅按钮色号
+  '@task-marking': violet3,
   // 圆角
   '@radi-font-color': grey8,
   //知识点背景/设置分值背景|| 

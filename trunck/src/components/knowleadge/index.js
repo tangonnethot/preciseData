@@ -5,7 +5,7 @@ import Styles from './index.less';
 import { connect } from 'dva';
 import { isNull } from '../../utils/utils';
 // import ReactEchartsCore from 'echarts-for-react/lib/core';
-import echarts from 'echarts/lib/echarts';
+//import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/chart/tree';
 import { util } from 'echarts/lib/export';
 // import 'echarts/lib/chart/lines';
@@ -36,7 +36,7 @@ class Knowleadge extends Component {
       return '#31cebc';
     }
 
-    if (item.classTopicTotalScore == 0) {
+    if (item.classTopicTotalScore === 0) {
       return '#333';
     }
   }
@@ -91,7 +91,7 @@ class Knowleadge extends Component {
     this.linkes = [];
     if (this.props.learningSituation && this.props.learningSituation.knowleadge) {
       this.props.learningSituation.knowleadge.forEach((item, index) => {
-        if (item.id == idx) {
+        if (item.id === idx) {
           return this.convertItem(null, item);
         }
       })
@@ -128,7 +128,7 @@ class Knowleadge extends Component {
   getKnowleadgeById = (knowleadgeId) => {
     // var knowleadgeId = this.state.tabAtlas;
     for (var index = 0; index < this.nodes.length; index++) {
-      if (this.nodes[index].id == knowleadgeId) {
+      if (this.nodes[index].id === knowleadgeId) {
         return this.nodes[index];
       }
     }
