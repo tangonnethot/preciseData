@@ -1,5 +1,5 @@
 import React , { Fragment } from 'react';
-import { Stem , MultiChoiceOptions , ErrorAnswer , ErrorAnalysis } from '../parts';
+import { Stem , MultiChoiceOptions , ErrorAnswer , ErrorAnalysis , VideoAnalysis , HistoryAnswer } from '../parts';
 import Style from './index.less';
 
 const ErrorMultiChoice = props => {
@@ -12,6 +12,8 @@ const ErrorMultiChoice = props => {
           { question.options && <MultiChoiceOptions {...props } /> }
           { question.options && <ErrorAnswer {...props} /> }
           { question.analysis && <ErrorAnalysis {...props} /> }
+          { question.videoAddress && <VideoAnalysis {...props} /> }
+          <HistoryAnswer {...props} />
         </Fragment>
       }
     </div>
