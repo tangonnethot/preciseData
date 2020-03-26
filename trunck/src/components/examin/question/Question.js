@@ -35,11 +35,13 @@ class Question extends React.Component {
             <div className={Style.question}>
               { question.stem && <Stem text={question.stem} /> }
               { userAnswer && <UserAnswer {...this.props} /> }
-              <RevisedAnswer {...this.props} 
+              {
+                this.props.revisedAnswer && <RevisedAnswer {...this.props} 
                   takeCamera={this.takeCamera}
                   receiveFailure={this.receiveFailure}
                   receiveSuccess={this.receiveSuccess}
                   />
+              }
               { question.options && <ResultAnswer {...this.props} /> }
               { question.videoAddress && <VideoAnalysis {...this.props} /> }
             </div>
