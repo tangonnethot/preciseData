@@ -10,7 +10,8 @@ import {
   DoAnswer,
   RevisedAnswer,
   UserAnswer,
-  ErrorAnswer
+  ErrorAnswer,
+  HistoryAnswer
 } from './answer';
 import {
   VideoAnalysis,
@@ -27,6 +28,7 @@ export {
   DoAnswer,
   UserAnswer,
   ErrorAnswer,
+  HistoryAnswer,
   RevisedAnswer,
   VideoAnalysis ,
   ErrorAnalysis,
