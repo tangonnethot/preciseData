@@ -78,6 +78,9 @@ Result.propTypes={
     topicGroup:PropTypes.string
   }),
   userAnswer:PropTypes.string,
-  userScore:PropTypes.string
+  userScore:PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ])
 }
 export default Result;
