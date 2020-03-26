@@ -36,15 +36,19 @@ class Result extends React.PureComponent{
               { 
                 question.topics && question.topics.length>0 && question.topics.map( (child,index) => {
                   let arrAnswer = this.props.userAnswer.split(";");
-                  let arrRAnswer = this.props.revisedAnswer.split(";");
                   let arrScore = this.props.userScore.split(";");
-                  const childProps = Object.assign({},this.props,{
+                  let childProps = Object.assign({},this.props,{
                     question:child,
                     questionIndex:child.topicNo,
                     userAnswer:arrAnswer[index],
-                    rAnswer:arrRAnswer[index],
                     userScore:arrScore[index]
-                  })
+                  });
+                  if( this.props.revisedAnswer ){
+                    let arrRAnswer = this.props.revisedAnswer.split(";");
+                    childProps={...childProps,
+                      rAnswer:arrRAnswer[index],
+                    }
+                  }
                   return <Fragment key={child.id}>
                     {
                       child.qtype == 1076 && <ResultHeaderChoice {...childProps} />
