@@ -1,3 +1,3 @@
-import AccordionTable from './AccordionTable'
+import AccordionTree from './AccordionTree'
 
-export{AccordionTable};
+export{AccordionTree};
