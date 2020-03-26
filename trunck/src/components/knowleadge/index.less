@@ -1,66 +1,69 @@
-@import '~antd/es/style/themes/default.less';
+.container {
+  background-color: @white-color;
+  margin-top      : 20px;
+  padding-top     : 20px;
+}
 
-.atlasWrap{ 
-    .atlasWraph3{
-      font-size: @modular-font-size;
-      color: @text-font-color;
-      font-weight: bold;
-    }
-    .atlasWraph4{ 
-      font-size: @tab-font-size;
-      color: @text-font-color;
-      font-weight: bold;
-      span{
-        color: @tip-color;
-      }
-    }
-    .atlasWraph5{
-      font-size: @classify-font-size;
-      color: @text-font-color-secondary;
-      margin-top: 40px;
-    } 
-    .atlasWraph6{ 
-      font-size: @classify-font-size;
-      color: @text-font-color-secondary;
-      margin-left: 30px;
-    }
-    .atlasWrapul{
-      li{  
-        list-style: disc;
-        margin-left: 30px;
-        font-size: @classify-font-size;
-        color: @text-font-color-secondary;
-      }
-    }
+// .atlasWrap{ 
+//     .atlasWraph3{
+//       font-size  : @modular-font-size;
+//       color      : @text-font-color;
+//       font-weight: bold;
+//     }
+//     .atlasWraph4{ 
+//       font-size  : @tab-font-size;
+//       color      : @text-font-color;
+//       font-weight: bold;
+//       span{
+//         color: @tip-color;
+//       }
+//     }
+//     .atlasWraph5{
+//       font-size : @classify-font-size;
+//       color     : @text-font-color-secondary;
+//       margin-top: 40px;
+//     } 
+//     .atlasWraph6{ 
+//       font-size  : @classify-font-size;
+//       color      : @text-font-color-secondary;
+//       margin-left: 30px;
+//     }
+//     .atlasWrapul{
+//       li{  
+//         list-style : disc;
+//         margin-left: 30px;
+//         font-size  : @classify-font-size;
+//         color      : @text-font-color-secondary;
+//       }
+//     }
+//   }
+
+.subjectTabAtlas {
+  display      : flex;
+  margin-bottom: 10px;
+  padding-left : 20px;
+  font-size    : @task-modular-font-size;
+  border-left  : 3px solid @primary-color;
+
+  li {
+    padding         : 0px;
+    list-style-type : none;
+    background-color: @white-color;
+    color           : @text-font-color-secondary;
+    letter-spacing  : 1px;
+    font-size       : @classify-font-size;
+    margin-right    : 30px;
   }
 
-  .subjectTabAtlas{
-    display: flex;   
-    margin-top: 23px;
-    margin-bottom: 20px;
-    li{
-      width: 94px;
-      height: 31px;
-      background-color: @white-color;
-      border: 1px @border-color solid;
-      color: @text-font-color-secondary;
-      letter-spacing: 1px;
-      line-height: 31px;
-      text-align: center;
-      font-size: @classify-font-size;
-      border-radius: @radius-base;
-      margin-right: 16px;
-      cursor: pointer;
-    }
-    .act{
-      background-color: @topic-title-bg;
-      color: @primary-color; 
-      border: 1px @primary-color solid;
-    }
+  .act {
+    color         : @primary-color;
+    padding-bottom: 8px;
+    border-bottom : 2px @primary-color solid;
   }
+}
 
-  .KnowLeadgeWrap{
-    border: 1px @border-color solid;
-    border-radius: @radius-base; 
-    box-shadow: 2px 2px 10px @border-color;
-  }
+.KnowLeadgeWrap {
+  // border       : 1px @border-color solid;
+  // border-radius: @radius-base; 
+  // box-shadow   : 2px 2px 10px @border-color;
+}

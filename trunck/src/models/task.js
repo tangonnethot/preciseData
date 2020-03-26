@@ -4,7 +4,6 @@ import {
     getCourseModuleInfo,
     getTaskDetails
 } from '../services/task';
-// import { Select } from 'antd';
 export default {
     namespace: "task",
     state: {

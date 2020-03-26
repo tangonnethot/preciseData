@@ -1,11 +1,9 @@
-// import {
-//   getGradeClassOverview,
-//   getSubjectKnowledgeAtlasStatistics,
-//   getInClassAtlasKnowledgeRate,
-//   getInClassKnowledgeStudentRates,
-//   getSubjectClassRateOverview
-// } from '@/services/learningSituation';
-
+import {
+  getStudentOverView,
+  getKnowleadgeDetails,
+  getStudentComprehensive,
+  getStudentKnowleageMap
+} from '../services/learningSituation';
 
 export default {
   namespace: 'learningSituation',
@@ -541,14 +539,19 @@ export default {
       "b09651b7f0a7442098fbd52b498ae66a": 0.736268,
       "parentId": "455acc9e31bf11ea8bef000c29aefb8e"
     }],
-    selKnowleadge: {
-      "knowledgeId": "28afd24931c711ea8bef000c29aefb8e",
-      "gradeScoreRate": 0.736268,
-      "avgTopNum": 50.0000,
-      "name": "语文思维方法",
+
+    overViewData: {},
+    subjectRate: {},
+    // comprehensive:{},
+    totalStatistics:[],
+    totalOverView:{
+      topicCount:0,
+      taskCount:0,
+      userTime:0
     },
-    classStatistics: [],
-    studentStatistics: []
+    // subjectStatistics:[],
+    knowleadgeList:{},
+    taskStatistics:{}
   },
   reducers: {
     "fetch/start"(state) {
@@ -568,101 +571,67 @@ export default {
     },
   }, // 用于修改数据
   effects: {
-    * setSelKnowledgeChange({
-      payload
-    }, {
-      call,
-      put,
-      select
-    }) {
+    // *getOverView({payload},{call,put}){
+    //   const overView = yield getStudentOverView(payload);
+    //   yield put({
+    //     type:"save",
+    //     payload:{
+    //       overViewData:overView.data
+    //     }
+    //   })
+    // },
+
+
+
+    *getComprehensive({payload},{call,put}){
+      const comprehensive = yield getStudentComprehensive(payload);
+      let topicCount=0,taskCount=0,userTime=0;
+
+      comprehensive.data.totalStatistics.forEach(element => {
+        topicCount += element.topicCount;
+        taskCount+=element.taskNum;
+        userTime+=element.taskTotalTime;
+      });
       yield put({
-        type: "fetchAfter",
-        payload: {
-          selKnowleadge: payload.selknowleadgedata
+        type:"save",
+        payload:{
+          totalOverView:{
+            topicCount:topicCount,
+            taskCount:taskCount,
+            userTime:userTime
+          },
+          totalStatistics:comprehensive.data.totalStatistics,
+          // subjectStatistics:subjectData
         }
       })
     },
-    // * getSubjectKnowledge({
-    //   payload
-    // }, {
-    //   call,
-    //   put,
-    //   select
-    // }) {
-    //   const querySubjectKnowleadge = yield call(getSubjectKnowledgeAtlasStatistics, payload);
-    //   yield put({
-    //     type: 'fetchAfter',
-    //     payload: {
-    //       knowleadge: querySubjectKnowleadge.data.knowledgeList,
-    //       selKnowleadge: {
-    //         "id": querySubjectKnowleadge.data.knowledgeList[0].knowledgeId,
-    //         "name": querySubjectKnowleadge.data.knowledgeList[0].knowledgeName,
-    //         "gradeTopicAnswerScore": querySubjectKnowleadge.data.knowledgeList[0].gradeTopicAnswerScore,
-    //         "classTopicNum": querySubjectKnowleadge.data.knowledgeList[0].classTopicNum,
-    //         "classTopicTotalScore": querySubjectKnowleadge.data.knowledgeList[0].classTopicTotalScore,
-    //         "gradeTopicNum": querySubjectKnowleadge.data.knowledgeList[0].gradeTopicNum,
-    //         "classTopicAnswerScore": querySubjectKnowleadge.data.knowledgeList[0].classTopicAnswerScore,
-    //         "gradeTopicTotalScore":querySubjectKnowleadge.data.knowledgeList[0].gradeTopicTotalScore
-    //      }
-    //     }
-    //   })
-    // },
-    // * getClassKnowleadge({
-    //   payload
-    // }, {
-    //   call,
-    //   put,
-    //   select
-    // }) {
-    //   const querySubjectKnowleadge = yield call(getInClassAtlasKnowledgeRate, payload);
-    //   yield put({
-    //     type: 'fetchAfter',
-    //     payload: {
-    //       knowleadge: querySubjectKnowleadge.data,
-    //       selKnowleadge: {
-    //         "id": querySubjectKnowleadge.data[0].knowledgeId,
-    //         "name": querySubjectKnowleadge.data[0].knowledgeName,
-    //         "gradeTopicAnswerScore": querySubjectKnowleadge.data[0].gradeTopicAnswerScore,
-    //         "classTopicNum": querySubjectKnowleadge.data[0].classTopicNum,
-    //         "classTopicTotalScore": querySubjectKnowleadge.data[0].classTopicTotalScore,
-    //         "gradeTopicNum": querySubjectKnowleadge.data[0].gradeTopicNum,
-    //         "classTopicAnswerScore": querySubjectKnowleadge.data[0].classTopicAnswerScore,
-    //         "gradeTopicTotalScore":querySubjectKnowleadge.data[0].gradeTopicTotalScore
-    //      }
 
-    //     }
-    //   })
-    // },
-    // * getKnowledgeStudentRates({
-    //   payload
-    // }, {
-    //   call,
-    //   put,
-    //   select
-    // }) {
-    //   const queryKnowledgeRates = yield call(getInClassKnowledgeStudentRates, payload);
-    //   yield put({
-    //     type: "fetchAfter",
-    //     payload: {
-    //       studentStatistics: queryKnowledgeRates.data.studentStatistics
-    //     }
-    //   })
-    // },
+    *getKnowleadgeList({payload},{call,put}){
+      const knowleadgeList = yield getKnowleadgeDetails(payload);
+      yield put({
+        type:"save",
+        payload:{
+          knowleadgeList:knowleadgeList.data
+        }
+      })
+    },
 
-    // * getKnowledgeClassRates({
-    //   payload
-    // }, {
-    //   call,
-    //   put,
-    //   select
-    // }) {
-    //   const queryKnowledgeRates = yield call(getSubjectClassRateOverview, payload);
-    //   yield put({
-    //     type: "fetchAfter",
-    //     payload: {
-    //       classStatistics: queryKnowledgeRates.data
-    //     }
-    //   })
-    // },
+    *getKnowleadgeMap({payload},{call,put}){
+      const knowleadgeMap = yield getStudentKnowleageMap(payload);
+      // yield put({
+      //   type:"save",
+      //   payload:{
+      //     knowleadge:knowleadgeMap.data.knowledgeRateList,
+      //     taskStatistics:knowleadgeMap.data.taskStatistics
+      //   }
+      // })
+    }
+
   },
+
+  reducers:{
+    save(state,action){
+      return{...state,...action.payload};
+    }
+  }
 };

@@ -17,8 +17,10 @@ class Knowleadge extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tabAtlas: this.props.learningSituation.selKnowleadge.id,
-      selknowleadgedata: this.props.learningSituation.selKnowleadge,
+      tabAtlas: 0,
+      selknowleadgedata: {},
+      // tabAtlas: this.props.learningSituation.selKnowleadge.id,
+      // selknowleadgedata: this.props.learningSituation.selKnowleadge,
       needupdateEcharts: true
     }
   }
@@ -107,7 +109,6 @@ class Knowleadge extends Component {
           key={item.id}
           className={tab === item.id ? Styles.act : ''}
           onClick={() => {
-            console.log(item.id);
             changeTabs(item.id)
           }}>
           {item.name}
@@ -134,24 +135,24 @@ class Knowleadge extends Component {
     }
   }
 
-  getAtlasTpl = (name, classScore, classCount, gradeScore, gradeCount) => {
-    return <div className={Styles.atlasWrap}>
-      <h3 className={Styles.atlasWraph3}>{name}</h3>
-      <h4 className={Styles.atlasWraph4}>班级得分率：<span>{classScore}</span></h4>
-      <h4 className={Styles.atlasWraph4}>班级题量：<span>{classCount}道</span></h4>
-      <h4 className={Styles.atlasWraph4}>年级得分率：<span>{gradeScore}</span></h4>
-      <h4 className={Styles.atlasWraph4}>年级题量：<span>{gradeCount}道</span></h4>
-      <h5 className={Styles.atlasWraph5}>图例</h5>
-      <ul className={Styles.atlasWrapul}>
-        <li>图像大小代表信度（与时间和题量等因素相关，题量越多，时间越近，信度越高）</li>
-        <li>红色代表得分率很差</li>
-        <li>绿色代表得分率较高</li>
-        <li>灰色代表得分率为0</li>
-      </ul>
-      <h5 className={Styles.atlasWraph5}>提示</h5>
-      <h6 className={Styles.atlasWraph6}>点击图谱可以查看详情</h6>
-    </div>
-  }
+  // getAtlasTpl = (name, classScore, classCount, gradeScore, gradeCount) => {
+  //   return <div className={Styles.atlasWrap}>
+  //     <h3 className={Styles.atlasWraph3}>{name}</h3>
+  //     <h4 className={Styles.atlasWraph4}>班级得分率：<span>{classScore}</span></h4>
+  //     <h4 className={Styles.atlasWraph4}>班级题量：<span>{classCount}道</span></h4>
+  //     <h4 className={Styles.atlasWraph4}>年级得分率：<span>{gradeScore}</span></h4>
+  //     <h4 className={Styles.atlasWraph4}>年级题量：<span>{gradeCount}道</span></h4>
+  //     <h5 className={Styles.atlasWraph5}>图例</h5>
+  //     <ul className={Styles.atlasWrapul}>
+  //       <li>图像大小代表信度（与时间和题量等因素相关，题量越多，时间越近，信度越高）</li>
+  //       <li>红色代表得分率很差</li>
+  //       <li>绿色代表得分率较高</li>
+  //       <li>灰色代表得分率为0</li>
+  //     </ul>
+  //     <h5 className={Styles.atlasWraph5}>提示</h5>
+  //     <h6 className={Styles.atlasWraph6}>点击图谱可以查看详情</h6>
+  //   </div>
+  // }
 
   showMainAtlas = () => {
     // this.covertData(idx);
@@ -167,10 +168,6 @@ class Knowleadge extends Component {
     var nodes = this.nodes;
     var linkes = this.linkes;
     return {
-      tooltips: {
-        // trigger:"item",
-        // triggerOn:"mousemove"
-      },
       series: [{
         type: 'graph',
         data: nodes,
@@ -199,60 +196,33 @@ class Knowleadge extends Component {
       }]
     }
   }
-  onChartClick(param, echarts) {
-    this.setState({
-      selknowleadgedata: param.data,
-      needupdateEcharts: false
-    })
-    // this.showMainAtlas();
-    this.props.dispatch({
-      type: 'learningSituation/setSelKnowledgeChange',
-      payload: {
-        selknowleadgedata: param.data,
-      }
-    });
-    this.props.changeSelKnowLedge(param.data.id);
-  }
 
   render() {
-    let onEvents = {
-      'click': this.onChartClick.bind(this)
-    }
     const { needupdateEcharts, tabAtlas, selknowleadgedata } = this.state;
     return (
-      // <div>sdfsdfdsfs</div>
-      <React.Fragment>
-
-        <Row type='flex' justify="start" align="middle" >
-          <Col offset={1} span={10}>
-
-            <ul className={Styles.subjectTabAtlas}>
-              {this.RenderTabsAtlas(tabAtlas, this.changeTabeAtlas)}
-            </ul>
-          </Col>
-        </Row>
+      <div className={Styles.container}>
+        <div className={Styles.title}>
+          <ul className={Styles.subjectTabAtlas}>
+            {this.RenderTabsAtlas(tabAtlas, this.changeTabeAtlas)}
+          </ul>
+        </div>
         <Row type='flex' justify="start" align="middle" >
           <Col span={24}>
             <div className={Styles.KnowLeadgeWrap}>
               <ReactEcharts
                 option={this.getOption()}
                 style={{ height: '550px', width: '100%' }}
-                onEvents={onEvents}
                 shouldSetOption={needupdateEcharts}
               />
             </div>
           </Col>
-          {/* <Col span ={5} offset={1}>  
-              {this.showMainAtlas(tabAtlas)} 
-          </Col> */}
         </Row>
-      </React.Fragment>
+      </div>
     )
   }
 }
-export default connect(({ learningSituation, example }) => {
+export default connect(({ learningSituation }) => {
   return {
-    learningSituation: learningSituation,
-    example: example
+    learningSituation: learningSituation
   }
 })(Knowleadge);
