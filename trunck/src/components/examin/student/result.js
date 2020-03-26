@@ -35,8 +35,8 @@ class Result extends React.PureComponent{
             { question.qtype === 1078 && <Complex question={question} >
               { 
                 question.topics && question.topics.length>0 && question.topics.map( (child,index) => {
-                  let arrAnswer = this.props.userAnswer.split(";");
-                  let arrScore = this.props.userScore.split(";");
+                  let arrAnswer = this.props.userAnswer ? this.props.userAnswer.split(";"):[];
+                  let arrScore = `${this.props.userScore}`.split(";");
                   let childProps = Object.assign({},this.props,{
                     question:child,
                     questionIndex:child.topicNo,
