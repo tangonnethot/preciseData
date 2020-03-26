@@ -504,9 +504,12 @@ export const setCookie = (name, value, expires) => {
 export const getUserID = () => {
   // setCookie("userid", "c5d067e05f514403af8608f0c8f11b1a");
   return getCookie("userid");
+  // return "099dbae33d15456985c3eb8b2c0b4992";
+}
 
-  // return "9d43a478532545adaabd9482d67a74da";
-  // return "c5d067e05f514403af8608f0c8f11b1a";
+export const getschoolYear = ()=>{
+  return getCookie("schoolyear");
+  // return "2019";
 }
 
 let begintime;

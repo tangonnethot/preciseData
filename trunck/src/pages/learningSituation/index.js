@@ -4,7 +4,7 @@ import TopNav from '../../components/nav';
 import SubjectNav from '../../components/nav/subject';
 import { goHome } from '../../utils/andriod';
 import { getUserID, getschoolYear } from "../../utils/utils";
-import { Row, Col, Progress, Table } from "antd";
+import { Row, Col, Progress, Table,Icon } from "antd";
 import { SegmentedControl } from "antd-mobile";
 // import { AccordionTree } from '../../components/UI';
 import ReactEcharts from 'echarts-for-react';
@@ -26,14 +26,7 @@ class learningSituation extends React.Component {
 
     initData = () => {
         const { timeType } = this.state;
-        // this.props.dispatch({
-        //     type: "learningSituation/getOverView",
-        //     payload: {
-        //         schoolYear: getschoolYear(),
-        //         studentId: getUserID(),
-        //         timeType: timeType
-        //     }
-        // });
+
         this.props.dispatch({
             type: "learningSituation/getComprehensive",
             payload: {
@@ -42,22 +35,7 @@ class learningSituation extends React.Component {
                 timeType: timeType
             }
         });
-        this.props.dispatch({
-            type: "learningSituation/getKnowleadgeList",
-            payload: {
-                schoolYear: getschoolYear(),
-                studentId: getUserID(),
-                timeType: timeType
-            }
-        });
-        this.props.dispatch({
-            type: "learningSituation/getKnowleadgeMap",
-            payload: {
-                schoolYear: getschoolYear(),
-                studentId: getUserID(),
-                timeType: timeType
-            }
-        });
+      
     }
 
     back = () => {
@@ -68,10 +46,30 @@ class learningSituation extends React.Component {
         return ["#32befe", "#d155cb", "#ffde76", "#79fa97", "#05f0d8", "#6873f2", "#fe7c70", "#243db9"];
     }
 
-    changeSubject = (id) => {
+    changeSubject = (sid) => {
         this.setState({
-            selSubjet: id
+            selSubjet: sid
         })
+        this.props.dispatch({
+            type: "learningSituation/getKnowleadgeList",
+            payload: {
+                schoolYear: getschoolYear(),
+                studentId: getUserID(),
+                orgId:"289a872f48584e149c07b75085c0c1a8",
+                subjectId:sid,
+                timeType: this.state.timeType
+            }
+        });
+        this.props.dispatch({
+            type: "learningSituation/getKnowleadgeMap",
+            payload: {
+                schoolYear: getschoolYear(),
+                studentId: getUserID(),
+                orgId:"289a872f48584e149c07b75085c0c1a8",
+                subjectId:sid,
+                timeType: this.state.timeType
+            }
+        });
     }
 
     getTaskNumData = () => {
@@ -222,10 +220,10 @@ class learningSituation extends React.Component {
 
     }
 
-    getColumnsData = () => {
+    getColumnsData = (title) => {
         return [
             {
-                title: "知识点",
+                title: title,
                 dataIndex: "name",
                 key: "name"
             }, {
@@ -240,36 +238,55 @@ class learningSituation extends React.Component {
         ]
     }
 
-    getTableData = () => {
-
-        return [
-            {
-                key: 1,
-                name: "第一讲 古代诗歌阅读",
-                count: "4道 / 208道",
-                score: "33% / 45%",
-                children: [
-                    {
-                        key: 11,
-                        name: "第一讲 古代诗歌阅读",
-                        count: "4道 / 208道",
-                        score: "33% / 45%",
-                    },
-                    {
-                        key: 12,
-                        name: "第一讲 古代诗歌阅读",
-                        count: "4道 / 208道",
-                        score: "33% / 45%",
-                    },
-                    {
-                        key: 13,
-                        name: "第一讲 古代诗歌阅读",
-                        count: "4道 / 208道",
-                        score: "33% / 45%",
-                    }
-                ]
+    getTableData = (data,level) => {
+        let tableData =[];
+        data.forEach(element=>{
+            let childrenData=[];
+            let curLevel = level;            
+            if(element.hasOwnProperty("childKnowledges")){
+                // level++;
+                childrenData = this.getTableData(element.childKnowledges,level+1);
             }
-        ]
+            let itemData={};
+            itemData.key=element.id;
+            itemData.name=element.name;
+            itemData.level = level;
+            if(level==0){
+                itemData.count = "个人/年级题量";
+                itemData.score = "个人/年级得分率";
+            }else{
+                let sScore = Math.round(element.classTopicAnswerScore/element.classTopicTotalScore*10000)/100;
+                if(isNaN(sScore)) sScore =0;
+                let gScore = Math.round(element.gradeTopicAnswerScore/element.gradeTopicTotalScore*10000)/100;
+                if(isNaN(gScore)) gScore =0;
+                itemData.count = element.classTopicNum+"道 / " + element.gradeTopicNum + "道";
+                itemData.score = sScore+"% / "+gScore +"%";
+            }
+            if(childrenData.length>0) itemData.children = childrenData;
+            tableData.push(itemData);
+        })
+        return tableData;   
+    }
+
+    customExpandIcon=(props)=> {
+        if(props.record.children&& props.record.children.length > 0){
+            if (props.expanded) {
+                return <a style={{ color: 'black',marginRight:8 }} onClick={e => {
+                    props.onExpand(props.record, e);
+                }}><img src={require("../../assets/contract.png")}/></a>
+            } else {
+                return <a style={{ color: 'black' ,marginRight:8 }} onClick={e => {
+                    props.onExpand(props.record, e);
+                }}><img src={require("../../assets/expand.png")}/></a>
+            }
+        }else{
+            return <span style={{marginRight:8 }}></span>
+        }
+    }
+
+    getRowClass=(record)=>{
+        if(record.level==0) return Styles.table_header;
+        return Styles.table_row;
     }
 
     render() {
@@ -350,9 +367,16 @@ class learningSituation extends React.Component {
         }
 
         const renderKnowleadgeTable = () => {
+            const {knowleadgeList}=this.props.situation;
             return (<div styles={{ width: "100%" }}>
-                {/* <div styles={{width:"100%"}}><span>得分率</span><SegmentedControl values={["全部","0-20%","20-40%","40-60%","60-80%","80-100%"]}></SegmentedControl></div> */}
-                <Table columns={this.getColumnsData()} dataSource={this.getTableData()} pagination={false}></Table>
+            <Table columns={this.getColumnsData(knowleadgeList[0].name)} rowClassName={this.getRowClass} dataSource={this.getTableData(knowleadgeList,0)} expandIcon={(props) => this.customExpandIcon(props)} pagination={false} showHeader={false}></Table>
+
+            {/* {
+                
+                 knowleadgeList.map((item,index)=>{
+                    return(<Table columns={this.getColumnsData(item.name)} dataSource={this.getTableData(item.childKnowledges)} pagination={false}></Table>)
+                })
+            } */}
             </div>)
         }
 

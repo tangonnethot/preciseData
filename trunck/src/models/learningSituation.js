@@ -1,5 +1,4 @@
 import {
-  getStudentOverView,
   getKnowleadgeDetails,
   getStudentComprehensive,
   getStudentKnowleageMap
@@ -540,7 +539,7 @@ export default {
       "parentId": "455acc9e31bf11ea8bef000c29aefb8e"
     }],
 
-    overViewData: {},
+    // overViewData: {},
     subjectRate: {},
     // comprehensive:{},
     totalStatistics:[],
@@ -550,7 +549,7 @@ export default {
       userTime:0
     },
     // subjectStatistics:[],
-    knowleadgeList:{},
+    knowleadgeList:[],
     taskStatistics:{}
   },
   reducers: {
@@ -571,19 +570,7 @@ export default {
     },
   }, // 用于修改数据
   effects: {
-    // *getOverView({payload},{call,put}){
-    //   const overView = yield getStudentOverView(payload);
-    //   yield put({
-    //     type:"save",
-    //     payload:{
-    //       overViewData:overView.data
-    //     }
-    //   })
-    // },
-
-
-
-    *getComprehensive({payload},{call,put}){
+     *getComprehensive({payload},{call,put}){
       const comprehensive = yield getStudentComprehensive(payload);
       let topicCount=0,taskCount=0,userTime=0;
 
@@ -618,13 +605,13 @@ export default {
 
     *getKnowleadgeMap({payload},{call,put}){
       const knowleadgeMap = yield getStudentKnowleageMap(payload);
-      // yield put({
-      //   type:"save",
-      //   payload:{
-      //     knowleadge:knowleadgeMap.data.knowledgeRateList,
-      //     taskStatistics:knowleadgeMap.data.taskStatistics
-      //   }
-      // })
+      yield put({
+        type:"save",
+        payload:{
+          knowleadge:knowleadgeMap.data.knowledgeRateList,
+          taskStatistics:knowleadgeMap.data.taskStatistics
+        }
+      })
     }
 
   },
