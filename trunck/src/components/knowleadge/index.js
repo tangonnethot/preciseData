@@ -12,7 +12,6 @@ import { util } from 'echarts/lib/export';
 // import 'echarts/lib/component/tooltip';
 // import 'echarts/lib/component/title';
 
-// @connect(({learningSituation})=>({learningSituation}))
 class Knowleadge extends Component {
   constructor(props) {
     super(props);
@@ -34,13 +33,14 @@ class Knowleadge extends Component {
   }
 
   convertSymbolColor = (item) => {
-    if (item.classTopicTotalScore > 60) {
+    if (item.classTopicAnswerScore > 60) {
       return '#31cebc';
     }
 
-    if (item.classTopicTotalScore === 0) {
+    if (item.classTopicAnswerScore === 0) {
       return '#333';
     }
+    return "#ff6755";
   }
   convertNode = (item) => {
     var size = this.convertSymbolSize();
@@ -79,9 +79,9 @@ class Knowleadge extends Component {
     this.nodes.push(this.convertNode(item));
     if (parentitem && item)
       this.linkes.push(this.convertLink(parentitem.id, item.id))
-    if (item.hasOwnProperty("childList")) {
-      for (var i = 0; i < item.childList.length; i++) {
-        this.convertItem(item, item.childList[i]);
+    if (item.hasOwnProperty("childKnowledges")) {
+      for (var i = 0; i < item.childKnowledges.length; i++) {
+        this.convertItem(item, item.childKnowledges[i]);
       }
     }
 

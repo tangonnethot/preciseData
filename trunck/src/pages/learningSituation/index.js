@@ -4,11 +4,11 @@ import TopNav from '../../components/nav';
 import SubjectNav from '../../components/nav/subject';
 import { goHome } from '../../utils/andriod';
 import { getUserID, getschoolYear } from "../../utils/utils";
-import { Row, Col, Progress, Table,Icon } from "antd";
+import { Row, Col, Progress, Table} from "antd";
 import { SegmentedControl } from "antd-mobile";
 // import { AccordionTree } from '../../components/UI';
 import ReactEcharts from 'echarts-for-react';
-import classnames from 'classnames';
+// import classnames from 'classnames';
 import Styles from './index.less';
 import { connect } from 'dva';
 
