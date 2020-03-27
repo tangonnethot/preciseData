@@ -94,17 +94,152 @@
 }
 
 .ref_btn_container {
-    width        : 200px;
-    margin:36px auto;
+    width : 200px;
+    margin: 36px auto;
 
     .complete_btn {
-        border       : none;
-        font-size    : @content-big-font-size;
-        height       : 60px;
+        border   : none;
+        font-size: @content-big-font-size;
+        height   : 60px;
 
-        border-radius: 8px;
-        width : 200px;
+        border-radius   : 8px;
+        width           : 200px;
         background-color: @vice-color;
         color           : @white-color;
+    }
+}
+
+
+.topicDetailli {
+    background-color: @white-color;
+    margin          : 20px 0;
+    border-top      : 1px @border-color solid;
+    border-bottom   : 1px @border-color solid;
+}
+
+.readQuestions {
+    background-color: @add-course-tip-bg;
+    display         : flex;
+    justify-content : space-between;
+    padding         : 40px 30px;
+
+    .item {}
+
+    .info {
+        display      : flex;
+        font-size    : @tab-act-font-size;
+        border-radius: @radius-base;
+        align-items  : center;
+    }
+
+    .yes {
+        padding      : 5px 15px;
+        color        : @green-btn;
+        border       : 1px @green-btn solid;
+        display      : flex;
+        font-size    : @tab-act-font-size;
+        border-radius: @radius-base;
+        align-items  : center;
+
+        span {
+            display     : inline-block;
+            width       : 24px;
+            height      : 24px;
+            background  : url('../../assets/yes.png');
+            margin-right: 7px;
+        }
+    }
+
+    .yes1 {
+        padding         : 5px 15px;
+        color           : @white-color;
+        background-color: @green-btn;
+        border          : 1px @green-btn solid;
+        display         : flex;
+        font-size       : @tab-act-font-size;
+        border-radius   : @radius-base;
+        align-items     : center;
+
+        span {
+            display     : inline-block;
+            width       : 24px;
+            height      : 24px;
+            background  : url('../../assets/yes1.png');
+            margin-right: 7px;
+        }
+    }
+
+    .no {
+        padding      : 5px 15px;
+        color        : @complete-btn;
+        border       : 1px @complete-btn solid;
+        display      : flex;
+        font-size    : @tab-act-font-size;
+        border-radius: @radius-base;
+        align-items  : center;
+
+        span {
+            display     : inline-block;
+            width       : 24px;
+            height      : 24px;
+            background  : url('../../assets/wrong.png');
+            margin-right: 7px;
+        }
+    }
+
+    .no1 {
+        padding         : 5px 15px;
+        color           : @white-color;
+        background-color: @complete-btn;
+        border          : 1px @complete-btn solid;
+        display         : flex;
+        font-size       : @tab-act-font-size;
+        border-radius   : @radius-base;
+        align-items     : center;
+
+        span {
+            display     : inline-block;
+            width       : 24px;
+            height      : 24px;
+            background  : url('../../assets/wrong1.png');
+            margin-right: 7px;
+        }
+    }
+
+    .part {
+        padding      : 5px 15px;
+        color        : @primary-color;
+        border       : 1px @primary-color solid;
+        display      : flex;
+        font-size    : @tab-act-font-size;
+        border-radius: @radius-base;
+        align-items  : center;
+
+        span {
+            display     : inline-block;
+            width       : 24px;
+            height      : 24px;
+            background  : url('../../assets/part.png');
+            margin-right: 7px;
+        }
+    }
+
+    .part1 {
+        padding         : 5px 15px;
+        color           : @white-color;
+        border          : 1px @primary-color solid;
+        background-color: @primary-color;
+        display         : flex;
+        font-size       : @tab-act-font-size;
+        border-radius   : @radius-base;
+        align-items     : center;
+
+        span {
+            display     : inline-block;
+            width       : 24px;
+            height      : 24px;
+            background  : url('../../assets/part1.png');
+            margin-right: 7px;
+        }
     }
 }

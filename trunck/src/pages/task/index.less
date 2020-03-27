@@ -72,7 +72,8 @@
 		float    : right;
 		padding  : 27px 38px;
 		font-size: @list-small-font-size;
-		color    : @text-font-color-secondary; 
+		color    : @text-font-color-secondary;
+
 		span {
 			float: left;
 			color: @complete-btn;
@@ -82,9 +83,10 @@
 	.markingDefault {
 		float    : right;
 		padding  : 27px 38px;
-		font-size: @list-small-font-size; 
+		font-size: @list-small-font-size;
+
 		span {
-			float: left; 
+			float: left;
 		}
 	}
 
@@ -123,116 +125,87 @@
 
 }
 
-.taskmarkingDetailContainer{
-  .topicNum{
-    width: 100%;
-    height: auto;
-    padding: 15px 30px;
-    background-color: #fffdf3;
-    .topicNumInfo{
-      font-size: 24px;
-      display: flex;
-      justify-content: space-between;
-      .topicNumInfoL{
-        color: @text-font-color;
-      }
-      .topicNumInfoR{
-        border: 1px @border-color solid;
-        color: @task-marking;
-        padding: 2px 7px;
-        border-radius: @radius-base;
-      }
-    }
-    .topicNumber{   
-        .li {
-          border        : 1px solid;
-          border-radius : 30px;
-          width         : 50px;
-          height        : 50px;
-          text-align    : center;
-          vertical-align: middle;
-          line-height   : 50px;
-          font-size     : 20px;
-          font-weight   : bold;
-          display       : inline-block;
-          margin        : 20px 19px 8px 0;
-          background-color: @white-color;
-      }
-    }
-  }
-  .topicDetail{
-    .readQuestions{
-      background-color: @add-course-tip-bg;
-      display: flex;
-      justify-content:space-between;
-      padding: 40px 30px;
-      .item{
-        
-      }
-      .info{
-        display: flex;
-        font-size: @tab-act-font-size;
-        border-radius: @radius-base;
-        align-items: center;
-      }
-      .yes{
-        padding:5px 15px;
-        color: @green-btn;
-        border:1px @green-btn solid;
-        display: flex;
-        font-size: @tab-act-font-size;
-        border-radius: @radius-base;
-        align-items: center;
-        span{
-          display: inline-block;
-          width: 24px;
-          height:24px;
-          background: #f0f;
-          margin-right: 7px;
-        }
-      }
-      .no{
-        padding:5px 15px;
-        color: @complete-btn;
-        border:1px @complete-btn solid;
-        display: flex;
-        font-size: @tab-act-font-size;
-        border-radius: @radius-base;
-        align-items: center;
-        span{
-          display: inline-block;
-          width: 24px;
-          height:24px;
-          background: #f0f;
-          margin-right: 7px;
-        }
-      }
-      .part{
-        padding:5px 15px;
-        color: @primary-color;
-        border:1px @primary-color solid;
-        display: flex;
-        font-size: @tab-act-font-size;
-        border-radius: @radius-base;
-        align-items: center;
-        span{
-          display: inline-block;
-          width: 24px;
-          height:24px;
-          background: #f0f;
-          margin-right: 7px;
-        }
-      }
-    }
-  }
-  .finishMarking{
-    width: 70%;
-    padding: 10px 0;
-    background-color: @primary-color;
-    font-size: @tab-act-font-size;
-    text-align: center;
-    color: @white-color;
-    border-radius: @radius-base;
-    margin: 0 auto;
-  }
+.taskmarkingDetailContainer {
+	.topicNum {
+		width           : 100%;
+		height          : auto;
+		padding         : 15px 30px;
+		background-color: #fffdf3;
+
+		.topicNumInfo {
+			font-size      : 24px;
+			display        : flex;
+			justify-content: space-between;
+
+			.topicNumInfoL {
+				color: @text-font-color;
+			}
+
+			.topicNumInfoR {
+				border       : 1px @border-color solid;
+				color        : @task-marking;
+				padding      : 2px 7px;
+				border-radius: @radius-base;
+			}
+		}
+
+		.topicNumber {
+			.li {
+				border          : 1px solid;
+				border-radius   : 30px;
+				width           : 50px;
+				height          : 50px;
+				text-align      : center;
+				vertical-align  : middle;
+				line-height     : 50px;
+				font-size       : 20px;
+				font-weight     : bold;
+				display         : inline-block;
+				margin          : 20px 19px 8px 0;
+			} 
+			.default{ 
+				background-color: @white-color;
+				color: @text-font-color;
+			}
+			.green {
+				background-color: @green-btn;
+				color           : @white-color;
+			}
+
+			.red {
+				background-color: @error-color;
+				color           : @white-color;
+			}
+		}
+	}
+
+	.finishMarking {
+		width           : 70%;
+		padding         : 10px 0;
+		background-color: @primary-color;
+		font-size       : @tab-act-font-size;
+		text-align      : center;
+		color           : @white-color;
+		border-radius   : @radius-base;
+		margin          : 0 auto 20px auto;
+	}
+	.NOfinishMarking{
+		width           : 70%;
+		padding         : 10px 0;
+		background-color: @border-color;
+		font-size       : @tab-act-font-size;
+		text-align      : center;
+		color           : @text-font-color-secondary;
+		border-radius   : @radius-base;
+		margin          : 0 auto 20px auto;
+	}
+}
+
+.taskmarkingContainer {
+	:global {
+		.am-list-body {
+			background-color: @body-bg;
+			border          : none;
+		}
+	}
 }

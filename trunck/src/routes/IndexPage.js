@@ -15,6 +15,9 @@ function IndexPage() {
         <List.Item>
           <Link to="/errorbook"><div>错题本</div></Link>
         </List.Item>
+        <List.Item>
+          <Link to="/taskmarking"><div>批阅</div></Link>
+        </List.Item>
       </List>
     </div>
   );

@@ -1,16 +1,15 @@
 import React from 'react';
-import { WhiteSpace, ListView, Badge, Icon } from 'antd-mobile';
+import { WhiteSpace, ListView, Icon } from 'antd-mobile';
 import { Empty } from 'antd';
 import TopNav from '../../components/nav';
-import { convertTaskType, formatDate1, formatDate2, isNull, getUserID } from '../../utils/utils';
-import CONSTANT from '../../utils/constant';
-import { goHome } from '../../utils/andriod';
+import { convertTaskType} from '../../utils/utils';
+import CONSTANT from '../../utils/constant'; 
 import Styles from './index.less';
 import { connect } from 'dva';
 import classnames from 'classnames';
 import { markingTaskList } from '../../services/task';
 
-@connect(({ task }) => ({ task }))
+@connect(({ task }) => ({ task }))  
 export default class Taskmarking extends React.Component {
   constructor(props) {
     super(props);
@@ -20,7 +19,7 @@ export default class Taskmarking extends React.Component {
     this.state = {
       isLoading: true,
       type: 0,
-      height: document.documentElement.clientHeight * 3 / 4,
+      height: document.documentElement.clientHeight,
       dataSource,
       listData: [],
       isLoading: true,
@@ -42,13 +41,16 @@ export default class Taskmarking extends React.Component {
     markingTaskList({
       type,
       currentPage: state.pageNo,
-      pageSize: CONSTANT.PAGE_SIZE,
+      pageSize: 10,
     })
       .then(res => {
-        const listData =
-          res.data["currentPage"] === 1
-            ? res.data.datalist
-            : state.listData.concat(res["data"]['datalist']);
+        var listData = state.listData;
+        // const listData =
+        //   res.data["currentPage"] === 1
+        //     ? res.data.datalist
+        //     : state.listData.concat(res["data"]['datalist']);
+          listData = listData.concat(res.data.datalist)
+        
         const hasMore = state.pageNo * 10 < res.data["totalCount"];
         this.setState({
           listData: listData,
@@ -67,11 +69,7 @@ export default class Taskmarking extends React.Component {
     this.setState({ isLoading: true, pageNo: pageNo + 1 });
     this.getMarkingTaskList();
   };
-
-
-  back = () => {
-    goHome();
-  };
+ 
 
   onShowDetails = (type, status, id) => {
     if (status > 0 && (type != 1 || type != "1") && (type != 5 || type != "5"))
@@ -106,8 +104,8 @@ export default class Taskmarking extends React.Component {
 
   }
 
-  markDetail = (e, id) => { 
-    this.props.history.push("/taskmarkingDetail?studentModuleId=" + id);
+  markDetail = (e, id, correctorStrategy) => { 
+    this.props.history.push("/taskmarkingDetail?studentModuleId=" + id + '&correctorStrategy='+correctorStrategy);
   }
 
   getSubjectimg = (id) => {
@@ -145,7 +143,7 @@ export default class Taskmarking extends React.Component {
   render() {
     const row = (item, index) => {
       return (
-        <div className={Styles.task_item} onClick={e => { this.markDetail(e, item.contentId) }}>
+        <div className={Styles.task_item} onClick={e => { this.markDetail(e, item.taskStudentModuleId, item.correctorStrategy) }}>
           <div>
             <img style={{ width: "45px" }} src={this.getSubjectimg(item.subjectId)} alt="" />
             <span className={Styles.title}>{item.taskName}</span>
@@ -153,7 +151,7 @@ export default class Taskmarking extends React.Component {
           </div>
           <div style={{ paddingLeft: "54px" }}>
             <span className={classnames(Styles.label, Styles.task_label)}>{convertTaskType(item.taskType)}</span>
-            <span className={classnames(Styles.label, Styles.review_label)}>{CONSTANT.taskCorrectStartegy[item.taskCorrectStrategy]}</span>
+            <span className={classnames(Styles.label, Styles.review_label)}>{CONSTANT.taskCorrectStartegy[item.correctorStrategy]}</span>
             <span className={Styles.startTime}>截止日期： <span>{item.taskEndTime}</span> </span>
           </div>
         </div>
@@ -161,7 +159,7 @@ export default class Taskmarking extends React.Component {
     };
     return (
       <div className={Styles.taskmarkingContainer}>
-        <TopNav title="批阅任务" onLeftClick={this.back}></TopNav>
+        <TopNav title="批阅任务"></TopNav>
         <div className={Styles.tasklist}>
           <WhiteSpace size="lg" />
           <ListView
@@ -175,7 +173,7 @@ export default class Taskmarking extends React.Component {
                     ? "上滑加载更多"
                     : this.state.dataSource._cachedRowCount > 0
                       ? "已经到底了"
-                      : <Empty />}
+                      : <Empty  description='暂无数据' />}
               </div>
             )}
             renderRow={row}

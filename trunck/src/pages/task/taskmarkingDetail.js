@@ -1,27 +1,28 @@
-import React from 'react'
-import { Modal } from 'antd-mobile'
-import { Empty } from 'antd';
-import TopNav from '../../components/nav' 
-import Styles from './index.less'
-import { connect } from 'dva'
+import React from 'react';
+import TopNav from '../../components/nav';
+import { Toast } from 'antd-mobile';
+import Styles from './index.less';
+import { connect } from 'dva';
+import CONSTANT from '../../utils/constant';
+import { parseSearch } from "../../utils/utils";
 import classnames from 'classnames';
-import { parseSearch } from "../../utils/utils"
+import Taskmarktopic from '../../components/task/taskmarktopic';
 
-const prompt = Modal.prompt;
 @connect(({ task }) => ({ task }))
 export default class TaskmarkingDetail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       isLoading: true,
+      indexAct: 0,
       studentModuleId: '',
-      type: '',
       allScoreInfo: {
         moduleType: "",
         taskStudentModuleId: "",
         studentTopics: []
       },
       height: document.documentElement.clientHeight * 3 / 4,
+      isSubmit: 1
     }
 
   }
@@ -29,21 +30,15 @@ export default class TaskmarkingDetail extends React.Component {
 
   componentDidMount() {
     let params = parseSearch()
-    let typeParams
-    if (params.answerStatus === "3") {
-      typeParams = 3
-    } else {
-      typeParams = 1
-    }
-    params !== "undefined" && params.studentModuleId !== "undefined" && typeParams && this.props.dispatch({
-      type: "taskView/getStudentAnswerDetails",
+    this.props.dispatch({
+      type: "task/getMarkingDetails",
       payload: {
         studentModuleId: params.studentModuleId,
-        type: typeParams
+        type: 1
       }
     }).then(() => {
-      const { answerDetailsInfo } = this.props.taskView
-      const { allScoreInfo } = this.state
+      const { answerDetailsInfo } = this.props.task;
+      const { allScoreInfo } = this.state;
       answerDetailsInfo && answerDetailsInfo.topics.length > 0 && answerDetailsInfo.topics.map((item, index) => {
         if (item.type === 1078) {
           allScoreInfo.studentTopics.push({
@@ -56,6 +51,7 @@ export default class TaskmarkingDetail extends React.Component {
             answerContent: item.topics[0].answerContent,
             topicId: item.topics[0].taskContentTopicId,
           })
+
         } else {
           allScoreInfo.studentTopics.push({
             answerScore: item.answerScore,
@@ -75,106 +71,141 @@ export default class TaskmarkingDetail extends React.Component {
         newObj.moduleType = answerDetailsInfo.moduleType
         newObj.taskStudentModuleId = answerDetailsInfo.taskStudentModuleId
         this.setState({ allScoreInfo: newObj })
-      }
-    })
-    if (params !== "undefined" && params.fromPage == 1) {
-      const { gradesInfo } = this.props.taskDetails
-      this.props.dispatch({ type: "taskDetails/getGradesDetail", payload: { taskClassId: params.taskClassId } }).then(() => {
-        gradesInfo && gradesInfo.studentDetails.length > 0 && this.setState({ studentDetails: gradesInfo.studentDetails })
-      })
-    }
-    if (params !== "undefined" && params.fromPage == 2) {
-      const { moduleTabItemsInfo } = this.props.taskView
-      this.props.dispatch({
-        type: "taskView/getModulesByContentId",
-        payload: {
-          contentId: params.contentId
-        }
-      }).then(() => {
-        moduleTabItemsInfo && moduleTabItemsInfo.studentDetails.length > 0 && this.setState({ studentDetails: moduleTabItemsInfo.studentDetails })
-      })
-    }
-  }
-
-  handleChangeGetScore = (index, e) => {
-    const { allScoreInfo } = this.state
-    let newArr = { ...allScoreInfo }
-    newArr.studentTopics[index].answerScore = e.target.value
-    this.setState({
-      allScoreInfo: newArr
-    })
-  }
-  handleChangeScore = (index, value) => {
-    const { allScoreInfo } = this.state
-    let newArr = { ...allScoreInfo }
-    newArr.studentTopics[index].answerScore = value
-    this.setState({
-      allScoreInfo: newArr
-    })
-  }
-  addNumBtn = (index) => {
-    const { allScoreInfo } = this.state
-    let newArr = { ...allScoreInfo }
-    newArr.studentTopics[index].answerScore = newArr.studentTopics[index].answerScore + 0.5
-    this.setState({
-      allScoreInfo: newArr
+      } 
+      this.isSubmit();
     })
   }
 
 
-
-
-  back = () => {
-    window.history.go(-1)
-  };
-
-  handleClickSaveBtn = () => {
-    const { allScoreInfo } = this.state
+  handleClickSaveBtn = (e) => {
+    const { allScoreInfo } = this.state;
     this.props.dispatch({
-      type: "taskView/manualExaminesTopic",
+      type: "task/submitMarking",
       payload: allScoreInfo
     })
+    this.props.history.push("/taskmarking");
+  }
+
+  totalScore = () => {
+    const { answerDetailsInfo } = this.props.task;
+    let num = 0;
+    if (answerDetailsInfo.topics) {
+      for (let i = 0; i < answerDetailsInfo.topics.length; i++) {
+        if (answerDetailsInfo.topics[i].type === 1078) {
+          num += answerDetailsInfo.topics[i].topics[0].score;
+        } else {
+          num += answerDetailsInfo.topics[i].score;
+        }
+
+      }
+    }
+    return num;
+  }
+
+  isSubmit = () => {
+    const { answerDetailsInfo } = this.props.task;
+    for (let i = 0; i < answerDetailsInfo.topics.length; i++) {
+      if (answerDetailsInfo.topics[i].type === 1078) {
+        if (answerDetailsInfo.topics[i].topics[0].examinesState !== 2) {
+          this.setState({
+            isSubmit: 0
+          })
+        }else{
+          this.setState({
+            isSubmit: 1
+          })
+        }
+      } else {
+        if (answerDetailsInfo.topics[i].examinesState !== 2) {
+          this.setState({
+            isSubmit: 0
+          })
+        }else{
+          this.setState({
+            isSubmit: 1
+          })
+        }
+      }
+
+    }
+  }
+
+  actIndex = (index, type, score) => {
+    const { answerDetailsInfo } = this.props.task;
+    if (answerDetailsInfo.topics[index].type === 1078) {
+      answerDetailsInfo.topics[index].topics[0].judge = type;
+      answerDetailsInfo.topics[index].topics[0].examinesState = 2;
+      answerDetailsInfo.topics[index].topics[0].answerScore = score;
+    } else {
+      answerDetailsInfo.topics[index].judge = type;
+      answerDetailsInfo.topics[index].examinesState = 2;
+      answerDetailsInfo.topics[index].answerScore = score;
+    }
+    this.props.dispatch({
+      type: 'task/fetchAfter',
+      payload: {
+        answerDetailsInfo: answerDetailsInfo
+      }
+    })
+    const { allScoreInfo } = this.state
+    let newArr = { ...allScoreInfo }
+    newArr.studentTopics[index].answerScore = score;
+    this.setState({
+      allScoreInfo: newArr,
+      indexAct: type,
+    })
+    this.isSubmit();
+
   }
 
 
   render() {
-
+    const { answerDetailsInfo } = this.props.task;
+    let params = parseSearch();
+    const { isSubmit } = this.state;
+    const numColor = (indexAct) => {
+      if (indexAct === undefined) {
+        return Styles.default;
+      } else if (indexAct === 1) {
+        return Styles.green;
+      } else if (indexAct === 2) {
+        return Styles.red;
+      }
+    }
+    const renderNumberItem = (item, index) => {
+      if (item.type === 1078) {
+        return <div className={classnames(Styles.li, numColor(item.topics[0].judge))}>{index + 1}</div>
+      } else {
+        return <div className={classnames(Styles.li, numColor(item.judge))}>{index + 1}</div>
+      }
+    }
     return (
       <div className={Styles.taskmarkingDetailContainer}>
-        <TopNav title="批阅任务" onLeftClick={this.back}></TopNav>
+        <TopNav title={answerDetailsInfo.moduleName}></TopNav>
         <div className={Styles.topicNum}>
           <div className={Styles.topicNumInfo}>
-            <span className={Styles.topicNumInfoL}>待批阅题目2道，总分100分</span>
-            <span className={Styles.topicNumInfoR}>互阅任务</span>
+            <span className={Styles.topicNumInfoL}>待批阅题目{answerDetailsInfo && answerDetailsInfo.topics.length}道，总分{this.totalScore()}分</span>
+            <span className={Styles.topicNumInfoR}>{CONSTANT.taskCorrectStartegy[params.correctorStrategy]}</span>
           </div>
           <div className={Styles.topicNumber}>
-            <div className={Styles.li}>1</div>
-            <div className={Styles.li}>2</div>
-            <div className={Styles.li}>3</div>
-            <div className={Styles.li}>4</div>
+            {
+              answerDetailsInfo && answerDetailsInfo.topics.map((item, index) => renderNumberItem(item, index))
+            }
           </div>
         </div>
         <div className={Styles.topicDetail}>
-          <div>题目详情</div>
-          <div className={Styles.readQuestions}>
-            <div className={classnames(Styles.item, Styles.info)}>当前得分：0/6</div>
-            <div className={classnames(Styles.item, Styles.yes)}><span></span>答对了</div>
-            <div className={classnames(Styles.item, Styles.no)}><span></span>答错了</div>
-            <div className={classnames(Styles.item, Styles.part)}
-              onClick={() => prompt('部分答对得分', '',
-                [
-                  {
-                    text: '取消',
-                  },
-                  {
-                    text: '确定',
-                    onPress: value => console.log(value)
-
-                  },
-                ], 'default', null, ['请输入分值，最小单位0.5分'])}><span></span>部分对了</div>
-          </div>
+          {
+            answerDetailsInfo && answerDetailsInfo.topics.map((item, index) => {
+              return <Taskmarktopic key={index} item={item} index={index} actIndex={this.actIndex} />;
+            })
+          }
         </div>
-        <div className={Styles.finishMarking}>完成批阅</div>
+        {
+          isSubmit === 1 ?
+            <div className={Styles.finishMarking} onClick={e => this.handleClickSaveBtn(e)}>完成批阅</div>
+            :
+            <div className={Styles.NOfinishMarking}>完成批阅</div>
+        }
       </div>
     )
   }

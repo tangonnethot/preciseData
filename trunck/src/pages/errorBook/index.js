@@ -8,7 +8,7 @@ import Styles from './index.less';
 import { getErrorBook } from '../../services/errorBook';
 import { ErrorShow } from '../../components/examin/student/index'
 
-
+  
 export default class errorBook extends React.Component {
   constructor(props) {
     super(props);
@@ -16,12 +16,11 @@ export default class errorBook extends React.Component {
       selSubject: '',
       tabType: 0,
       status: 1,
-      pageSize: 2,
+      pageSize: 10000,
       pageNo: 1,
-      topicArr: [],
+      topicArr:[],
       totalCount: '',
-      index: 1,
-      current:1
+      index: 0, 
     }
   }
 
@@ -41,10 +40,11 @@ export default class errorBook extends React.Component {
       .then(res => {
         this.setState({
           topicArr: res.data.datalist,
-          totalCount: res.data.totalCount, 
+          totalCount: res.data.totalCount
         })
       })
   }
+ 
 
   back = () => {
     goHome();
@@ -64,23 +64,10 @@ export default class errorBook extends React.Component {
     })
   }
 
-  onChange = (key) => {
-    const { pageSize, pageNo } = this.state;
-    if (key-1 === pageSize) {
-      this.setState({
-        pageNo: pageNo + 1,
-        index:1
-      },()=>{
-        this.errorBook();
-      })
-    }else{
-      if ( key == 4 ) key = 2
-      this.setState({
-        index: key
-      })
-  
-    }
-    
+  onChange = (key) => {  
+    this.setState({
+      index: key - 1
+    })  
   }
 
   isShow = () => {
@@ -88,20 +75,33 @@ export default class errorBook extends React.Component {
   }
 
   answerScoreList = () => {
-    const { topicArr, index } = this.state;
-    debugger
-    return topicArr[index - 1].ctStuAnswerRecordList.map((item) => {
-      let result = {
-        answer: item.answerContent,
-        score: item.answerScore,
-        time: item.answerTime
-      };
-      return result;
-    })
+    const { topicArr,index } = this.state; 
+    let result = []; 
+    if(topicArr[index].type === 1078 ){
+      for( let i = 0; i < topicArr[index].topics.length;i++ ){
+        for( let j = 0; j < topicArr[index].topics[i].ctStuAnswerRecordList.length;j++ ){
+            result.push([{
+            answer: topicArr[index].topics[i].ctStuAnswerRecordList[j].answerContent,
+            score: topicArr[index].topics[i].ctStuAnswerRecordList[j].answerScore,
+            time: topicArr[index].topics[i].ctStuAnswerRecordList[j].answerTime
+          }])   
+        } 
+      }  
+      return result; 
+    }else{
+      return topicArr[index] && topicArr[index].ctStuAnswerRecordList.map((item) => {
+        return result = {
+          answer: item.answerContent,
+          score: item.answerScore,
+          time: item.answerTime
+        };
+      })
+    }  
   }
 
   render() {
-    const { tabType, topicArr, totalCount, index, pageNo, current } = this.state;
+    const { tabType, topicArr,totalCount, index, pageNo, current } = this.state; 
+    
     return (
       <div className={Styles.errorBookContainer}>
         <TopNav title="错题本" onLeftClick={this.back}></TopNav>
@@ -120,16 +120,16 @@ export default class errorBook extends React.Component {
                 <div
                   className={Styles.topicCont}
                   style={{ minHeight: document.documentElement.clientHeight - 380 }}
-                >
+                > 
                   <ErrorShow
-                    question={topicArr[index - 1]}
+                    question={topicArr[index]}
                     answerScoreList={this.answerScoreList()}
                   />
                 </div>
                 <div className={Styles.pagination}>
                   <Pagination
                     total={totalCount}
-                    current={pageNo > 1 ? pageNo+current : current  }
+                    current={index+1}
                     locale={{
                       prevText: (<span className="arrow-align">上一题</span>),
                       nextText: (<span className="arrow-align">下一题</span>),
