@@ -3,8 +3,8 @@ import {
     getTaskModule,
     getCourseModuleInfo,
     getTaskDetails,
-    getStudentAnswerDetails,
-    manualExaminesTopic
+    getMarkingDetails,
+    submitMarking
 } from '../services/task';
 export default {
     namespace: "task",
@@ -139,9 +139,9 @@ export default {
                 }
             })
         },
-        *getStudentAnswerDetails({ payload }, { call, put, select }) {
+        *getMarkingDetails({ payload }, { call, put, select }) {
             yield put({ type: 'fetch/start' });
-            let { data } = yield call(getStudentAnswerDetails, payload)
+            let { data } = yield call(getMarkingDetails, payload)
             data && (yield put({
                 type: 'fetchAfter',
                 payload: {
@@ -151,9 +151,9 @@ export default {
             yield put({ type: 'fetch/end' });
         },
         //批阅任务
-        *manualExaminesTopic({ payload }, { call, put, select }) {
+        *submitMarking({ payload }, { call, put, select }) {
             yield put({ type: 'fetch/start' });
-            let { data } = yield call(manualExaminesTopic, payload)
+            let { data } = yield call(submitMarking, payload)
             data && (yield put({
                 type: 'fetchAfter'
             }))

@@ -92,22 +92,33 @@ export const markingTaskList = (params = {}) => {
 }
 
 
-/** 批阅单个学生/成绩详情页面
+/** 获取批阅学生作答详情
  * @param studentModuleId  
  * @param type  
 */
-export const getMarkingTopic = (params = {}) => {
+export const getMarkingDetails = (params = {}) => {
     return get(pathJoin(prefix, taskPrefix, 'task/class/getStudentAnswerDetails/v1.0'), { ...params },true).then(
         res => { return res; }
     );
 }
 
 /**
- * 批阅任务
+ *提交学生批阅
  * @param {*} params 
  */
-export const manualExaminesTopic = ( params = {} ) => {
+export const submitMarking = ( params = {} ) => {
     return post(pathJoin(prefix,taskPrefix, "task/teacher/manualExaminesTopic/v1.0"), {
+      ...params
+    },true);
+  };
+
+
+  /**
+ * 获取批阅/被批阅 数量
+ * @param {*} params 
+ */
+export const getMarkingCount = ( params = {} ) => {
+    return post(pathJoin(prefix,taskPrefix, "task/student/getNoticeCount/v1.0"), {
       ...params
     },true);
   };
