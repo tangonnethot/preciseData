@@ -40,6 +40,7 @@ class TaskResult extends React.Component {
 
             let answer = [];
             let score = [];
+            let correctAnswer =[];
             let qtype = stemContent.type;
             if (qtype != "1078") {
                 answer.push(answerList[answeridx].answerContent);
@@ -58,6 +59,7 @@ class TaskResult extends React.Component {
                     question={stemContent}
                     optionClick={(ans, index) => _this.changeAnswer(ans, index)}
                     userAnswer={answer.join(";")}
+                    revisedAnswer={correctAnswer}
                     userScore={score.join(";")}
                 />
             </div>)

@@ -18,7 +18,7 @@ function MyBody(props) {
 };
 
 const NUM_SECTIONS = 1;
-const NUM_ROWS_PER_SECTION = 15;
+const NUM_ROWS_PER_SECTION = 50;
 let pageIndex = 0;
 
 const dataBlobs = {};
@@ -119,7 +119,7 @@ export default class taskInfo extends React.Component {
     }
 
     onShowDetails = (type,status, id) => {
-        if (status > 0 && (type!=1||type!="1") && (type!=5||type!="5"))
+        if (status > 1 && (type!=1||type!="1") && (type!=5||type!="5"))
             this.props.history.push("/taskresult?taskNo=" + id);
         else {
             switch (type) {

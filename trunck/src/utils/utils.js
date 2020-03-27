@@ -470,7 +470,7 @@ export const getFileExtName = (filename) => {
   if (!filename) return "";
   if (typeof filename !== "string") return "";
   var namearr = filename.split(".");
-  return namearr[namearr.length() - 1];
+  return namearr.pop();
 }
 
 export const parseCookie = () => {

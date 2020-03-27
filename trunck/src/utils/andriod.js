@@ -26,7 +26,7 @@ export const playVideo=(name,id)=>{
  * 返回Andriod端的首页
  */
 export const goHome=()=>{
-    ASPrecise.goHome();
+    PlayerHelper.goHome();
 }
 
 /**
@@ -51,7 +51,7 @@ export const upload=(qid,fileName)=>{
  * @param {String} url 预览文档的路径
  */
 export const previewFile=(url)=>{
-    fileReview.reviewFile(url) 
+    PlayerHelper.reviewFile(url) 
 }
 
 
@@ -62,8 +62,6 @@ export const registerCB=(id,cb)=>{
     window._arrCB[id]=cb;
 };
 window.receiveAndroidUrl=(flag,filename,path,id)=>{
-    alert(filename);
-    alert(path);
     if(!window._arrCB.hasOwnProperty(id)) return;
     if(typeof window._arrCB[id] == "function"){
         window._arrCB[id](flag,id,path);            
