@@ -37,7 +37,8 @@ class ErrorShow extends React.PureComponent{
                 question.topics && question.topics.length>0 && question.topics.map( (child,index) => {
                   const childProps = Object.assign({},this.props,{
                     question:child,
-                    questionIndex:child.topicNo
+                    questionIndex:child.topicNo,
+                    answerScoreList:this.props.answerScoreList[index]
                   })
                   return <Fragment key={child.id}>
                     {

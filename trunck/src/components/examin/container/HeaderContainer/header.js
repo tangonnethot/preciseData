@@ -12,8 +12,6 @@ const Header = props => {
   Object.keys( constant.questionDifficultyLevel ).map( (key,index) => {
     if( question.degree==key ) degreeIndex=index;
   })
-  console.log( userScore )
-  console.log("================")
   return (
     <Row className={Style.header}>
       <Col>{questionIndex}</Col>

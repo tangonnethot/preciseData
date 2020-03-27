@@ -2,9 +2,10 @@ import {
     getTaskList,
     getTaskModule,
     getCourseModuleInfo,
-    getTaskDetails
+    getTaskDetails,
+    getMarkingDetails,
+    submitMarking
 } from '../services/task';
-// import { Select } from 'antd';
 export default {
     namespace: "task",
     state: {
@@ -17,7 +18,8 @@ export default {
         // },
         moduleContentList: {},
         // answerList: [],
-        loading: true
+        loading: false, 
+        answerDetailsInfo: "",
     },
     subscriptions: {
         setup({ dispatch, history }) {  // eslint-disable-line
@@ -53,7 +55,7 @@ export default {
             yield put({
                 type: "saveModuleInfo",
                 payload: {
-                    id:coureseinfo.data.id,
+                    id: coureseinfo.data.id,
                     refModuleInfo: coureseinfo.data
                 }
             })
@@ -77,13 +79,13 @@ export default {
             yield put({
                 type: "saveModuleInfo",
                 payload: {
-                    id:taskinfo.data.taskStudentId,
-                    refModuleInfo: taskinfo.data         
+                    id: taskinfo.data.taskStudentId,
+                    refModuleInfo: taskinfo.data
                 }
             });
             yield put({
-                type:"save",
-                payload:{
+                type: "save",
+                payload: {
                     loading: false
                 }
             })
@@ -137,9 +139,38 @@ export default {
                 }
             })
         },
+        *getMarkingDetails({ payload }, { call, put, select }) {
+            yield put({ type: 'fetch/start' });
+            let { data } = yield call(getMarkingDetails, payload)
+            data && (yield put({
+                type: 'fetchAfter',
+                payload: {
+                    answerDetailsInfo: data
+                },
+            }))
+            yield put({ type: 'fetch/end' });
+        },
+        //批阅任务
+        *submitMarking({ payload }, { call, put, select }) {
+            yield put({ type: 'fetch/start' });
+            let { data } = yield call(submitMarking, payload)
+            data && (yield put({
+                type: 'fetchAfter'
+            }))
+            yield put({ type: 'fetch/end' });
+        },
     },
 
     reducers: {
+        "fetch/start"(state) {
+            return { ...state, loading: true };
+        },
+        "fetch/end"(state) {
+            return { ...state, loading: false };
+        },
+        fetchAfter(state, action) {
+            return Object.assign({}, state, action.payload);
+        },
         saveModuleInfo(state, action) {
             let newModuleInfo = state.moduleContentList;
             // let newdata=;
@@ -157,7 +188,7 @@ export default {
                     break;
                 }
             }
-            return {...state,...state};
+            return { ...state, ...state };
             // return { ...state, ...{ answerList: newanswerList } }
         }
     },
