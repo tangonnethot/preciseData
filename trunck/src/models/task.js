@@ -4,22 +4,22 @@ import {
     getCourseModuleInfo,
     getTaskDetails,
     getMarkingDetails,
-    submitMarking
+    submitMarking,
+    getMarkingCount
 } from '../services/task';
 export default {
     namespace: "task",
     state: {
+        taskListLoading:true,
+        
         taskList: [],
+        taskListPageInfo:{},
         taskname: "",
         taskModuleInfo: {},
-        // refModuleInfo: {},
-        // questionModuleInfo:{
-        //     questionContent:{}
-        // },
         moduleContentList: {},
-        // answerList: [],
         loading: false, 
         answerDetailsInfo: "",
+        markingCount:{}
     },
     subscriptions: {
         setup({ dispatch, history }) {  // eslint-disable-line
@@ -28,15 +28,27 @@ export default {
     },
 
     effects: {
-        // *fetch({ payload }, { call, put }) {  // eslint-disable-line
-        //     yield put({ type: 'save' });
-        // },
         *getTaskList({ payload }, { call, put }) {
+            yield put({
+                type:"save",
+                palyload:{
+                    taskListLoading:true
+                }
+            })
             const taskData = yield getTaskList(payload);
             yield put({
-                type: "save",
+                type: "appendArray",
                 payload: {
                     taskList: taskData.data.datalist
+                }
+            })
+            let pageInfo= taskData.data.page;
+            pageInfo.showMore = !(pageInfo.pageSize*pageInfo.currentPage>=pageInfo.totalCount);
+            debugger
+            yield put({
+                type:"save",
+                payload:{
+                    taskListPageInfo:pageInfo
                 }
             })
         },
@@ -159,6 +171,15 @@ export default {
             }))
             yield put({ type: 'fetch/end' });
         },
+        *getMarkingCount({payload},{call,put,select}){
+            yield put({type:'fetch/start'});
+            const markingCount = yield call(getMarkingCount,payload);
+            markingCount.code==200 && (yield put({
+                type:'fetchAfter',
+                markingCount:markingCount.data
+            }))
+            yield put({type:"fetch/end"});
+        }
     },
 
     reducers: {
@@ -190,6 +211,10 @@ export default {
             }
             return { ...state, ...state };
             // return { ...state, ...{ answerList: newanswerList } }
+        },
+        appendArray(state,action){
+            let taskList = state.taskList.concat(action.payload.taskList);
+            return{...state,...{taskList:taskList,taskListLoading:false}};            
         }
     },
 }

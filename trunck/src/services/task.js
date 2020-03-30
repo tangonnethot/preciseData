@@ -118,7 +118,7 @@ export const submitMarking = ( params = {} ) => {
  * @param {*} params 
  */
 export const getMarkingCount = ( params = {} ) => {
-    return post(pathJoin(prefix,taskPrefix, "task/student/getNoticeCount/v1.0"), {
+    return get(pathJoin(prefix,taskPrefix, "task/student/getNoticeCount/v1.0"), {
       ...params
     },true);
   };

@@ -3,15 +3,12 @@ import KnowLeadge from '../../components/knowleadge';
 import TopNav from '../../components/nav';
 import SubjectNav from '../../components/nav/subject';
 import { goHome } from '../../utils/andriod';
-import { getUserID, getschoolYear } from "../../utils/utils";
+import { getUserID, getschoolYear,getOrgID} from "../../utils/utils";
 import { Row, Col, Progress, Table} from "antd";
 import { SegmentedControl } from "antd-mobile";
-// import { AccordionTree } from '../../components/UI';
 import ReactEcharts from 'echarts-for-react';
-// import classnames from 'classnames';
 import Styles from './index.less';
 import { connect } from 'dva';
-
 class learningSituation extends React.Component {
     constructor(props) {
         super(props);
@@ -55,7 +52,7 @@ class learningSituation extends React.Component {
             payload: {
                 schoolYear: getschoolYear(),
                 studentId: getUserID(),
-                orgId:"289a872f48584e149c07b75085c0c1a8",
+                orgId:getOrgID(),
                 subjectId:sid,
                 timeType: this.state.timeType
             }
@@ -65,7 +62,7 @@ class learningSituation extends React.Component {
             payload: {
                 schoolYear: getschoolYear(),
                 studentId: getUserID(),
-                orgId:"289a872f48584e149c07b75085c0c1a8",
+                orgId:getOrgID(),
                 subjectId:sid,
                 timeType: this.state.timeType
             }

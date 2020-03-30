@@ -1,5 +1,5 @@
 import React from 'react'
-import { ListView, Badge, SegmentedControl } from 'antd-mobile'
+import { ListView, NoticeBar,SegmentedControl } from 'antd-mobile'
 import {Empty} from 'antd'
 import TopNav from '../../components/nav'
 import SubjectNav from '../../components/nav/subject'
@@ -8,85 +8,31 @@ import { goHome } from '../../utils/andriod'
 import Styles from './index.less'
 import { connect } from 'dva'
 import classnames from 'classnames';
-
-function MyBody(props) {
-    return (
-        <div className="am-list-body my-body">
-            {props.children}
-        </div>
-    );
-};
-
-const NUM_SECTIONS = 1;
-const NUM_ROWS_PER_SECTION = 50;
-let pageIndex = 0;
-
-const dataBlobs = {};
-let sectionIDs = [];
-let rowIDs = [];
-function genData(pIndex = 0) {
-    sectionIDs=[];
-    rowIDs = [];
-    for (let i = 0; i < NUM_SECTIONS; i++) {
-        const ii = (pIndex * NUM_SECTIONS) + i;
-        const sectionName = `Section ${ii}`;
-        sectionIDs.push(sectionName);
-        dataBlobs[sectionName] = sectionName;
-        rowIDs[ii] = [];
-
-        for (let jj = 0; jj < NUM_ROWS_PER_SECTION; jj++) {
-            const rowName = `S${ii}, R${jj}`;
-            rowIDs[ii].push(rowName);
-            dataBlobs[rowName] = rowName;
-        }
-    }
-    sectionIDs = [...sectionIDs];
-    rowIDs = [...rowIDs];
-}
+import Marquee from 'antd-mobile/lib/notice-bar/Marquee';
 
 @connect(({ task }) => ({ task }))
 export default class taskInfo extends React.Component {
     constructor(props) {
         super(props);
         this.cleanModalData();
-
-        const getSectionData = (dataBlob, sectionID) => dataBlob[sectionID];
-        const getRowData = (dataBlob, sectionID, rowID) => dataBlob[rowID];
-
         const dataSource = new ListView.DataSource({
-            getRowData,
-            getSectionHeaderData: getSectionData,
             rowHasChanged: (row1, row2) => row1 !== row2,
             sectionHeaderHasChanged: (s1, s2) => s1 !== s2,
         });
         this.state = {
+            curPage:1,
             dataSource,
-            isLoading: true,
             taskFinishStatus: 0,
             selSubject: 0,
             height: document.documentElement.clientHeight * 3 / 4,
         }
         this.getTaskInfo();
-
     }
 
     cleanModalData=()=>{
         this.props.dispatch({
             type:"task/cleanTaskData"
         });
-    }
-
-    componentDidMount() {
-        const hei = document.documentElement.clientHeight;// - ReactDOM.findDOMNode(this.lv).parentNode.offsetTop;
-        // this.getTaskInfo();
-        setTimeout(() => {
-            genData();
-            this.setState({
-                dataSource: this.state.dataSource.cloneWithRowsAndSections(dataBlobs, sectionIDs, rowIDs),
-                isLoading: false,
-                height: hei,
-            });
-        }, 600);
     }
 
     getTaskInfo = () => {
@@ -99,7 +45,15 @@ export default class taskInfo extends React.Component {
             payload: {
                 studentId: studentid,
                 taskFinishStatus: finishStatus,
-                subjectId: subjectid
+                subjectId: subjectid,
+                currentPage:this.state.curPage,
+                pageSize:10
+            }
+        });
+        this.props.dispatch({
+            type:'task/getMarkingCount',
+            payload:{
+                userId:getUserID()
             }
         })
     }
@@ -183,10 +137,16 @@ export default class taskInfo extends React.Component {
         }
     }
 
+    onEndReached=(page,lastpage)=>{
+        this.state.curPage++;
+        this.getTaskInfo();
+    }
+
     render() {
-        const { taskList } = this.props.task;
+        const { taskList,markingCount,taskListLoading,taskListPageInfo } = this.props.task;
         let index =0;
-        const row = (rowData, sectionID, rowID) => {
+        
+        const row = (item) => {
             if (index > taskList.length-1) {
                 return (<div/>)
             }
@@ -212,6 +172,7 @@ export default class taskInfo extends React.Component {
             );
         };
         const { taskFinishStatus, selSubject } = this.state;
+        // let hasMore=true;
         return (
             <div className={Styles.taskContainer}>
                 <TopNav title="提分任务" onLeftClick={this.back}></TopNav>
@@ -219,21 +180,38 @@ export default class taskInfo extends React.Component {
                 <div className={Styles.segment}>
                     <SegmentedControl selectedIndex={taskFinishStatus} values={["待完成", "已完成"]} onChange={this.changeComplete} />
                 </div>
-                {isNull(taskList)?<Empty/>:<ListView
+                {/* <NoticeBar>
+                    <Marquee direction="up" height="70">
+                    <div>你有新的阅卷任务，赶紧<span>去批阅</span>吧！</div>
+                    <div>你有新的被阅卷任务，赶紧<span>去查看</span>吧！</div>
+                    </Marquee>
+                </NoticeBar> */}
+                <ListView
                     ref={el => this.lv = el}
-                    dataSource={this.state.dataSource}
-                    renderBodyComponent={() => <MyBody />}
+                    dataSource={this.state.dataSource.cloneWithRows(taskList)}
                     renderRow={row}
                     style={{
                         height: this.state.height,
                         overflow: 'auto',
                     }}
-                    pageSize={4}
-                    onScroll={() => { console.log('scroll'); }}
+                    pageSize={10}
+                    renderFooter={() => (
+                        <div style={{ padding: 30, textAlign: "center" }}>
+                          {
+                            taskListLoading
+                            ? "数据加载中"
+                            : taskListPageInfo.showMore
+                              ? "上滑加载更多"
+                              :(!isNull(taskList)
+                                ? "已经到底了"
+                              : <Empty  description='暂无数据' />)}
+                        </div>
+                      )}
                     scrollRenderAheadDistance={500}
+                    scrollEventThrottle={200}
                     onEndReached={this.onEndReached}
                     onEndReachedThreshold={10}
-                />}
+                />
             </div>
         )
     }

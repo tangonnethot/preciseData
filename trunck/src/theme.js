@@ -1,3 +1,4 @@
+const hd="1px"; //基本单位
 //蓝色
 const blue1 = '#f2f6ff';
 const blue2 = '#bae0ff';
@@ -25,11 +26,11 @@ const grey3 = '#dadada';
 const grey4 = '#666666';
 const grey5 = '#898989';
 const grey8 = '#333';
-const fontSize12 = '12px';
+const fontSize12 = 12*hd;
 const fontSize14 = '14px';
 const fontSize16 = '16px';
 const fontSize18 = '18px';
-const fontSize20 = '20px';
+const fontSize20 = 20*hd;
 const fontSize24 = '24px';
 const fontSize26 = "26px";
 const fontSize28 = "28px";
