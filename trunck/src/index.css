@@ -1,5 +1,12 @@
 
 html, body, :global(#root) {
   height: 100%;
+  
 }
-
+html{
+  font-size: 62.5%;
+}
+:global(#root) {
+  font-size:1.6rem;
+  
+}

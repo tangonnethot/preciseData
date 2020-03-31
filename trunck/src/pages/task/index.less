@@ -133,7 +133,7 @@
 		background-color: #fffdf3;
 
 		.topicNumInfo {
-			font-size      : 24px;
+			font-size      : @list-font-size;
 			display        : flex;
 			justify-content: space-between;
 
@@ -153,12 +153,12 @@
 			.li {
 				border          : 1px solid;
 				border-radius   : 30px;
-				width           : 50px;
-				height          : 50px;
+				width           : @icon-width;
+				height          : @icon-height;
 				text-align      : center;
 				vertical-align  : middle;
-				line-height     : 50px;
-				font-size       : 20px;
+				line-height     : @icon-height;
+				font-size       : @log-fFont-size;
 				font-weight     : bold;
 				display         : inline-block;
 				margin          : 20px 19px 8px 0;
@@ -207,5 +207,22 @@
 			background-color: @body-bg;
 			border          : none;
 		}
+	}
+}
+
+.marqueeContainer{
+	height:@item-height;
+	font-size: @list-big-font-size;
+	background: url("../../assets/notify.png") no-repeat 0px 12px;
+	background-color:@bg-notice;
+	padding-left: 8rem;
+	color:@text-font-color;
+	line-height: @item-height;
+	vertical-align: middle;	
+	.red{
+		color:#ec445f;
+	}
+	.hidden{
+		display: none;
 	}
 }

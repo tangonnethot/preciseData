@@ -1,4 +1,3 @@
-const hd="1px"; //基本单位
 //蓝色
 const blue1 = '#f2f6ff';
 const blue2 = '#bae0ff';
@@ -8,6 +7,7 @@ const blue6 = "#1767ec";
 const blue7 = '#087fed';
 const blue8 = '#0979d4';
 //黄色
+const yellow7 = "#fff9dd";
 const yellow6 = "#fffdf3";
 const yellow5 = '#ffc937';
 //紫色
@@ -26,32 +26,29 @@ const grey3 = '#dadada';
 const grey4 = '#666666';
 const grey5 = '#898989';
 const grey8 = '#333';
-const fontSize12 = 12*hd;
-const fontSize14 = '14px';
-const fontSize16 = '16px';
-const fontSize18 = '18px';
-const fontSize20 = 20*hd;
-const fontSize24 = '24px';
-const fontSize26 = "26px";
-const fontSize28 = "28px";
-const fontSize30 = '30px';
-const fontSize32 = '32px';
-const fontSize36 = '36px';
+const fontSize12 = '1.2rem';
+const fontSize14 = '1.4rem';
+const fontSize16 = '1.6rem';
+const fontSize18 = '1.8rem';
+const fontSize20 = '2rem';
+const fontSize24 = '2.4rem';
+const fontSize26 = "2.6rem";
+const fontSize28 = "2.8rem";
+const fontSize30 = '3rem';
+const fontSize32 = '3.2rem';
+const fontSize36 = '3.6rem';
 const fontFamily = 'Microsoft YaHei';
-const marginLength = '15px';
-const radiusBase = '5px';
-const radius8 = '8px';
+const marginLength = '1.5rem';
+const radiusBase = '0.5rem';
+const radius8 = '0.8rem';
+const heigth80 ="8rem";
+const heigth50 ="5rem";
 
 module.exports = {
   '@brandPrimaryTap': '#1890ff',
   '@navTheme': 'dark',
   '@layout': 'topmenu',
-  '@contentWidth': 'Fixed',
-  // '@fixedHeader': false,
-  // '@utoHideHeader': false,
-  // '@fixSiderbar': false,
-  // '@colorWeak': false,
-  //  breakpoint:'lg', 
+  '@contentWidth': 'Fixed', 
   '@title': '精准教学平台',
   '@pwa': false,
   '@iconfontUrl': '',
@@ -61,7 +58,7 @@ module.exports = {
   //字体
   '@font-family': fontFamily,
   //导航高度
-  '@layou-header-height': '80px',
+  '@layou-header-height': heigth80,
   //全局副色 文字 选项等 
   '@vice-color': blue5,
   //按钮  确认 完成
@@ -70,6 +67,8 @@ module.exports = {
   '@cancel-btn': blue7,
   //背景点缀色
   '@bg-style': blue8, 
+  // 消息背景色
+  '@bg-notice':yellow7,
   //按钮  绿色
   '@green-btn': green5,
   // 错误色
@@ -89,7 +88,7 @@ module.exports = {
   //导航字号
   '@nav-big-font-size': fontSize32,
   // 列表大字号
-  '@list-big-font-size': fontSize28,
+  '@list-big-font-size': fontSize26,
  // 列表字号
  '@list-font-size': fontSize24,
   // 列表小字号
@@ -108,6 +107,10 @@ module.exports = {
   '@content-small-font-size': fontSize14,
   //内容/标签 小字号 
   '@title-descibe-font-size': fontSize12,
+  // 图标大小
+  '@icon-width':heigth50,
+  '@icon-height':heigth50,
+
   //白色字体
   '@white-color': '#fff',
   //次文本色
@@ -172,5 +175,7 @@ module.exports = {
   //学情圆角
   '@learning-radius': radius8,
   // 任务描述
-  '@task-describe': yellow6
+  '@task-describe': yellow6,
+  '@item-height':heigth80
+
 };
