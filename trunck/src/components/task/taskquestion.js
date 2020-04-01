@@ -142,7 +142,7 @@ export default class TaskQuestion extends React.Component {
                 }
                 
             }
-            return (<div key={stemContent.topicNum} className={Styles.ques_item}>
+            return (<div key={stemContent.id} className={Styles.ques_item}>
                 <Answer
                     question={stemContent}
                     optionClick={(ans, index) => _this.changeAnswer(ans, index)}
@@ -150,9 +150,9 @@ export default class TaskQuestion extends React.Component {
                 />
             </div>)
         }
-
         return (
             isNull(questionContent) ? <div></div> : <div className={Styles.questionContainer}>
+                <Attachment docs={JSON.parse(questionContent.files)}></Attachment>
                 {questionContent.topics.map((element, idx) => renderQuestion(element, idx)
                 )}
                 <TaskStatistics answerList={answerList} />               
