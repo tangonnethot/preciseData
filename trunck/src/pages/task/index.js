@@ -5,11 +5,11 @@ import TopNav from '../../components/nav'
 import SubjectNav from '../../components/nav/subject'
 import { convertTaskType, formatDate1, formatDate2, isNull, getUserID } from '../../utils/utils'
 import { goHome } from '../../utils/andriod'
+import CONSTANT from '../../utils/constant'
 import Styles from './index.less'
 import { connect } from 'dva'
 import classnames from 'classnames';
 import { Link } from 'dva/router';
-
 @connect(({ task }) => ({ task }))
 export default class taskInfo extends React.Component {
     constructor(props) {
@@ -66,6 +66,9 @@ export default class taskInfo extends React.Component {
         let finishStatus = this.state.taskFinishStatus || "0";
         let subjectid = this.state.selSubject || "";
         if (subjectid == 0) subjectid = "";
+        this.props.dispatch({
+            type:"task/cleanTaskData"
+        })
         this.props.dispatch({
             type: "task/getTaskList",
             payload: {
@@ -191,7 +194,6 @@ export default class taskInfo extends React.Component {
             const obj = taskList[index++];
             if (isNull(obj)) return (<div></div>);
             let formatEndTime = formatDate2(obj.taskEndTime);
-
             return (
                 <div key={obj.taskNo} className={Styles.task_item} onClick={this.onShowDetails.bind(this, obj.taskType, obj.taskFinishStatus, obj.id)}>
                     <div>
@@ -201,7 +203,7 @@ export default class taskInfo extends React.Component {
                     </div>
                     <div style={{ paddingLeft: "54px" }}>
                         <span className={classnames(Styles.label, Styles.task_label)}>{convertTaskType(obj.taskType)}</span>
-                        <span className={classnames(Styles.label, Styles.review_label)}>在线阅</span>
+                        <span className={classnames(Styles.label, Styles.review_label)}>{CONSTANT.taskCorrectStartegy[obj.taskCorrectStrategy]}</span>
                         <span className={Styles.startTime}>截止日期： <span>{formatEndTime.date}</span>
                             <span style={{ paddingLeft: "10px" }}>{formatEndTime.time}</span></span>
                     </div>
@@ -210,7 +212,6 @@ export default class taskInfo extends React.Component {
         };
 
         const { taskFinishStatus, selSubject } = this.state;
-        debugger
         return (
             <div className={Styles.taskContainer}>
                 <TopNav title="提分任务" onLeftClick={this.back}></TopNav>
