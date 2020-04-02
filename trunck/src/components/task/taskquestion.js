@@ -152,7 +152,7 @@ export default class TaskQuestion extends React.Component {
         }
         return (
             isNull(questionContent) ? <div></div> : <div className={Styles.questionContainer}>
-                <Attachment docs={JSON.parse(questionContent.files)}></Attachment>
+                { questionContent && questionContent.files && <Attachment docs={JSON.parse(questionContent.files)}></Attachment> }
                 {questionContent.topics.map((element, idx) => renderQuestion(element, idx)
                 )}
                 <TaskStatistics answerList={answerList} />               
