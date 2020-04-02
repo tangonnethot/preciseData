@@ -59,7 +59,7 @@ class TaskResult extends React.Component {
                     question={stemContent}
                     optionClick={(ans, index) => _this.changeAnswer(ans, index)}
                     userAnswer={answer.join(";")}
-                    revisedAnswer={correctAnswer}
+                    revisedAnswer={correctAnswer.join(";")}
                     userScore={score.join(";")}
                 />
             </div>)

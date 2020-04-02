@@ -72,7 +72,7 @@ Result.propTypes={
     id:PropTypes.string.isRequired,
     qtypename:PropTypes.string,
     score:PropTypes.number.isRequired,
-    content:PropTypes.string.isRequired,
+    content:PropTypes.string,
     topicBranches:PropTypes.array,
     topicNo:PropTypes.isRequired,
     topicGroup:PropTypes.string

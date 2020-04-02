@@ -12,8 +12,8 @@ class TaskStatistics extends React.Component{
         const {answerList} = this.props;
         
         const renderNumberItem=(item,index)=>{
-            return(!item.answerContent?<div className={Styles.item_number} >{index+1}</div>:
-            <div className={classnames(Styles.item_number,Styles.green)} >{index+1}</div>)
+            return(!item.answerContent?<div key={item.id} className={Styles.item_number} >{index+1}</div>:
+            <div key={item.id} className={classnames(Styles.item_number,Styles.green)} >{index+1}</div>)
         }
         return(
             <div className={Styles.statistics}>
