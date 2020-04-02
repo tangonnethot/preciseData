@@ -1,6 +1,6 @@
 @import '~antd/es/style/themes/default.less'; 
 .HeaderContainer{
-  padding: 24px;
+  padding: @padding-lg;
   .header{
     display: flex;
     align-items: center;
@@ -8,9 +8,9 @@
     .type_name{
       color: @vice-color;
       border: 1px solid @vice-color;
-      margin: 0 10px;
-      padding: 1px 8px;
-      border-radius: 4px;
+      margin: 0 @margin-sm;
+      padding: 1px @padding-xs;
+      border-radius: @radius-base;
       font-size: @content-small-font-size;
     }
     .score{
@@ -21,18 +21,18 @@
     }
     .group_name{
       background-color: @body-bg;
-      padding: 1px 8px;
+      padding: 1px @padding-xs;
       font-size: @content-small-font-size;
-      border-radius: 8px;
-      margin-left: 8px;
+      border-radius: @learning-radius;
+      margin-left: @margin-xs;
     }
     .degree{
       :global{
         .am-segment{
-          margin: 0px 12px;
+          margin: 0px @margin-sm;
           font-size: @content-small-font-size;
           .am-segment-item{
-            padding: 0 4px;
+            padding: 0 @padding-xss;
           }
         }
         .am-segment.am-segment-disabled {
@@ -41,7 +41,7 @@
       }
     }
     .userScore{
-      padding: 2px 0 ;
+      padding: @padding-xss 0 ;
       width: 64px;
       color: @white-color;
       background-color: @green-btn;

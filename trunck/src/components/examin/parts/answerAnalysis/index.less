@@ -1,20 +1,20 @@
 .answerAnalysis{
-  padding: 8px 18px;
+  padding: @padding-xs @padding-md;
   .btn{
     display: inline-block;
     background-color: #3b9bff;
-    border-radius: 6px;
+    border-radius: @radius-base;
     color: @white-color;
-    padding: 6px 6px 6px 12px;
+    padding: @padding-xs @padding-xs @padding-xs @padding-sm;
     font-size: @title-descibe-font-size;
-    margin: 6px 0;
+    margin: @margin-xs 0;
     cursor: pointer;
     .arrowDown{
       display :inline-block;
       position: relative;
       width: 16px;
       height: 12px;
-      margin-left: 5px;
+      margin-left: @margin-xss;
       vertical-align: middle;
     }
     .arrowDown::after {
@@ -31,13 +31,13 @@
       position: absolute;
       top: 50%;
       right: 7px;
-      margin-top: -8px;
+      margin-top: -@margin-xs;
     }
     .arrowDown.right::after {
       transform-origin: center;
       transform: rotate(-45deg);
       transition: transform .1s;
-      margin-top: -6px;
+      margin-top: -@margin-xs;
       right: 11px;
     }
   }

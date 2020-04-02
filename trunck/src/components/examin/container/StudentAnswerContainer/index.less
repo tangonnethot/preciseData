@@ -2,9 +2,9 @@
   .studentAnswer{
     display: flex;
     color: #ff3e3e;
-    padding-left: 18px;
+    padding-left: @padding-md;
     position: relative;
-    margin-bottom: 14px;
+    margin-bottom: @margin-md;
     .title{
       flex-grow: 0;
       flex-shrink: 0;
@@ -14,13 +14,13 @@
       display: inline-block;
       padding-right: 120px;
       &>div{
-        margin-right: 16px;
-        margin-bottom: 16px;
+        margin-right: @margin-md;
+        margin-bottom: @margin-md;
         display: inline-block;
         img{
-          width: 82px;
-          height: 82px;
-          border-radius: 8px;
+          width: @answer-pic-width;
+          height: @answer-pic-height;
+          border-radius: @learning-radius;
         }
       }
     }
@@ -33,7 +33,7 @@
       right: 20px;
       bottom: 0px;
       img{
-        margin-bottom: 8px;
+        margin-bottom: @margin-xs;
       }
       &>div{
       }

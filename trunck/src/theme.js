@@ -40,10 +40,22 @@ const fontSize36 = '3.6rem';
 const fontFamily = 'Microsoft YaHei';
 const marginLength = '1.5rem';
 const paddingLength = '1.8rem';
-const radiusBase = '0.5px';
+const radiusBase = '5px';
 const radius8 = '8px';
+const long80="8rem";
 const heigth80 ="8rem";
 const heigth44 ="4.4rem";
+const spacing24="2.4rem" ;
+const spacing20="2.0rem" ;
+const spacing16="1.6rem" ;
+const spacing12="1.2rem" ;
+const spacing8="0.8rem" ;
+const spacing4="0.4rem" ;
+const lineHeight50="5rem";
+const lineHeight40="4rem";
+const lineHeight36="3.6rem";
+const lineHeight30="3rem";
+const lineHeight26="2.6rem";
 
 module.exports = {
   '@brandPrimaryTap': '#1890ff',
@@ -179,6 +191,22 @@ module.exports = {
   '@learning-radius': radius8,
   // 任务描述
   '@task-describe': yellow6,
-  '@item-height':heigth80
-
+  '@item-height':heigth80,
+  '@padding-lg': spacing24, // containers
+  '@padding-md': spacing16, // small containers and buttons
+  '@padding-sm': spacing12,// Form controls and items
+  '@padding-xs': spacing8, // small items
+  '@padding-xss': spacing4, // more small
+  '@margin-lg': spacing24, // containers
+  '@margin-md': spacing16, // small containers and buttons
+  '@margin-sm': spacing12,// Form controls and items
+  '@margin-xs': spacing8, // small items
+  '@margin-xss': spacing4, // more small
+  '@answer-pic-width':long80,//学生作答图片宽
+  '@answer-pic-height':long80,//学生作答图片高
+  '@line-height-lg': lineHeight50, 
+  '@line-height-md': lineHeight40,
+  '@line-height-sm': lineHeight36,
+  '@line-height-xs': lineHeight30,
+  '@line-height-xss': lineHeight26,
 };
