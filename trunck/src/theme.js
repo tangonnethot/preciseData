@@ -39,10 +39,11 @@ const fontSize32 = '3.2rem';
 const fontSize36 = '3.6rem';
 const fontFamily = 'Microsoft YaHei';
 const marginLength = '1.5rem';
-const radiusBase = '0.5rem';
-const radius8 = '0.8rem';
+const paddingLength = '1.8rem';
+const radiusBase = '0.5px';
+const radius8 = '8px';
 const heigth80 ="8rem";
-const heigth50 ="5rem";
+const heigth44 ="4.4rem";
 
 module.exports = {
   '@brandPrimaryTap': '#1890ff',
@@ -77,6 +78,8 @@ module.exports = {
   '@tip-color': red5,
   //盒子外边距 
   '@wrap-margin': marginLength,
+  //列表边距 
+  '@list-padding': paddingLength,
   //模块标题/名称 字号 
   '@modular-font-size': fontSize28,
   //tab选中标题字号
@@ -108,8 +111,8 @@ module.exports = {
   //内容/标签 小字号 
   '@title-descibe-font-size': fontSize12,
   // 图标大小
-  '@icon-width':heigth50,
-  '@icon-height':heigth50,
+  '@icon-width':heigth44,
+  '@icon-height':heigth44,
 
   //白色字体
   '@white-color': '#fff',

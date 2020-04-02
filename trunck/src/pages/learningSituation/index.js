@@ -31,7 +31,7 @@ class learningSituation extends React.Component {
                 studentId: getUserID(),
                 timeType: timeType
             }
-        });
+        });      
       
     }
 
@@ -169,7 +169,7 @@ class learningSituation extends React.Component {
         let xData=[],seriesData=[];
         this.props.situation.totalStatistics.forEach(element => {
             xData.push(element.subjectName);
-            let score = element.taskScore/element.taskTotalScore;
+            let score = Math.ceil(element.taskScore/element.taskTotalScore*10000)/100;
             if(isNaN(score)) score =0;
             seriesData.push(score);
         });
@@ -298,12 +298,12 @@ class learningSituation extends React.Component {
                         <Row span={24}>
                             <Col span={8}>
                                 <ReactEcharts option={this.getTaskCountOption()}></ReactEcharts>
-                                <div className={Styles.count}>{totalOverView.taskNum || "0个"}</div>
+                                <div className={Styles.count}>{totalOverView.taskCount || "0个"}</div>
                                 <div className={Styles.textCenter}>任务量</div>
                                 <div className={Styles.legendContainer}>
                                     {totalStatistics && totalStatistics.map((item, index) => {
                                         let color = lengendColor[index%lengendColor.length];
-                                        return <div><div className={Styles.subjectIcon} style={{ backgroundColor: color}} />{item.subjectName||""} | {(item.taskScore / totalOverView.taskNum)||0}% {item.taskNum||0}次</div>;
+                                        return <div><div className={Styles.subjectIcon} style={{ backgroundColor: color}} />{item.subjectName||""} | {Math.ceil(item.taskNum / totalOverView.taskCount*10000)/100||0}% {item.taskNum||0}次</div>;
                                     })}
 
                                 </div>
@@ -315,23 +315,22 @@ class learningSituation extends React.Component {
                                 <div className={Styles.legendContainer}>
                                 {totalStatistics && totalStatistics.map((item, index) => {
                                         let color = lengendColor[index%lengendColor.length];
-                                        return <div><div className={Styles.subjectIcon} style={{ backgroundColor: color}} />{item.subjectName||""} | {(item.topicCount / totalOverView.topicCount)||0}% {item.topicCount||0}题</div>;
+                                        return <div><div className={Styles.subjectIcon} style={{ backgroundColor: color}} />{item.subjectName||""} | {Math.ceil(item.topicCount / totalOverView.topicCount*10000)/100||0}% {item.topicCount||0}题</div>;
                                     })}
                                 </div>
                             </Col>
                             <Col span={8}>
                                 <ReactEcharts option={this.getTimeOption()}></ReactEcharts>
-                                <div className={Styles.count}>{totalOverView.taskTotalTime || "0分钟"}</div>
+                                <div className={Styles.count}>{totalOverView.userTime || "0分钟"}</div>
                                 <div className={Styles.textCenter}>学习用时</div>
                                 <div className={Styles.legendContainer}>
                                 {totalStatistics && totalStatistics.map((item, index) => {
                                         let color = lengendColor[index%lengendColor.length];
-                                        return <div><div className={Styles.subjectIcon} style={{ backgroundColor: color}} />{item.subjectName||""} | {(item.taskTotalTime / totalOverView.taskTotalTime)||0}% {item.taskTotalTime||0}分钟</div>;
+                                        return <div><div className={Styles.subjectIcon} style={{ backgroundColor: color}} />{item.subjectName||""} | {Math.ceil(item.taskTotalTime / totalOverView.userTime*10000)/100||0}% {item.taskTotalTime||0}分钟</div>;
                                     })}
                                 </div>
                             </Col>
                         </Row>
-
                     </div>
                     <div className={Styles.container}>
                         <div className={Styles.title}>各科得分率统计</div>
