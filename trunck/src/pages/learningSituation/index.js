@@ -3,8 +3,8 @@ import KnowLeadge from '../../components/knowleadge';
 import TopNav from '../../components/nav';
 import SubjectNav from '../../components/nav/subject';
 import { goHome } from '../../utils/andriod';
-import { getUserID, getschoolYear,getOrgID} from "../../utils/utils";
-import { Row, Col, Progress, Table} from "antd";
+import { getUserID, getschoolYear,getOrgID,isNull} from "../../utils/utils";
+import { Row, Col, Progress, Table,Empty} from "antd";
 import { SegmentedControl } from "antd-mobile";
 import ReactEcharts from 'echarts-for-react';
 import Styles from './index.less';
@@ -340,7 +340,7 @@ class learningSituation extends React.Component {
                 </div>)
         }
         const renderKnowleadge = () => {
-            const { taskStatistics } = this.props.situation;
+            const { taskStatistics,knowleadge } = this.props.situation;
             return (<div>
                 <div className={Styles.container}>
                     <div className={Styles.title}>知识点掌握情况</div>
@@ -359,21 +359,17 @@ class learningSituation extends React.Component {
                         </Col>
                     </Row>
                 </div>
-                <div><KnowLeadge /></div>
+                <div>                  
+                    {isNull(knowleadge)?<Empty/>:<KnowLeadge />}
+                </div>
             </div>)
         }
 
         const renderKnowleadgeTable = () => {
             const {knowleadgeList}=this.props.situation;
             return (<div styles={{ width: "100%" }}>
-            <Table columns={this.getColumnsData(knowleadgeList[0].name)} rowClassName={this.getRowClass} dataSource={this.getTableData(knowleadgeList,0)} expandIcon={(props) => this.customExpandIcon(props)} pagination={false} showHeader={false}></Table>
-
-            {/* {
-                
-                 knowleadgeList.map((item,index)=>{
-                    return(<Table columns={this.getColumnsData(item.name)} dataSource={this.getTableData(item.childKnowledges)} pagination={false}></Table>)
-                })
-            } */}
+            {isNull(knowleadgeList)?<Empty/>:
+            <Table columns={this.getColumnsData(knowleadgeList[0].name)} rowClassName={this.getRowClass} dataSource={this.getTableData(knowleadgeList,0)} expandIcon={(props) => this.customExpandIcon(props)} pagination={false} showHeader={false}></Table>}
             </div>)
         }
 

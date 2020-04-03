@@ -512,6 +512,9 @@ export const getschoolYear = ()=>{
   // return "2019";
 }
 
+export const getOrgID =()=>{
+  return getCookie("orgid");
+}
 let begintime;
 
 export const startTime = () => {
