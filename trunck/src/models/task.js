@@ -43,7 +43,6 @@ export default {
             })
             let pageInfo = taskData.data.page;
             pageInfo.showMore = !(pageInfo.pageSize * pageInfo.currentPage >= pageInfo.totalCount);
-            debugger
             yield put({
                 type: "save",
                 payload: {
@@ -173,7 +172,6 @@ export default {
         *getMarkingCount({ payload }, { call, put, select }) {
             yield put({ type: 'fetch/start' });
             const markingCount = yield call(getMarkingCount, payload);
-            debugger
             markingCount.code == 200 && (yield put({
                 type: 'save',
                 payload: {

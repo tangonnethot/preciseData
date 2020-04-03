@@ -1,33 +1,38 @@
-.errorBookContainer{
+.errorBookContainer {
   .segment {
-    margin: 24px 60px;
+    margin: 2.4rem 6rem;
 
     :global {
-        .am-segment {
-            height   : 50px;
-            font-size: 24px;
-        }
+      .am-segment {
+        height   : 5rem;
+        font-size: @nav-font-size;
+      }
 
-        .am-segment-item {
-            font-size: 24px;
-        }
+      .am-segment-item {
+        font-size: @nav-font-size;
+      }
+
     }
-  } 
-  .topicNumber{
-    margin: 10px 40px;
-    font-size: 20px;
   }
-  .topicCont{
-    background-color: #fff;
-    height: auto; 
+
+  .topicNumber {
+    margin   : 1rem 4rem;
+    font-size: @list-small-font-size;
   }
-  .pagination{ 
-    margin: 15px 40px;
+
+  .topicCont {
+    background-color: @white-color;
+    height          : auto;
+  }
+
+  .pagination {
+    margin: 1.5rem 4rem;
+
     :global {
-      .am-button-inline{
-        padding:0 30px;
-        background-color:@primary-color;
-        color: @white-color;
+      .am-button-inline {
+        padding         : 0 3rem;
+        background-color: @primary-color;
+        color           : @white-color;
       }
     }
   }

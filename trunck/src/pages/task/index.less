@@ -8,16 +8,16 @@
 }
 
 .segment {
-	margin: 24px 60px;
+	margin: 2.4rem 6rem;
 
 	:global {
 		.am-segment {
-			height   : 50px;
-			font-size: 24px;
+			height   : 5rem;
+			font-size: @nav-font-size;
 		}
 
 		.am-segment-item {
-			font-size: 24px;
+			font-size: @nav-font-size;
 		}
 	}
 }
@@ -43,46 +43,48 @@
 }
 
 .task_item {
-	margin          : 15px 0px;
-	padding         : 18px;
+	margin          : 1.5rem 0px;
+	padding         : 1.8rem;
 	background-color: @white-color;
 
+	.icon {
+		width: @icon-width;
+		height:@icon-height;
+	}
+
 	.title {
-		line-height: 50px;
+		line-height: 5rem;
 		color      : @text-font-color;
 		font-size  : @list-big-font-size;
-		padding    : 19px;
+		padding    : 1.9rem;
 	}
 
 	.markingPeople {
-		line-height: 50px;
+		line-height: 5rem;
 		color      : @primary-color;
 		font-size  : @list-font-size;
-		padding    : 19px;
+		padding    : 1.9rem;
 	}
 
 	.endTime {
 		float    : right;
-		padding  : 20px 38px;
+		padding  : 2rem 3.8rem;
 		font-size: @list-small-font-size;
 		color    : @text-font-color-secondary;
 	}
 
 	.marking {
-		float    : right;
-		padding  : 27px 38px;
-		font-size: @list-small-font-size;
-		color    : @text-font-color-secondary;
-
-		span {
-			float: left;
-			color: @complete-btn;
-		}
+		float      : right;
+		padding    : 2.2rem 0;
+		font-size  : @list-small-font-size;
+		display    : flex;
+		align-items: center;
+		color      : @complete-btn;
 	}
 
 	.markingDefault {
 		float    : right;
-		padding  : 27px 38px;
+		padding  : 2.7rem 3.8rem;
 		font-size: @list-small-font-size;
 
 		span {
@@ -91,16 +93,16 @@
 	}
 
 	.startTime {
-		padding-left: 20px;
+		padding-left: 2rem;
 		font-size   : @list-small-font-size;
 		color       : @text-font-color-secondary;
 	}
 
 	.label {
-		padding         : 4px 8px;
-		margin-left     : 12px;
+		padding         : 0.4rem 0.8rem;
+		margin-left     : 1.2rem;
 		background-color: @white-color;
-		border-radius   : 5px;
+		border-radius   : @radius-base;
 		font-size       : @content-font-size;
 	}
 
@@ -118,7 +120,7 @@
 .taskmarkingContainer {
 	.tasklist {
 		.tasklistli {
-			background-color: #fff;
+			background-color: @white-color;
 			width           : 100%;
 		}
 	}
@@ -129,7 +131,7 @@
 	.topicNum {
 		width           : 100%;
 		height          : auto;
-		padding         : 15px 30px;
+		padding         : @list-padding 3rem;
 		background-color: #fffdf3;
 
 		.topicNumInfo {
@@ -144,29 +146,31 @@
 			.topicNumInfoR {
 				border       : 1px @border-color solid;
 				color        : @task-marking;
-				padding      : 2px 7px;
+				padding      : 0.2rem  0.7rem;
 				border-radius: @radius-base;
 			}
 		}
 
 		.topicNumber {
 			.li {
-				border          : 1px solid;
-				border-radius   : 30px;
-				width           : @icon-width;
-				height          : @icon-height;
-				text-align      : center;
-				vertical-align  : middle;
-				line-height     : @icon-height;
-				font-size       : @log-fFont-size;
-				font-weight     : bold;
-				display         : inline-block;
-				margin          : 20px 19px 8px 0;
-			} 
-			.default{ 
-				background-color: @white-color;
-				color: @text-font-color;
+				border        : 1px solid;
+				border-radius : 3rem;
+				width         : @icon-width;
+				height        : @icon-height;
+				text-align    : center;
+				vertical-align: middle;
+				line-height   : @icon-height;
+				font-size     : @log-fFont-size;
+				font-weight   : bold;
+				display       : inline-block;
+				margin        : 2rem 1.9rem 0.8rem 0;
 			}
+
+			.default {
+				background-color: @white-color;
+				color           : @text-font-color;
+			}
+
 			.green {
 				background-color: @green-btn;
 				color           : @white-color;
@@ -181,23 +185,24 @@
 
 	.finishMarking {
 		width           : 70%;
-		padding         : 10px 0;
+		padding         : 1rem 0;
 		background-color: @primary-color;
 		font-size       : @tab-act-font-size;
 		text-align      : center;
 		color           : @white-color;
 		border-radius   : @radius-base;
-		margin          : 0 auto 20px auto;
+		margin          : 0 auto 2rem auto;
 	}
-	.NOfinishMarking{
+
+	.NOfinishMarking {
 		width           : 70%;
-		padding         : 10px 0;
+		padding         : 1rem 0;
 		background-color: @border-color;
 		font-size       : @tab-act-font-size;
 		text-align      : center;
 		color           : @text-font-color-secondary;
 		border-radius   : @radius-base;
-		margin          : 0 auto 20px auto;
+		margin          : 0 auto 2rem auto;
 	}
 }
 
@@ -210,19 +215,21 @@
 	}
 }
 
-.marqueeContainer{
-	height:@item-height;
-	font-size: @list-big-font-size;
-	background: url("../../assets/notify.png") no-repeat 0px 12px;
-	background-color:@bg-notice;
-	padding-left: 8rem;
-	color:@text-font-color;
-	line-height: @item-height;
-	vertical-align: middle;	
-	.red{
-		color:#ec445f;
+.marqueeContainer {
+	height          : @item-height;
+	font-size       : @list-big-font-size;
+	background      : url("../../assets/notify.png") no-repeat left center;
+	background-color: @bg-notice;
+	padding-left    : 8rem;
+	color           : @text-font-color;
+	line-height     : @item-height;
+	vertical-align  : middle;
+
+	.red {
+		color: #ec445f;
 	}
-	.hidden{
+
+	.hidden {
 		display: none;
 	}
 }

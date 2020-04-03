@@ -36,7 +36,7 @@ export default class TaskmarkingDetail extends React.Component {
         studentModuleId: params.studentModuleId,
         type: 1
       }
-    }).then(() => {
+    }).then(() => {   
       const { answerDetailsInfo } = this.props.task;
       const { allScoreInfo } = this.state;
       answerDetailsInfo && answerDetailsInfo.topics.length > 0 && answerDetailsInfo.topics.map((item, index) => {
@@ -102,7 +102,7 @@ export default class TaskmarkingDetail extends React.Component {
     return num;
   }
 
-  isSubmit = () => {
+  isSubmit = () => {  
     const { answerDetailsInfo } = this.props.task;
     for (let i = 0; i < answerDetailsInfo.topics.length; i++) {
       if (answerDetailsInfo.topics[i].type === 1078) {
@@ -110,6 +110,7 @@ export default class TaskmarkingDetail extends React.Component {
           this.setState({
             isSubmit: 0
           })
+          return;
         }else{
           this.setState({
             isSubmit: 1
@@ -119,7 +120,8 @@ export default class TaskmarkingDetail extends React.Component {
         if (answerDetailsInfo.topics[i].examinesState !== 2) {
           this.setState({
             isSubmit: 0
-          })
+          }) 
+          return;
         }else{
           this.setState({
             isSubmit: 1
@@ -181,7 +183,7 @@ export default class TaskmarkingDetail extends React.Component {
     }
     return (
       <div className={Styles.taskmarkingDetailContainer}>
-        <TopNav title={answerDetailsInfo.moduleName}></TopNav>
+        {answerDetailsInfo && <TopNav title={answerDetailsInfo.moduleName}></TopNav>}
         <div className={Styles.topicNum}>
           <div className={Styles.topicNumInfo}>
             <span className={Styles.topicNumInfoL}>待批阅题目{answerDetailsInfo && answerDetailsInfo.topics.length}道，总分{this.totalScore()}分</span>

@@ -102,7 +102,7 @@ export default class taskInfo extends React.Component {
     }
 
     onShowDetails = (type, status, id) => {
-        if (status > 1 && (type != 1 || type != "1") && (type != 5 || type != "5"))
+        if (status >= 1 && (type != 1 || type != "1") && (type != 5 || type != "5"))
             this.props.history.push("/taskresult?taskNo=" + id);
         else {
             switch (type) {
@@ -198,7 +198,7 @@ export default class taskInfo extends React.Component {
                 <div key={obj.taskNo} className={Styles.task_item} onClick={this.onShowDetails.bind(this, obj.taskType, obj.taskFinishStatus, obj.id)}>
                     <div>
                         <img style={{ width: "45px" }} src={this.getSubjectimg(obj.subjectId)} alt="" />
-                        <span className={Styles.title}>{obj.taskName}</span>
+                        <span className={Styles.title}>{obj.taskName.length < 25 ? obj.taskName : obj.taskName.substring(0,25)+'...'}</span>
                         <span className={Styles.endTime}>{formatDate1(obj.taskStartTime)}</span>
                     </div>
                     <div style={{ paddingLeft: "54px" }}>
