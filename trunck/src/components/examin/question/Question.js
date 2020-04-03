@@ -36,7 +36,7 @@ class Question extends React.Component {
               { question.stem && <Stem text={question.stem} /> }
               { userAnswer && <UserAnswer {...this.props} /> }
               {
-                <RevisedAnswer {...this.props} 
+                this.props.revisedAnswer !== undefined && <RevisedAnswer {...this.props} 
                   takeCamera={this.takeCamera}
                   receiveFailure={this.receiveFailure}
                   receiveSuccess={this.receiveSuccess}
