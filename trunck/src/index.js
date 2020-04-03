@@ -1,6 +1,7 @@
 import dva from 'dva';
 import './index.css';
-import { createBrowserHistory as createHistory } from 'history';
+// import { createBrowserHistory as createHistory } from 'history';
+import{createHashHistory as createHistory} from 'history';
 // 1. Initialize
 const app = dva({
     history:createHistory()
@@ -13,7 +14,7 @@ const app = dva({
 // app.model(require('./models/example').default);
 app.model(require('./models/learningSituation').default);
 app.model(require('./models/task').default);
-app.model(require('./models/topicModal').default);//ÌâÄ¿»ù´¡×é¼þ²âÊÔÊý¾Ý
+app.model(require('./models/topicModal').default);//ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 // 4. Router
 app.router(require('./router').default);

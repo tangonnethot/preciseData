@@ -466,6 +466,14 @@ export const formatDate2 = (strdate) => {
   };
 }
 
+export const isTimeArrived = (strdate)=>{
+  if (isNull(strdate)) return true;
+  let showDate = new Date(strdate);
+  let today = new Date();
+  if (showDate > today) return false;
+  return true;
+}
+
 export const getFileExtName = (filename) => {
   if (!filename) return "";
   if (typeof filename !== "string") return "";
@@ -503,8 +511,8 @@ export const setCookie = (name, value, expires) => {
 
 export const getUserID = () => {
   // setCookie("userid", "c5d067e05f514403af8608f0c8f11b1a");
-  //return getCookie("userid");
-   return "0f8cf08eaa5d4b50a86f502c31aeaeee";
+  return getCookie("userid");
+  //  return "0f8cf08eaa5d4b50a86f502c31aeaeee";
 }
 
 export const getschoolYear = ()=>{
@@ -513,8 +521,14 @@ export const getschoolYear = ()=>{
 }
 
 export const getOrgID =()=>{
-  return getCookie("orgid");
+  return getCookie("user_orgId");
 }
+
+export const getHost =()=>{
+  // return "";  
+  return getCookie("uclass_host_url");
+}
+
 let begintime;
 
 export const startTime = () => {
@@ -528,3 +542,4 @@ export const endTime = () => {
   begintime = null;
   return parseInt(timeFrame);
 }
+
