@@ -1,9 +1,9 @@
 import React from 'react'
-import { ListView, SegmentedControl } from 'antd-mobile'
+import { ListView, SegmentedControl, Toast } from 'antd-mobile'
 import { Empty } from 'antd'
 import TopNav from '../../components/nav'
 import SubjectNav from '../../components/nav/subject'
-import { convertTaskType, formatDate1, formatDate2, isNull, getUserID } from '../../utils/utils'
+import { convertTaskType, formatDate1, formatDate2, isNull, getUserID,isTimeArrived } from '../../utils/utils'
 import { goHome } from '../../utils/andriod'
 import CONSTANT from '../../utils/constant'
 import Styles from './index.less'
@@ -27,6 +27,9 @@ export default class taskInfo extends React.Component {
             height: document.documentElement.clientHeight * 3 / 4,
             showMarqueeIndex: 0
         }
+        this.props.dispatch({
+            type:"task/cleanTaskData"
+        })
         this.getTaskInfo();
     }
 
@@ -67,9 +70,6 @@ export default class taskInfo extends React.Component {
         let subjectid = this.state.selSubject || "";
         if (subjectid == 0) subjectid = "";
         this.props.dispatch({
-            type:"task/cleanTaskData"
-        })
-        this.props.dispatch({
             type: "task/getTaskList",
             payload: {
                 studentId: studentid,
@@ -93,17 +93,28 @@ export default class taskInfo extends React.Component {
 
     changeSubject = (subjectid) => {
         this.state.selSubject = subjectid;
+        this.props.dispatch({
+            type:"task/cleanTaskData"
+        })
         this.getTaskInfo();
     };
 
     changeComplete = (e) => {
         this.state.taskFinishStatus = e.nativeEvent.selectedSegmentIndex;
+        this.props.dispatch({
+            type:"task/cleanTaskData"
+        })
         this.getTaskInfo();
     }
 
-    onShowDetails = (type, status, id) => {
-        if (status >= 1 && (type != 1 || type != "1") && (type != 5 || type != "5"))
-            this.props.history.push("/taskresult?taskNo=" + id);
+    onShowDetails = (type, status, id,showTime) => {
+        if (status >= 1 && (type != 1 || type != "1") && (type != 5 || type != "5")){
+            if(isTimeArrived(showTime))
+                this.props.history.push("/taskresult?taskNo=" + id);
+            else{
+                Toast.info("未到答案公布时间，请耐心等待");
+            }
+        }
         else {
             switch (type) {
                 case 1:
@@ -168,7 +179,7 @@ export default class taskInfo extends React.Component {
 
     onEndReached = (page, lastpage) => {
         this.state.curPage++;
-        this.getTaskInfo();
+        this.getTaskInfo(false);
     }
 
     isShowMarqueeItem = (index) => {
@@ -195,7 +206,7 @@ export default class taskInfo extends React.Component {
             if (isNull(obj)) return (<div></div>);
             let formatEndTime = formatDate2(obj.taskEndTime);
             return (
-                <div key={obj.taskNo} className={Styles.task_item} onClick={this.onShowDetails.bind(this, obj.taskType, obj.taskFinishStatus, obj.id)}>
+                <div key={obj.taskNo} className={Styles.task_item} onClick={this.onShowDetails.bind(this, obj.taskType, obj.taskFinishStatus, obj.id,obj.answerDisplayTime)}>
                     <div>
                         <img style={{ width: "45px" }} src={this.getSubjectimg(obj.subjectId)} alt="" />
                         <span className={Styles.title}>{obj.taskName.length < 25 ? obj.taskName : obj.taskName.substring(0,25)+'...'}</span>

@@ -2,7 +2,7 @@
 // import { extend } from 'umi-request';
 import { notification } from 'antd';
 // import fetch from "dva/fetch"; 
-import { objToSearch, message , cookie } from './utils'; 
+import { objToSearch, message , cookie,getHost } from './utils'; 
 import fetch from 'whatwg-fetch';
 import 'promise-polyfill/src/polyfill';
 
@@ -87,7 +87,7 @@ function checkStatus(response) {
  * @return {object}           An object containing either "data" or "err"
  */
 function request(url, options) {
-
+  url = getHost() +url;
   return window.fetch(encodeURI(url), options)
     .then(checkStatus)
     .then(parseJSON);

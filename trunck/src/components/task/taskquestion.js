@@ -156,10 +156,10 @@ export default class TaskQuestion extends React.Component {
                 {questionContent.topics.map((element, idx) => renderQuestion(element, idx)
                 )}
                 <TaskStatistics answerList={answerList} />               
-                <div className={Styles.btnContainer}>
+                {questionContent.answerStatus<2&&<div className={Styles.btnContainer}>
                     <button className={Styles.savebtn} onClick={this.onSave}>保存</button>
                     <button className={Styles.submitbtn} onClick={this.onComplete}>提交</button>
-                </div>
+                </div>}
             </div>)
     }
 }
