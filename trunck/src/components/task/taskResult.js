@@ -9,7 +9,7 @@ import TaskStatistics from './taskStatistics';
 class TaskResult extends React.Component {
     constructor(props) {
         super(props);
-        if (this.props.taskType == "course")
+        if (this.props.taskType === "course")
             this.getModuleInfo();
     }
 
@@ -42,7 +42,7 @@ class TaskResult extends React.Component {
             let score = [];
             let correctAnswer = [];
             let qtype = stemContent.type;
-            if (qtype != "1078") {
+            if (qtype !== "1078") {
                 answer.push(answerList[answeridx].answerContent);
                 if (answerList[answeridx].examinesState == 2) {
                     score.push(answerList[answeridx].answerScore);

@@ -172,7 +172,7 @@ export default {
         *getMarkingCount({ payload }, { call, put, select }) {
             yield put({ type: 'fetch/start' });
             const markingCount = yield call(getMarkingCount, payload);
-            markingCount.code == 200 && (yield put({
+            markingCount.code === 200 && (yield put({
                 type: 'save',
                 payload: {
                     markingCount:markingCount.data
@@ -209,7 +209,7 @@ export default {
         updateAnswerList(state, action) {
             let newanswerList = state.moduleContentList[action.payload.moduleid].answerList;
             for (let index = 0; index < newanswerList.length; index++) {
-                if (newanswerList[index].topicId == action.payload.id) {
+                if (newanswerList[index].topicId === action.payload.id) {
                     newanswerList[index].answerContent = action.payload.answer;
                     break;
                 }

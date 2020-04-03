@@ -20,7 +20,7 @@ class DoAnswer extends Component {
     const { userAnswer } = this.props;
     // const ossHost = 'https://www.baidu.com';
     const ossHost="";
-    const userAnswerArr = userAnswer.length==0?[]:userAnswer.split(",");
+    const userAnswerArr = userAnswer.length===0?[]:userAnswer.split(",");
     return (
         <div>
           {

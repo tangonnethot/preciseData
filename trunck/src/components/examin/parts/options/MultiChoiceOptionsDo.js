@@ -1,5 +1,4 @@
-import React , { Fragment } from 'react';
-import PropTypes from "prop-types";
+import React  from 'react'; 
 import { convertChar } from '../../utils/utils';
 import Style from './index.less';
 import classNames from 'classnames';
@@ -10,7 +9,7 @@ const optionClickFun = ( props,curOptionChar='',isChecked )=>{
   optionClick( userAns.sort().join('') , question.id )
 }
 const MultiChoiceOptionDo = props => {
-  const { text,index , userAnswer , optionClick }=props;
+  const { text,index , userAnswer  }=props;
   const curOptionChar = convertChar(index+1);
   const isChecked=userAnswer && userAnswer.indexOf(curOptionChar)>-1;
   return (

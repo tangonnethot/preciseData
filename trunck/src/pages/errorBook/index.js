@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { Flex, SegmentedControl, Pagination, Icon } from 'antd-mobile';
+import { Flex, SegmentedControl, Pagination } from 'antd-mobile';
 import { goHome } from '../../utils/andriod';
 import { Empty, Spin } from 'antd';
 import TopNav from '../../components/nav';
@@ -53,7 +53,7 @@ export default class errorBook extends React.Component {
   };
 
   changeSubject = (subjectid) => {
-    if (subjectid == 0) subjectid = "";
+    if (subjectid === 0) subjectid = "";
     this.setState({
       selSubject: subjectid,
       loading:true,

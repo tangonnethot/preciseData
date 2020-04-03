@@ -248,7 +248,7 @@ class learningSituation extends React.Component {
             itemData.key=element.id;
             itemData.name=element.name;
             itemData.level = level;
-            if(level==0){
+            if(level===0){
                 itemData.count = "个人/年级题量";
                 itemData.score = "个人/年级得分率";
             }else{
@@ -282,7 +282,7 @@ class learningSituation extends React.Component {
     }
 
     getRowClass=(record)=>{
-        if(record.level==0) return Styles.table_header;
+        if(record.level===0) return Styles.table_header;
         return Styles.table_row;
     }
 
@@ -380,11 +380,11 @@ class learningSituation extends React.Component {
             <div>
                 <TopNav title="学情分析" onLeftClick={this.back}></TopNav>
                 <SubjectNav onChange={this.changeSubject}></SubjectNav>
-                {selSubjet == 0 ? renderComprehensive() : <div>
+                {selSubjet === 0 ? renderComprehensive() : <div>
                     <div className={Styles.segment}>
                         <SegmentedControl selectedIndex={selView} values={["知识图谱", "知识点详情"]} onChange={this.changeSelView}></SegmentedControl>
                     </div>
-                    {selView == 0 ? renderKnowleadge() : renderKnowleadgeTable()}
+                    {selView === 0 ? renderKnowleadge() : renderKnowleadgeTable()}
                 </div>}
             </div >
         )

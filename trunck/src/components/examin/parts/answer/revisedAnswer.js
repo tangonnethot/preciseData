@@ -20,7 +20,7 @@ class RevisedAnswer extends Component {
     const { revisedAnswer } = this.props;
     // const ossHost = 'https://www.baidu.com';
     const ossHost = '';
-    const revisedAnswerArr = revisedAnswer.length==0?[]:revisedAnswer.split(",");
+    const revisedAnswerArr = revisedAnswer.length===0?[]:revisedAnswer.split(",");
     return (
       <div className={Style.revisedAnswer}>
         <div className={Style.title}>订正作答：</div>

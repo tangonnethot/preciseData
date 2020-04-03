@@ -16,7 +16,7 @@ const HistoryAnswer = props => {
           return <Fragment key={index}>
             <div className={Style.historyTitle}>
               {
-                question.score == item.score ? <div className={classnames(Style.result, Style.right)}>
+                question.score === item.score ? <div className={classnames(Style.result, Style.right)}>
                 <span>正确</span>
               </div> : <div className={classnames(Style.result, Style.wrong)}>
                 <span>错误</span>

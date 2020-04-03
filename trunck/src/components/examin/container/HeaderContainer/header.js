@@ -10,7 +10,7 @@ const Header = props => {
   const { question , questionIndex , userScore} = props;
   let degreeIndex=-1;
   Object.keys( constant.questionDifficultyLevel ).map( (key,index) => {
-    if( question.degree==key ) degreeIndex=index;
+    if( question.degree===key ) return degreeIndex=index;
   })
   return (
     <Row className={Style.header}>
@@ -22,12 +22,12 @@ const Header = props => {
         <SegmentedControl selectedIndex={degreeIndex} values={['易', '中', '难']} disabled />
         </div> }
       {
-        userScore != undefined && <Fragment>
+        userScore !== undefined && <Fragment>
           {
-            userScore == -1 && <div className={classnames(Style.userScore,Style.unmark)}>未阅</div>
+            userScore === -1 && <div className={classnames(Style.userScore,Style.unmark)}>未阅</div>
           }
           {
-            userScore == 0 && <div className={classnames(Style.userScore,Style.wrong)}>错误</div>
+            userScore === 0 && <div className={classnames(Style.userScore,Style.wrong)}>错误</div>
           }
           {
             userScore > 0 && <div className={classnames(Style.userScore)}>{userScore}分</div>
