@@ -47,6 +47,7 @@
 }
 .historyAnswer{
   margin-top: @margin-md;
+  font-size: @content-font-size;
   .title{
     font-weight: bold;
     margin-bottom: @margin-md;
@@ -55,16 +56,16 @@
     display: flex;
     align-items: center;
     margin: @margin-xs 0;
+    font-size: @title-descibe-font-size;
     .result{
       border-radius: 50%;
-      padding: @padding-xss;
-      font-size: @content-small-font-size;
+      padding: 2px;
       span{
         display: inline-block;
         border-radius: 50%;
-        width: 38px;
-        height: 38px;
-        line-height: 38px;
+        width: @history-answer-width;
+        height: @history-answer-height;
+        line-height: @history-answer-height;
         text-align: center;
       }
     }

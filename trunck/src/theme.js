@@ -15,6 +15,7 @@ const violet3 = '#a663de';
 //橙色
 const orange5 = '#ffa632';
 //红色
+const red6 = '#ec4863';
 const red5 = '#ff0000';
 const red4 = '#ff5671';
 //绿色
@@ -31,17 +32,20 @@ const fontSize14 = '1.4rem';
 const fontSize16 = '1.6rem';
 const fontSize18 = '1.8rem';
 const fontSize20 = '2rem';
+const fontSize22 = '2.2rem';
 const fontSize24 = '2.4rem';
 const fontSize26 = "2.6rem";
 const fontSize28 = "2.8rem";
 const fontSize30 = '3rem';
 const fontSize32 = '3.2rem';
+const fontSize34 = '3.4rem';
 const fontSize36 = '3.6rem';
 const fontFamily = 'Microsoft YaHei';
 const marginLength = '1.5rem';
 const paddingLength = '1.8rem';
 const radiusBase = '5px';
 const radius8 = '8px';
+const long52="5.2rem";
 const long80="8rem";
 const heigth80 ="8rem";
 const heigth44 ="4.4rem";
@@ -91,7 +95,7 @@ module.exports = {
   // 提示色
   '@tip-color': red5,
   // 分值提示色
-  '@score-color': red5,
+  '@score-color': red6,
   //盒子外边距 
   '@wrap-margin': marginLength,
   //列表边距 
@@ -105,7 +109,7 @@ module.exports = {
   //导航字号
   '@nav-font-size': fontSize28,
   //导航字号
-  '@nav-big-font-size': fontSize32,
+  '@nav-big-font-size': fontSize34,
   // 列表大字号
   '@list-big-font-size': fontSize26,
  // 列表字号
@@ -119,13 +123,13 @@ module.exports = {
   //二标题 ||  分类 类型 字号
   '@classify-font-size': fontSize18,
   //内容/标签 字号 
-  '@content-font-size': fontSize16,
+  '@content-font-size': fontSize26,
   //内容/标签 大字号 
-  '@content-big-font-size': fontSize18,
+  '@content-big-font-size': fontSize28,
   //内容/标签 小字号 
-  '@content-small-font-size': fontSize14,
+  '@content-small-font-size': fontSize24,
   //内容/标签 小字号 
-  '@title-descibe-font-size': fontSize12,
+  '@title-descibe-font-size': fontSize22,
   // 图标大小
   '@icon-width':heigth44,
   '@icon-height':heigth44,
@@ -168,7 +172,7 @@ module.exports = {
   //添加课程分步提示语背景
   '@add-course-tip-bg': blue1,
   // 错误选项
-  '@error-answer-color': red5,
+  '@error-answer-color': red4,
   //ztree选中
   '@ztree-act-bg': blue2,
   //互阅按钮色号
@@ -208,6 +212,8 @@ module.exports = {
   '@margin-xss': spacing4, // more small
   '@answer-pic-width':long80,//学生作答图片宽
   '@answer-pic-height':long80,//学生作答图片高
+  '@history-answer-width':long52,
+  '@history-answer-height':long52,
   '@line-height-lg': lineHeight50, 
   '@line-height-md': lineHeight40,
   '@line-height-sm': lineHeight36,
