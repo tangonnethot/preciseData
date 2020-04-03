@@ -1,15 +1,15 @@
 import React from 'react';
 import { WhiteSpace, ListView, Icon } from 'antd-mobile';
-import { Empty } from 'antd';
+import { Empty, Spin } from 'antd';
 import TopNav from '../../components/nav';
-import { convertTaskType} from '../../utils/utils';
-import CONSTANT from '../../utils/constant'; 
+import { convertTaskType } from '../../utils/utils';
+import CONSTANT from '../../utils/constant';
 import Styles from './index.less';
 import { connect } from 'dva';
 import classnames from 'classnames';
 import { markingTaskList } from '../../services/task';
 
-@connect(({ task }) => ({ task }))  
+@connect(({ task }) => ({ task }))
 export default class Taskmarking extends React.Component {
   constructor(props) {
     super(props);
@@ -22,9 +22,9 @@ export default class Taskmarking extends React.Component {
       height: document.documentElement.clientHeight,
       dataSource,
       listData: [],
-      isLoading: true,
       hasMore: true,
       pageNo: 1,
+      loading: true,
     }
 
   }
@@ -49,14 +49,15 @@ export default class Taskmarking extends React.Component {
         //   res.data["currentPage"] === 1
         //     ? res.data.datalist
         //     : state.listData.concat(res["data"]['datalist']);
-          listData = listData.concat(res.data.datalist)
-        
+        listData = listData.concat(res.data.datalist)
+
         const hasMore = state.pageNo * 10 < res.data["totalCount"];
         this.setState({
           listData: listData,
           dataSource: state.dataSource.cloneWithRows(listData),
           hasMore,
           isLoading: false,
+          loading:false
         });
       })
   }
@@ -69,7 +70,9 @@ export default class Taskmarking extends React.Component {
     this.setState({ isLoading: true, pageNo: pageNo + 1 });
     this.getMarkingTaskList();
   };
- 
+
+
+
 
   onShowDetails = (type, status, id) => {
     if (status > 0 && (type != 1 || type != "1") && (type != 5 || type != "5"))
@@ -104,8 +107,8 @@ export default class Taskmarking extends React.Component {
 
   }
 
-  markDetail = (e, id, correctorStrategy) => { 
-    this.props.history.push("/taskmarkingDetail?studentModuleId=" + id + '&correctorStrategy='+correctorStrategy);
+  markDetail = (e, id, correctorStrategy) => {
+    this.props.history.push("/taskmarkingDetail?studentModuleId=" + id + '&correctorStrategy=' + correctorStrategy);
   }
 
   getSubjectimg = (id) => {
@@ -145,14 +148,14 @@ export default class Taskmarking extends React.Component {
       return (
         <div className={Styles.task_item} onClick={e => { this.markDetail(e, item.taskStudentModuleId, item.correctorStrategy) }}>
           <div>
-            <img style={{ width: "45px" }} src={this.getSubjectimg(item.subjectId)} alt="" />
+            <img className={Styles.icon} src={this.getSubjectimg(item.subjectId)} alt="" />
             <span className={Styles.title}>{item.taskName}</span>
-            <span className={Styles.marking}><span>批阅</span><span><Icon type='right' size='lg' /></span></span>
+            <span className={Styles.marking}>批阅<Icon type='right' size='lg' /></span>
           </div>
           <div style={{ paddingLeft: "54px" }}>
             <span className={classnames(Styles.label, Styles.task_label)}>{convertTaskType(item.taskType)}</span>
             <span className={classnames(Styles.label, Styles.review_label)}>{CONSTANT.taskCorrectStartegy[item.correctorStrategy]}</span>
-            <span className={Styles.startTime}>截止日期： <span>{item.taskEndTime}</span> </span>
+            <span className={Styles.startTime}>截止日期： <span>{item.taskEndTime && item.taskEndTime.substring(0,16)}</span> </span>
           </div>
         </div>
       )
@@ -161,33 +164,35 @@ export default class Taskmarking extends React.Component {
       <div className={Styles.taskmarkingContainer}>
         <TopNav title="批阅任务"></TopNav>
         <div className={Styles.tasklist}>
-          <WhiteSpace size="lg" />
-          <ListView
-            ref={el => (this.lv = el)}
-            dataSource={this.state.dataSource}
-            renderFooter={() => (
-              <div style={{ padding: 30, textAlign: "center" }}>
-                {this.state.isLoading
-                  ? "数据加载中"
-                  : this.state.hasMore
-                    ? "上滑加载更多"
-                    : this.state.dataSource._cachedRowCount > 0
-                      ? "已经到底了"
-                      : <Empty  description='暂无数据' />}
-              </div>
-            )}
-            renderRow={row}
-            style={{
-              height: this.state.height,
-              overflow: "auto",
-              color: "#abc"
-            }}
-            pageSize={10}
-            scrollRenderAheadDistance={500}
-            scrollEventThrottle={200}
-            onEndReached={this.onEndReached}
-            onEndReachedThreshold={2}
-          />
+          <Spin spinning={this.state.loading} tip='数据加载中'>
+            <WhiteSpace size="lg" />
+            <ListView
+              ref={el => (this.lv = el)}
+              dataSource={this.state.dataSource}
+              renderFooter={() => (
+                <div style={{ padding: 30, textAlign: "center" }}>
+                  {this.state.isLoading
+                    ? "数据加载中"
+                    : this.state.hasMore
+                      ? "上滑加载更多"
+                      : this.state.dataSource._cachedRowCount > 0
+                        ? "已经到底了"
+                        : <Empty description='暂无数据' />}
+                </div>
+              )}
+              renderRow={row}
+              style={{
+                height: this.state.height,
+                overflow: "auto",
+                color: "#abc"
+              }}
+              pageSize={10}
+              scrollRenderAheadDistance={500}
+              scrollEventThrottle={200}
+              onEndReached={this.onEndReached}
+              onEndReachedThreshold={2}
+            />
+          </Spin>
         </div>
       </div>
     )

@@ -1,15 +1,15 @@
 .answerPic{
-  height: 80px;
-  width: 80px;
-  margin: 4px;
+  height: @answer-pic-height;
+  width: @answer-pic-width;
+  margin: @margin-xss;
   float: left;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   img{
-    max-width: 80px;
-    max-height: 80px;
+    max-width: @answer-pic-width;
+    max-height: @answer-pic-height;
   }
 }
 .answerPics{
@@ -17,9 +17,9 @@
 }
 .answer{
   font-size: @content-font-size;
-  background-color: #f1f1f1;
-  padding: 8px 14px;
-  margin-top: 8px;
+  background-color: @body-bg;
+  padding: @padding-xs @padding-md;
+  margin-top: @margin-xs;
   .title{
     color: @green-btn;
   }
@@ -27,37 +27,38 @@
 .userAnswer{
   font-size: @content-font-size;
   .title{
-    color: #fc4260;
-    margin-bottom: 8px;
+    color: @score-color;
+    margin-bottom: @margin-xs;
   }
 }
 .revisedAnswer{
   .title{
     color: @text-font-color;
+    margin-bottom: @margin-xs;
   }
   font-size: @content-font-size;
 }
 .errorAnswer{
   .title{
     font-weight: bold;
-    margin-bottom: 2px;
+    margin-bottom: @margin-xs;
   }
-  margin-bottom: 15px;
+  margin-bottom: @margin-md;
 }
 .historyAnswer{
-  margin-top: 18px;
+  margin-top: @margin-md;
   .title{
     font-weight: bold;
-    margin-bottom: 18px;
+    margin-bottom: @margin-md;
   }
   .historyTitle{
     display: flex;
     align-items: center;
-    margin: 6px 0;
+    margin: @margin-xs 0;
     .result{
       border-radius: 50%;
-      padding: 2px;
-      font-size: 14px;
+      padding: @padding-xss;
+      font-size: @content-small-font-size;
       span{
         display: inline-block;
         border-radius: 50%;
@@ -68,21 +69,21 @@
       }
     }
     .right{
-      border: 1px solid #74d1a9;
-      color: #43c18a;
+      border: 1px solid @right-color;
+      color: @right-color;
       span{
         background-color: #e4f6ee;
       }
     }
     .wrong{
-      border: 1px solid #ec4863;
-      color: #ec445f;
+      border: 1px solid @score-color;
+      color: @score-color;
       span{
         background-color: #fce3e7;
       }
     }
     .time{
-      padding-left: 10px;
+      padding-left: @padding-sm;
     }
   }
   .answerDetail{
@@ -90,11 +91,11 @@
     .line{
       width: 1px;
       background-color: #ccc;
-      margin: 0 21px;
+      margin: 0 @margin-lg;
     }
     .noline{
       width: 1px;
-      margin: 0 21px;
+      margin: 0 @margin-lg;
     }
   }
 }

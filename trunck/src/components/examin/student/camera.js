@@ -26,10 +26,14 @@ class Camera extends React.Component{
       }
 
     render(){
-        const btnText = this.props.btnText || '拍照上传答案';
-        return(<div onClick={this.takeCamera} className={Styles.photoBtn}>
+        // const isCamera = this.props.btnText?false:true;
+        const isCamera = true;
+        return(isCamera ? <div onClick={this.takeCamera} className={Styles.photoBtn}>
             <i></i>
-            <span>{btnText}</span>
+            <span>拍照上传答案</span>
+          </div>:<div onClick={this.takeCamera} className={Styles.addBtn}>
+            <i></i>
+            <span>{this.props.btnText}</span>
           </div>)
     }
 }

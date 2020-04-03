@@ -38,7 +38,8 @@ class AnswerResult extends React.Component {
     const { answerList } = this.props.task.moduleContentList[this.state.taskid];
 
     const renderNumberItem = (item, index) => {
-      return (!item.answerContent ? <div className={Styles.item_number} >{index + 1}</div> :
+
+      return (item.examinesState!=2 ? <div className={Styles.item_number} >{index + 1}</div> :
         item.isRight ?
           <div className={classnames(Styles.item_number, Styles.green)} >{index + 1}</div> :
           <div className={classnames(Styles.item_number, Styles.red)} >{index + 1}</div>

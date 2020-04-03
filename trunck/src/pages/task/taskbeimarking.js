@@ -1,16 +1,15 @@
 import React from 'react';
-import { WhiteSpace, ListView, Badge, Icon } from 'antd-mobile';
+import { WhiteSpace, ListView, Icon } from 'antd-mobile';
 import { Empty } from 'antd';
 import TopNav from '../../components/nav';
-import { convertTaskType, formatDate1, formatDate2, isNull, getUserID } from '../../utils/utils';
+import { convertTaskType } from '../../utils/utils';
 import CONSTANT from '../../utils/constant';
-import { goHome } from '../../utils/andriod';
 import Styles from './index.less';
 import { connect } from 'dva';
 import classnames from 'classnames';
 import { markingTaskList } from '../../services/task';
 
-@connect(({ task }) => ({ task }))  
+@connect(({ task }) => ({ task }))
 export default class Taskbeimarking extends React.Component {
   constructor(props) {
     super(props);
@@ -23,7 +22,6 @@ export default class Taskbeimarking extends React.Component {
       height: document.documentElement.clientHeight * 3 / 4,
       dataSource,
       listData: [],
-      isLoading: true,
       hasMore: true,
       pageNo: 1,
     }
@@ -73,8 +71,8 @@ export default class Taskbeimarking extends React.Component {
     window.history.go(-1)
   };
 
-  onShowDetails = (type, status, id) => {
-    if (status > 0 && (type != 1 || type != "1") && (type != 5 || type != "5"))
+  taskDetail = (e, type, status, id) => {
+    if (status >= 1 && (type !== 1 || type !== "1"))
       this.props.history.push("/taskresult?taskNo=" + id);
     else {
       switch (type) {
@@ -92,22 +90,14 @@ export default class Taskbeimarking extends React.Component {
           break;
         case 4:
         case "4":
-          // this.props.history.push("/taskanswersheet?taskNo=" + id);
           this.props.history.push("/tasktesting?taskNo=" + id);
-          break;
-        case 5:
-        case "5":
-          this.props.history.push("/taskreference?taskNo=" + id);
           break;
         default:
           this.props.history.push("/taskcourse?taskNo=" + id);
       }
     }
 
-  }
 
-  taskDetail = (e, id) => { 
-    this.props.history.push("/taskmarkingDetail?studentModuleId=" + id);
   }
 
   getSubjectimg = (id) => {
@@ -139,13 +129,15 @@ export default class Taskbeimarking extends React.Component {
       case 265:
       case "265":
         return require("../../assets/history.png");
+      default:
+        return require("../../assets/chi.png");
     }
   }
 
   render() {
     const row = (item, index) => {
       return (
-        <div className={Styles.task_item} onClick={e => { this.taskDetail(e, item.taskId) }}>
+        <div className={Styles.task_item} onClick={e => { this.taskDetail(e, item.taskType, item.taskFinishStatus, item.taskId) }}>
           <div>
             <img style={{ width: "45px" }} src={this.getSubjectimg(item.subjectId)} alt="" />
             <span className={Styles.title}>{item.taskName}</span>
@@ -175,7 +167,7 @@ export default class Taskbeimarking extends React.Component {
                     ? "上滑加载更多"
                     : this.state.dataSource._cachedRowCount > 0
                       ? "已经到底了"
-                      : <Empty  description='暂无数据' />}
+                      : <Empty description='暂无数据' />}
               </div>
             )}
             renderRow={row}

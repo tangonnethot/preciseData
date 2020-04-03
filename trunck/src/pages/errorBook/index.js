@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
-import { Flex, SegmentedControl, Pagination, Icon } from 'antd-mobile';
+import { Flex, SegmentedControl, Pagination } from 'antd-mobile';
 import { goHome } from '../../utils/andriod';
-import { Empty } from 'antd';
+import { Empty, Spin } from 'antd';
 import TopNav from '../../components/nav';
 import SubjectNav from '../../components/nav/subject';
 import Styles from './index.less';
@@ -21,6 +21,7 @@ export default class errorBook extends React.Component {
       topicArr:[],
       totalCount: '',
       index: 0, 
+      loading:true,
     }
   }
 
@@ -30,7 +31,7 @@ export default class errorBook extends React.Component {
 
 
   errorBook = () => {
-    const { status, selSubject, pageSize, pageNo } = this.state;
+    const { status, selSubject, pageSize, pageNo } = this.state; 
     getErrorBook({
       status,
       subjectId: selSubject,
@@ -38,7 +39,8 @@ export default class errorBook extends React.Component {
       currentPage: pageNo
     })
       .then(res => {
-        this.setState({
+        res.data && this.setState({
+          loading:false,
           topicArr: res.data.datalist,
           totalCount: res.data.totalCount
         })
@@ -51,8 +53,10 @@ export default class errorBook extends React.Component {
   };
 
   changeSubject = (subjectid) => {
+    if (subjectid === 0) subjectid = "";
     this.setState({
-      selSubject: subjectid
+      selSubject: subjectid,
+      loading:true,
     }, () => {
       this.errorBook()
     })
@@ -100,7 +104,7 @@ export default class errorBook extends React.Component {
   }
 
   render() {
-    const { tabType, topicArr,totalCount, index, pageNo, current } = this.state; 
+    const { tabType, topicArr,totalCount, index } = this.state; 
     
     return (
       <div className={Styles.errorBookContainer}>
@@ -112,6 +116,7 @@ export default class errorBook extends React.Component {
         </div>
         {tabType === 0 ?
           <Fragment>
+            <Spin spinning={this.state.loading} tip='数据加载中'>
             {topicArr.length > 0 ?
               <Fragment>
                 <Flex justify="between" className={Styles.topicNumber}>
@@ -140,6 +145,7 @@ export default class errorBook extends React.Component {
               </Fragment>
               : <Empty description='暂无数据' />
             }
+            </Spin>
           </Fragment>
           :
           <Fragment>

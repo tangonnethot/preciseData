@@ -5,7 +5,6 @@ import Style from './index.less';
 
 const HistoryAnswer = props => {
   const { answerScoreList , question } = props;
-  // const ossHost = "http://www.baidu.com";
   const ossHost = "";
   console.log( question,answerScoreList)
   return (
@@ -16,7 +15,7 @@ const HistoryAnswer = props => {
           return <Fragment key={index}>
             <div className={Style.historyTitle}>
               {
-                question.score == item.score ? <div className={classnames(Style.result, Style.right)}>
+                question.score === item.score ? <div className={classnames(Style.result, Style.right)}>
                 <span>正确</span>
               </div> : <div className={classnames(Style.result, Style.wrong)}>
                 <span>错误</span>
@@ -30,7 +29,7 @@ const HistoryAnswer = props => {
               {
                 !question.isChoice ? item.answer.split(",").map( item => {
                   return <div key={item} className={Style.answerPic}>
-                      <Zmage src={ossHost+"/"+item}/>
+                      <Zmage src={ossHost+item}/>
                     </div>
                 }) : item.answer
               }

@@ -1,27 +1,27 @@
 .options{
   color: @text-font-color;
   padding: 0px;
-  font-size: 16px;
+  font-size: @content-font-size;
   .option{
     display: flex;
     .optionChar{
-      font-size: 14px;
+      font-size: @content-small-font-size;
       flex-shrink: 0;
       width: 24px;
       height: 24px;
       border: 1px solid #dcdcdc;
       text-align: center;
       vertical-align: middle;
-      margin: 6px 12px 0 0;
+      margin: @margin-xs @margin-sm 0 0;
     }
     .choiceOptionChar{
       border-radius: 50%;
     }
     .multiChoiceOptionChar{
-      border-radius: 6px;
+      border-radius: @radius-base;
     }
     .optionContent{
-      line-height: 36px;
+      line-height: @line-height-md;
     }
   }
   .option.checked{

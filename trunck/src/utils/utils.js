@@ -451,14 +451,14 @@ export const convertTaskType = (type) => {
 
 export const formatDate1 = (strdate) => {
   var date = new Date(strdate);
-  strdate = date.getMonth() + "-" + date.getDay();
+  strdate = (date.getMonth()+1) + "-" + date.getDate();
   return strdate;
 }
 
 export const formatDate2 = (strdate) => {
   if (isNull(strdate)) return '';
   var date = new Date(strdate);
-  let formateDate = date.getFullYear() + "." + date.getMonth() + "." + date.getDay();
+  let formateDate = date.getFullYear() + "." + (date.getMonth()+1) + "." + date.getDate();
   let formateTime = date.getHours() + ":" + date.getMinutes();
   return {
     date: formateDate,
@@ -503,8 +503,8 @@ export const setCookie = (name, value, expires) => {
 
 export const getUserID = () => {
   // setCookie("userid", "c5d067e05f514403af8608f0c8f11b1a");
-  return getCookie("userid");
-  // return "099dbae33d15456985c3eb8b2c0b4992";
+  //return getCookie("userid");
+   return "0f8cf08eaa5d4b50a86f502c31aeaeee";
 }
 
 export const getschoolYear = ()=>{

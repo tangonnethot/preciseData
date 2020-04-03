@@ -6,8 +6,7 @@ import { connect } from 'dva';
 import { isNull } from '../../utils/utils';
 // import ReactEchartsCore from 'echarts-for-react/lib/core';
 //import echarts from 'echarts/lib/echarts';
-import 'echarts/lib/chart/tree';
-import { util } from 'echarts/lib/export';
+import 'echarts/lib/chart/tree'; 
 // import 'echarts/lib/chart/lines';
 // import 'echarts/lib/component/tooltip';
 // import 'echarts/lib/component/title';
@@ -198,7 +197,7 @@ class Knowleadge extends Component {
   }
 
   render() {
-    const { needupdateEcharts, tabAtlas, selknowleadgedata } = this.state;
+    const { needupdateEcharts, tabAtlas } = this.state;
     return (
       <div className={Styles.container}>
         <div className={Styles.title}>

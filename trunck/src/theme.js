@@ -1,4 +1,3 @@
-const hd="1px"; //基本单位
 //蓝色
 const blue1 = '#f2f6ff';
 const blue2 = '#bae0ff';
@@ -8,6 +7,7 @@ const blue6 = "#1767ec";
 const blue7 = '#087fed';
 const blue8 = '#0979d4';
 //黄色
+const yellow7 = "#fff9dd";
 const yellow6 = "#fffdf3";
 const yellow5 = '#ffc937';
 //紫色
@@ -26,32 +26,42 @@ const grey3 = '#dadada';
 const grey4 = '#666666';
 const grey5 = '#898989';
 const grey8 = '#333';
-const fontSize12 = 12*hd;
-const fontSize14 = '14px';
-const fontSize16 = '16px';
-const fontSize18 = '18px';
-const fontSize20 = 20*hd;
-const fontSize24 = '24px';
-const fontSize26 = "26px";
-const fontSize28 = "28px";
-const fontSize30 = '30px';
-const fontSize32 = '32px';
-const fontSize36 = '36px';
+const fontSize12 = '1.2rem';
+const fontSize14 = '1.4rem';
+const fontSize16 = '1.6rem';
+const fontSize18 = '1.8rem';
+const fontSize20 = '2rem';
+const fontSize24 = '2.4rem';
+const fontSize26 = "2.6rem";
+const fontSize28 = "2.8rem";
+const fontSize30 = '3rem';
+const fontSize32 = '3.2rem';
+const fontSize36 = '3.6rem';
 const fontFamily = 'Microsoft YaHei';
-const marginLength = '15px';
+const marginLength = '1.5rem';
+const paddingLength = '1.8rem';
 const radiusBase = '5px';
 const radius8 = '8px';
+const long80="8rem";
+const heigth80 ="8rem";
+const heigth44 ="4.4rem";
+const spacing24="2.4rem" ;
+const spacing20="2.0rem" ;
+const spacing16="1.6rem" ;
+const spacing12="1.2rem" ;
+const spacing8="0.8rem" ;
+const spacing4="0.4rem" ;
+const lineHeight50="5rem";
+const lineHeight40="4rem";
+const lineHeight36="3.6rem";
+const lineHeight30="3rem";
+const lineHeight26="2.6rem";
 
 module.exports = {
   '@brandPrimaryTap': '#1890ff',
   '@navTheme': 'dark',
   '@layout': 'topmenu',
-  '@contentWidth': 'Fixed',
-  // '@fixedHeader': false,
-  // '@utoHideHeader': false,
-  // '@fixSiderbar': false,
-  // '@colorWeak': false,
-  //  breakpoint:'lg', 
+  '@contentWidth': 'Fixed', 
   '@title': '精准教学平台',
   '@pwa': false,
   '@iconfontUrl': '',
@@ -61,7 +71,7 @@ module.exports = {
   //字体
   '@font-family': fontFamily,
   //导航高度
-  '@layou-header-height': '80px',
+  '@layou-header-height': heigth80,
   //全局副色 文字 选项等 
   '@vice-color': blue5,
   //按钮  确认 完成
@@ -70,14 +80,22 @@ module.exports = {
   '@cancel-btn': blue7,
   //背景点缀色
   '@bg-style': blue8, 
+  // 消息背景色
+  '@bg-notice':yellow7,
   //按钮  绿色
   '@green-btn': green5,
   // 错误色
   '@error-color': red5,
+  // 正确色
+  '@right-color': green5,
   // 提示色
   '@tip-color': red5,
+  // 分值提示色
+  '@score-color': red5,
   //盒子外边距 
   '@wrap-margin': marginLength,
+  //列表边距 
+  '@list-padding': paddingLength,
   //模块标题/名称 字号 
   '@modular-font-size': fontSize28,
   //tab选中标题字号
@@ -89,7 +107,7 @@ module.exports = {
   //导航字号
   '@nav-big-font-size': fontSize32,
   // 列表大字号
-  '@list-big-font-size': fontSize28,
+  '@list-big-font-size': fontSize26,
  // 列表字号
  '@list-font-size': fontSize24,
   // 列表小字号
@@ -108,6 +126,10 @@ module.exports = {
   '@content-small-font-size': fontSize14,
   //内容/标签 小字号 
   '@title-descibe-font-size': fontSize12,
+  // 图标大小
+  '@icon-width':heigth44,
+  '@icon-height':heigth44,
+
   //白色字体
   '@white-color': '#fff',
   //次文本色
@@ -146,7 +168,7 @@ module.exports = {
   //添加课程分步提示语背景
   '@add-course-tip-bg': blue1,
   // 错误选项
-  '@error-answer-color': red4,
+  '@error-answer-color': red5,
   //ztree选中
   '@ztree-act-bg': blue2,
   //互阅按钮色号
@@ -172,5 +194,23 @@ module.exports = {
   //学情圆角
   '@learning-radius': radius8,
   // 任务描述
-  '@task-describe': yellow6
+  '@task-describe': yellow6,
+  '@item-height':heigth80,
+  '@padding-lg': spacing24, // containers
+  '@padding-md': spacing16, // small containers and buttons
+  '@padding-sm': spacing12,// Form controls and items
+  '@padding-xs': spacing8, // small items
+  '@padding-xss': spacing4, // more small
+  '@margin-lg': spacing24, // containers
+  '@margin-md': spacing16, // small containers and buttons
+  '@margin-sm': spacing12,// Form controls and items
+  '@margin-xs': spacing8, // small items
+  '@margin-xss': spacing4, // more small
+  '@answer-pic-width':long80,//学生作答图片宽
+  '@answer-pic-height':long80,//学生作答图片高
+  '@line-height-lg': lineHeight50, 
+  '@line-height-md': lineHeight40,
+  '@line-height-sm': lineHeight36,
+  '@line-height-xs': lineHeight30,
+  '@line-height-xss': lineHeight26,
 };

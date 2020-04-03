@@ -1,4 +1,4 @@
-import { get, post } from '../utils/request';
+import { get } from '../utils/request';
 import { pathJoin } from '../utils/utils';
 import { prefix, ErrorBookPrefix } from '../services/config';
 

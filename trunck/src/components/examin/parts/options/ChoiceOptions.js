@@ -1,4 +1,4 @@
-import React , { Fragment } from 'react';
+import React  from 'react';
 import { convertChar } from '../../utils/utils';
 import Style from './index.less';
 import classNames from 'classnames';

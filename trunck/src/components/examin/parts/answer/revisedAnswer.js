@@ -18,9 +18,8 @@ class RevisedAnswer extends Component {
   }
   render(){
     const { revisedAnswer } = this.props;
-    // const ossHost = 'https://www.baidu.com';
     const ossHost = '';
-    const revisedAnswerArr = revisedAnswer.length==0?[]:revisedAnswer.split(",");
+    const revisedAnswerArr = revisedAnswer.length===0?[]:revisedAnswer.split(",");
     return (
       <div className={Style.revisedAnswer}>
         <div className={Style.title}>订正作答：</div>
@@ -29,8 +28,7 @@ class RevisedAnswer extends Component {
             revisedAnswerArr.map( (item,index) => {
               return (
                 <div key={item} className={Style.answerPic}>
-                  <Zmage src={ossHost+"/"+item}/>
-                  {/* <Zmage src={item}/> */}
+                  <Zmage src={ossHost+item}/>
                   <Icon type='cross-circle-o' onClick={()=>this.delAnswerByIndex(index)}/>
                 </div>
               )

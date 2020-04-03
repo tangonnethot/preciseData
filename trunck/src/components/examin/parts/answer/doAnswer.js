@@ -18,17 +18,15 @@ class DoAnswer extends Component {
   }
   render(){
     const { userAnswer } = this.props;
-    // const ossHost = 'https://www.baidu.com';
     const ossHost="";
-    const userAnswerArr = userAnswer.length==0?[]:userAnswer.split(",");
+    const userAnswerArr = userAnswer.length===0?[]:userAnswer.split(",");
     return (
         <div>
           {
             userAnswerArr.map( (item,index) => {
               return (
                 <div key={item} className={Style.answerPic}>
-                  <Zmage src={ossHost+"/"+item}/>
-                  {/* <Zmage src={item}/> */}
+                  <Zmage src={ossHost+item}/>
                   <Icon type='cross-circle-o' onClick={()=>this.delAnswerByIndex(index)}/>
                 </div>
               )

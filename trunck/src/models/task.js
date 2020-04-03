@@ -10,16 +10,15 @@ import {
 export default {
     namespace: "task",
     state: {
-        taskListLoading:true,
-        
+        taskListLoading: true,
         taskList: [],
-        taskListPageInfo:{},
+        taskListPageInfo: {},
         taskname: "",
         taskModuleInfo: {},
         moduleContentList: {},
-        loading: false, 
+        loading: false,
         answerDetailsInfo: "",
-        markingCount:{}
+        markingCount: {}
     },
     subscriptions: {
         setup({ dispatch, history }) {  // eslint-disable-line
@@ -30,9 +29,9 @@ export default {
     effects: {
         *getTaskList({ payload }, { call, put }) {
             yield put({
-                type:"save",
-                palyload:{
-                    taskListLoading:true
+                type: "save",
+                palyload: {
+                    taskListLoading: true
                 }
             })
             const taskData = yield getTaskList(payload);
@@ -42,13 +41,12 @@ export default {
                     taskList: taskData.data.datalist
                 }
             })
-            let pageInfo= taskData.data.page;
-            pageInfo.showMore = !(pageInfo.pageSize*pageInfo.currentPage>=pageInfo.totalCount);
-            debugger
+            let pageInfo = taskData.data.page;
+            pageInfo.showMore = !(pageInfo.pageSize * pageInfo.currentPage >= pageInfo.totalCount);
             yield put({
-                type:"save",
-                payload:{
-                    taskListPageInfo:pageInfo
+                type: "save",
+                payload: {
+                    taskListPageInfo: pageInfo
                 }
             })
         },
@@ -155,7 +153,7 @@ export default {
             yield put({ type: 'fetch/start' });
             let { data } = yield call(getMarkingDetails, payload)
             data && (yield put({
-                type: 'fetchAfter',
+                type: 'save',
                 payload: {
                     answerDetailsInfo: data
                 },
@@ -171,14 +169,21 @@ export default {
             }))
             yield put({ type: 'fetch/end' });
         },
-        *getMarkingCount({payload},{call,put,select}){
-            yield put({type:'fetch/start'});
-            const markingCount = yield call(getMarkingCount,payload);
-            markingCount.code==200 && (yield put({
-                type:'fetchAfter',
-                markingCount:markingCount.data
+        *getMarkingCount({ payload }, { call, put, select }) {
+            yield put({ type: 'fetch/start' });
+            const markingCount = yield call(getMarkingCount, payload);
+            markingCount.code === 200 && (yield put({
+                type: 'save',
+                payload: {
+                    markingCount:markingCount.data
+                    // markingCount: {
+                    //     unCorrectTasks:2,
+                    //     unReadNotices: 1
+                    // }
+                }
+
             }))
-            yield put({type:"fetch/end"});
+            yield put({ type: "fetch/end" });
         }
     },
 
@@ -204,7 +209,7 @@ export default {
         updateAnswerList(state, action) {
             let newanswerList = state.moduleContentList[action.payload.moduleid].answerList;
             for (let index = 0; index < newanswerList.length; index++) {
-                if (newanswerList[index].topicId == action.payload.id) {
+                if (newanswerList[index].topicId === action.payload.id) {
                     newanswerList[index].answerContent = action.payload.answer;
                     break;
                 }
@@ -212,9 +217,9 @@ export default {
             return { ...state, ...state };
             // return { ...state, ...{ answerList: newanswerList } }
         },
-        appendArray(state,action){
+        appendArray(state, action) {
             let taskList = state.taskList.concat(action.payload.taskList);
-            return{...state,...{taskList:taskList,taskListLoading:false}};            
+            return { ...state, ...{ taskList: taskList, taskListLoading: false } };
         }
     },
 }
