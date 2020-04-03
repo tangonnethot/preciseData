@@ -28,9 +28,9 @@ class TaskStatistics extends React.Component {
                 <div>{
                     answerList && answerList.map((element, idx) => {
                         if (this.props.showMarking) {
-                            renderMarkingNum(element, idx);
+                            return renderMarkingNum(element, idx);
                         } else {
-                            renderAnswerNum(element, idx);
+                            return renderAnswerNum(element, idx);
                         }
                     })
                 }</div>

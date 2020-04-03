@@ -104,7 +104,7 @@ export default class errorBook extends React.Component {
   }
 
   render() {
-    const { tabType, topicArr,totalCount, index, pageNo, current } = this.state; 
+    const { tabType, topicArr,totalCount, index } = this.state; 
     
     return (
       <div className={Styles.errorBookContainer}>
