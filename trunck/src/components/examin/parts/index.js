@@ -17,7 +17,6 @@ import {
   VideoAnalysis,
   ErrorAnalysis
 } from './analysis';
-import AnswerAnalysis from './answerAnalysis';
 export {
   Stem ,
   ChoiceOptions ,
@@ -31,6 +30,5 @@ export {
   HistoryAnswer,
   RevisedAnswer,
   VideoAnalysis ,
-  ErrorAnalysis,
-  AnswerAnalysis
+  ErrorAnalysis
 }

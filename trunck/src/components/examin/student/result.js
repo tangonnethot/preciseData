@@ -21,6 +21,7 @@ class Result extends React.PureComponent{
           question,
           questionIndex:question.topicNo
         })
+        console.log( props )
          return (
            <Fragment>
             {

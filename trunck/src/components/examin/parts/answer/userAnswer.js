@@ -5,7 +5,6 @@ import Style from './index.less';
 const UserAnswer = props => {
   const { userAnswer } = props;
   let answers = userAnswer.split(",");
-  // const ossHost = "http://www.baidu.com";
   const ossHost = "";
   return (
     <div className={Style.userAnswer}>
@@ -14,8 +13,7 @@ const UserAnswer = props => {
         {
           answers.map( item => {
             return <div key={item} className={Style.answerPic}>
-                {/* <Zmage src={ossHost+"/"+item}/> */}
-                <Zmage src={ossHost+"/"+item}/>
+                <Zmage src={ossHost+item}/>
               </div>
           })
         }

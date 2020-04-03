@@ -86,8 +86,12 @@ module.exports = {
   '@green-btn': green5,
   // 错误色
   '@error-color': red5,
+  // 正确色
+  '@right-color': green5,
   // 提示色
   '@tip-color': red5,
+  // 分值提示色
+  '@score-color': red5,
   //盒子外边距 
   '@wrap-margin': marginLength,
   //列表边距 
@@ -164,7 +168,7 @@ module.exports = {
   //添加课程分步提示语背景
   '@add-course-tip-bg': blue1,
   // 错误选项
-  '@error-answer-color': red4,
+  '@error-answer-color': red5,
   //ztree选中
   '@ztree-act-bg': blue2,
   //互阅按钮色号

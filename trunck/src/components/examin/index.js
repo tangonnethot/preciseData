@@ -4,11 +4,7 @@ import {Choice,DoChoice,ErrorChoice} from './choice';
 import {MultiChoice,DoMultiChoice,ErrorMultiChoice} from './multichoice';
 import {Question,DoQuestion,ErrorQuestion} from './question';
 import Complex from './complex';
-import { KnowledgeContainer , HeaderContainer , StudentAnswerContainer } from './container';
-
-// const KnowledgeChoice = KnowledgeContainer(Choice);
-// const KnowledgeMultiChoice = KnowledgeContainer(MultiChoice);
-// const KnowledgeQuestion = KnowledgeContainer(Question);
+import { HeaderContainer } from './container';
 
 const HeaderChoice = HeaderContainer(Choice);
 const HeaderMultiChoice = HeaderContainer(MultiChoice);

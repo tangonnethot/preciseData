@@ -1,5 +1,5 @@
-import React  from 'react';
-import { Stem} from '../parts';
+import React , { Component } from 'react';
+import { Stem } from '../parts';
 import Style from './index.less';
 
 const Complex = props => {

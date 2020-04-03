@@ -17,7 +17,7 @@
 }
 .answer{
   font-size: @content-font-size;
-  background-color: #f1f1f1;
+  background-color: @body-bg;
   padding: @padding-xs @padding-md;
   margin-top: @margin-xs;
   .title{
@@ -27,20 +27,21 @@
 .userAnswer{
   font-size: @content-font-size;
   .title{
-    color: #fc4260;
+    color: @score-color;
     margin-bottom: @margin-xs;
   }
 }
 .revisedAnswer{
   .title{
     color: @text-font-color;
+    margin-bottom: @margin-xs;
   }
   font-size: @content-font-size;
 }
 .errorAnswer{
   .title{
     font-weight: bold;
-    margin-bottom: @margin-xss;
+    margin-bottom: @margin-xs;
   }
   margin-bottom: @margin-md;
 }
@@ -68,15 +69,15 @@
       }
     }
     .right{
-      border: 1px solid #74d1a9;
-      color: #43c18a;
+      border: 1px solid @right-color;
+      color: @right-color;
       span{
         background-color: #e4f6ee;
       }
     }
     .wrong{
-      border: 1px solid #ec4863;
-      color: #ec445f;
+      border: 1px solid @score-color;
+      color: @score-color;
       span{
         background-color: #fce3e7;
       }
