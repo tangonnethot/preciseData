@@ -117,8 +117,8 @@ export default class TaskQuestion extends React.Component {
     render() {
         if(!this.props.task.moduleContentList[this.props.moduleID])
             return(<Spin/>);
-        const { questionContent } = this.props.task.moduleContentList[this.props.moduleID].questionModuleInfo;
-        const { answerList } = this.props.task.moduleContentList[this.props.moduleID];
+        const { questionModuleInfo,answerList } = this.props.task.moduleContentList[this.props.moduleID];
+        const { questionContent } =questionModuleInfo;
         let _this = this;
         let answeridx =0;
         const renderQuestion = (questionItem, index) => {
@@ -156,7 +156,7 @@ export default class TaskQuestion extends React.Component {
                 {questionContent.topics.map((element, idx) => renderQuestion(element, idx)
                 )}
                 <TaskStatistics answerList={answerList} />               
-                {questionContent.answerStatus<2&&<div className={Styles.btnContainer}>
+                {questionModuleInfo.answerStatus<2&&<div className={Styles.btnContainer}>
                     <button className={Styles.savebtn} onClick={this.onSave}>保存</button>
                     <button className={Styles.submitbtn} onClick={this.onComplete}>提交</button>
                 </div>}

@@ -59,7 +59,7 @@ export default class SubjectNav extends React.PureComponent{
     render(){
         var  value = ["全部"];
         this.state.subjects && this.state.subjects.forEach(element => {
-            if(element.value<=166 || element.value==265)
+            // if(element.value<=166 || element.value==265)
                 value.push(element.name);
         });
         return((value.length>0)&&<div className={Styles.subject}>

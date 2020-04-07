@@ -10,7 +10,7 @@ import { prefix, studySituationPrefix } from "./config";
  * @param studentId     学生id
  */
 export const getStudentOverView = (params={})=>{
-    return get(pathJoin(prefix,studySituationPrefix,"/studySituation/student/getStudentOverView/v1.0"),{...params}).then(res=>{
+    return get(pathJoin(prefix,studySituationPrefix,"studySituation/student/getStudentOverView/v1.0"),{...params}).then(res=>{
         return res;
     })
 }
@@ -24,7 +24,7 @@ export const getStudentOverView = (params={})=>{
  * @param orgId         机构ID
  */
 export const getKnowleadgeDetails =(param={})=>{
-    return get(pathJoin(prefix,studySituationPrefix,"/studySituation/student/getKnowledgeRateList/v1.0"),{...param}).then(res=>{
+    return get(pathJoin(prefix,studySituationPrefix,"studySituation/student/getKnowledgeRateList/v1.0"),{...param}).then(res=>{
         return res;
     })
 }
@@ -36,7 +36,7 @@ export const getKnowleadgeDetails =(param={})=>{
  * @param studentId     学生id
  */
 export const getStudentComprehensive=(params={})=>{
-    return get(pathJoin(prefix,studySituationPrefix,"/studySituation/student/getStudentComprehensive/v1.0"),{...params}).then(res=>{
+    return get(pathJoin(prefix,studySituationPrefix,"studySituation/student/getStudentComprehensive/v1.0"),{...params}).then(res=>{
         return res;
     })
 }
@@ -50,7 +50,7 @@ export const getStudentComprehensive=(params={})=>{
  * @param orgId         机构ID
  */
 export const getStudentKnowleageMap=(params={})=>{
-    return get(pathJoin(prefix,studySituationPrefix,"/studySituation/student/getTaskStatistics/v1.0"),{...params}).then(res=>{
+    return get(pathJoin(prefix,studySituationPrefix,"studySituation/student/getTaskStatistics/v1.0"),{...params}).then(res=>{
         return res;
     })
 }

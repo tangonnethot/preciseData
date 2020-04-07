@@ -3,13 +3,13 @@ import { pathJoin } from '../utils/utils';
 import { prefix, taskPrefix } from '../services/config';
 
 export const getSysTime = (params = {}) => {
-    return get(pathJoin(prefix, taskPrefix, "/task/publish/getSysTime/v1.0"), { ...params }).then(res => {
+    return get(pathJoin(prefix, taskPrefix, "task/publish/getSysTime/v1.0"), { ...params }).then(res => {
         return res;
     });
 };
 
 export const getSubjects=(params={})=>{
-    return get(pathJoin(prefix,taskPrefix,"/dic/getSubject"),{...params}).then(res=>{
+    return get(pathJoin(prefix,taskPrefix,"dic/getSubject"),{...params}).then(res=>{
         return res;
     })
 }
@@ -22,7 +22,7 @@ export const getSubjects=(params={})=>{
  * @param pageSize 每页显示数量
 */
 export const getTaskList = (params = {}) => {
-    return get(pathJoin(prefix, taskPrefix, '/task/student/queryPageList/v1.0'), { ...params }).then(
+    return get(pathJoin(prefix, taskPrefix, 'task/student/queryPageList/v1.0'), { ...params }).then(
         res => { return res; }
     );
 };
