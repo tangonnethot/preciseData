@@ -1,12 +1,12 @@
 *{margin:0;padding:0;}
 .container{
     background-color: @white-color;
-    margin-top: 18px;
-    padding:20px;
+    margin-top: 1.8rem;
+    padding:2rem;
 
     .title{
-        margin-left:-20px;
-        padding-left:20px;
+        margin-left:-2rem;
+        padding-left:2rem;
         font-size: @task-modular-font-size;
         border-left: 3px solid @primary-color;
     }
@@ -14,30 +14,30 @@
         text-align: center;
     }
     .count{
-        margin-top: -180px;
+        margin-top: -18rem;
         text-align: center;
-        font-size: 28px;
+        font-size: @modular-font-size;
     }
 
     .legendContainer{
-        padding-top: 80px;
+        padding-top: 8rem;
         text-align: center;
         .subjectIcon{
             display: inline-block;
-            width:10px;
-            height: 10px;
-            border-radius: 6px;
-            margin-right: 10px;
+            width:1rem;
+            height: 1rem;
+            border-radius: @radius-base;
+            margin-right: 1rem;
         }      
     }
 }
 
 .segment {
-	margin: 24px 60px;
+	margin: 2.4rem 6rem;
 
 	:global {
 		.am-segment {
-			height   : 50px;
+			height   : 5rem;
 			font-size: @nav-font-size;
 		}
 
@@ -48,27 +48,27 @@
 }
 
 .KnowsOverView{
-    padding:50px 20px;
+    padding:5rem 2rem;
     text-align: center;
     .sub_title{
-        padding-top: 10px;
-        line-height: 26px;
-        font-size: 16px;
+        padding-top: 1rem;
+        line-height: 2.6rem;
+        font-size: @tab-font-size;
     }
 }
 
 .table_header{
     background-color: #ececec;
-    height: 80px;
-    font-size: 22px;
-    border-top: 1px solid #dadada;
-    border-bottom: 1px solid #dadada;
+    height: @item-height;
+    font-size: @title-descibe-font-size;
+    border-top: @border-width-thin solid @border-color;
+    border-bottom: @border-width-thin solid @border-color;
 }
 .table_row{
     background-color: @white-color;
-    height: 80px;
-    font-size: 22px;
+    height: @item-height;
+    font-size: @title-descibe-font-size;
     width:90%;
-    border-bottom: 1px solid #dadada;
+    border-bottom: 1px solid @border-color;
 
 }

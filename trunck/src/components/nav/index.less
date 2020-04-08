@@ -29,7 +29,7 @@
         .am-segment-item-selected {
             background-color: @primary-color;
             color           : @subject-selected  !important;
-            border-bottom   : 2px @subject-selected;
+            border-bottom   : @border-width @subject-selected;
         }
     }
 
@@ -43,13 +43,12 @@
         color      : #ffc937;
         font-weight: bold;
     }
-
 }
 
 .backimg {
     float  : left;
     height : @nav-big-font-size;
-    padding-left:30px;
+    padding-left:3rem;
 
     img {
         height: 2.6rem;

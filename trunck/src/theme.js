@@ -61,6 +61,10 @@ const lineHeight36="3.6rem";
 const lineHeight30="3rem";
 const lineHeight26="2.6rem";
 
+// 线宽
+const borderWidth1 = "1px";
+const borderWidth2 = "2px";
+
 module.exports = {
   '@brandPrimaryTap': '#1890ff',
   '@navTheme': 'dark',
@@ -197,6 +201,9 @@ module.exports = {
   '@radius-base': radiusBase,
   //学情圆角
   '@learning-radius': radius8,
+  // 线宽
+  '@border-width-thin':borderWidth1,
+  '@border-width':borderWidth2,
   // 任务描述
   '@task-describe': yellow6,
   '@item-height':heigth80,
