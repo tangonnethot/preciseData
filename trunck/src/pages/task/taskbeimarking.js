@@ -18,8 +18,8 @@ export default class Taskbeimarking extends React.Component {
     });
     this.state = {
       isLoading: true,
-      type: 1,
-      height: document.documentElement.clientHeight * 3 / 4,
+      type: 2,
+      height: document.documentElement.clientHeight,
       dataSource,
       listData: [],
       hasMore: true,
@@ -137,7 +137,7 @@ export default class Taskbeimarking extends React.Component {
   render() {
     const row = (item, index) => {
       return (
-        <div className={Styles.task_item} onClick={e => { this.taskDetail(e, item.taskType, item.taskFinishStatus, item.taskId) }}>
+        <div className={Styles.task_item} onClick={e => { this.taskDetail(e, item.taskType, item.taskFinishStatus, item.taskStudentId) }}>
           <div>
             <img style={{ width: "45px" }} src={this.getSubjectimg(item.subjectId)} alt="" />
             <span className={Styles.title}>{item.taskName}</span>

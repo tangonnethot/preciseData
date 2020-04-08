@@ -1,10 +1,9 @@
 import React from 'react';
-import TopNav from '../../components/nav';
-import { Toast } from 'antd-mobile';
+import TopNav from '../../components/nav'; 
 import Styles from './index.less';
 import { connect } from 'dva';
 import CONSTANT from '../../utils/constant';
-import { parseSearch } from "../../utils/utils";
+import { getPageQuery } from "../../utils/utils";
 import classnames from 'classnames';
 import Taskmarktopic from '../../components/task/taskmarktopic';
 
@@ -29,7 +28,7 @@ export default class TaskmarkingDetail extends React.Component {
 
 
   componentDidMount() {
-    let params = parseSearch()
+    let params = getPageQuery()
     this.props.dispatch({
       type: "task/getMarkingDetails",
       payload: {
@@ -163,7 +162,7 @@ export default class TaskmarkingDetail extends React.Component {
 
   render() {
     const { answerDetailsInfo } = this.props.task;
-    let params = parseSearch();
+    let params = getPageQuery();
     const { isSubmit } = this.state;
     const numColor = (indexAct) => {
       if (indexAct === undefined) {

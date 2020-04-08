@@ -206,7 +206,7 @@ export default class taskInfo extends React.Component {
             if (isNull(obj)) return (<div></div>);
             let formatEndTime = formatDate2(obj.taskEndTime);
             return (
-                <div key={obj.taskNo} className={Styles.task_item} onClick={this.onShowDetails.bind(this, obj.taskType, obj.taskFinishStatus, obj.id,obj.answerDisplayTime)}>
+                <div key={obj.taskNo} className={Styles.task_item} onClick={this.onShowDetails.bind(this, obj.taskType, obj.taskFinishStatus, obj.id,obj.taskAnswerDisplayTime)}>
                     <div>
                         <img style={{ width: "45px" }} src={this.getSubjectimg(obj.subjectId)} alt="" />
                         <span className={Styles.title}>{obj.taskName.length < 25 ? obj.taskName : obj.taskName.substring(0,25)+'...'}</span>

@@ -508,10 +508,11 @@ export const setCookie = (name, value, expires) => {
     // options.secure  ? '; secure' : ''
   ].join('')
 }
-
+/* eslint-disable */
 export const getUserID = () => {
   // setCookie("userid", "c5d067e05f514403af8608f0c8f11b1a");
-  return getCookie("userid");
+  return PlayerHelper.getUserId();/* eslint-disable */
+  // return getCookie("userid");
   //  return "0f8cf08eaa5d4b50a86f502c31aeaeee";
 }
 
@@ -525,8 +526,9 @@ export const getOrgID =()=>{
 }
 
 export const getHost =()=>{
-  // return "";  
-  return getCookie("uclass_host_url");
+  return PlayerHelper.getHostUrl();/* eslint-disable */
+  //   return "https://testgz.myuclass.com";
+ // return getCookie("uclass_host_url");
 }
 
 let begintime;
