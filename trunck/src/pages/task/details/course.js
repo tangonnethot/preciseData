@@ -147,7 +147,7 @@ export default class CourseDetails extends React.Component {
                 <TopNav title={taskModuleInfo.taskName} onLeftClick={this.back}></TopNav>
                 <TaskDescribe endtime={formatDate2(taskModuleInfo.taskEndTime)} describe={taskModuleInfo.taskRequire} />
                 {taskModuleInfo.taskStudentModuleList.map((element, index) => renderCard(element, index))}
-                <div style={{ height: "60px", backgroundColor: "#f9f9f9" }}></div>
+                <div style={{ height: "6rem", backgroundColor: "#f9f9f9" }}></div>
             </div>
             }
         </Spin>)

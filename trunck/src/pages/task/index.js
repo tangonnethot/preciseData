@@ -208,15 +208,15 @@ export default class taskInfo extends React.Component {
             return (
                 <div key={obj.taskNo} className={Styles.task_item} onClick={this.onShowDetails.bind(this, obj.taskType, obj.taskFinishStatus, obj.id,obj.taskAnswerDisplayTime)}>
                     <div>
-                        <img style={{ width: "45px" }} src={this.getSubjectimg(obj.subjectId)} alt="" />
+                        <img style={{ width: "4.5rem" }} src={this.getSubjectimg(obj.subjectId)} alt="" />
                         <span className={Styles.title}>{obj.taskName.length < 25 ? obj.taskName : obj.taskName.substring(0,25)+'...'}</span>
                         <span className={Styles.endTime}>{formatDate1(obj.taskStartTime)}</span>
                     </div>
-                    <div style={{ paddingLeft: "54px" }}>
+                    <div style={{ paddingLeft: "5.4rem" }}>
                         <span className={classnames(Styles.label, Styles.task_label)}>{convertTaskType(obj.taskType)}</span>
                         <span className={classnames(Styles.label, Styles.review_label)}>{CONSTANT.taskCorrectStartegy[obj.taskCorrectStrategy]}</span>
                         <span className={Styles.startTime}>截止日期： <span>{formatEndTime.date}</span>
-                            <span style={{ paddingLeft: "10px" }}>{formatEndTime.time}</span></span>
+                            <span style={{ paddingLeft: "1rem" }}>{formatEndTime.time}</span></span>
                     </div>
                 </div>
             );

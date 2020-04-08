@@ -152,7 +152,7 @@ export default class Taskmarking extends React.Component {
             <span className={Styles.title}>{item.taskName}</span>
             <span className={Styles.marking}>批阅<Icon type='right' size='lg' /></span>
           </div>
-          <div style={{ paddingLeft: "54px" }}>
+          <div style={{ paddingLeft: "5.4rem" }}>
             <span className={classnames(Styles.label, Styles.task_label)}>{convertTaskType(item.taskType)}</span>
             <span className={classnames(Styles.label, Styles.review_label)}>{CONSTANT.taskCorrectStartegy[item.correctorStrategy]}</span>
             <span className={Styles.startTime}>截止日期： <span>{item.taskEndTime && item.taskEndTime.substring(0,16)}</span> </span>

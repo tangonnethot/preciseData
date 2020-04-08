@@ -56,13 +56,13 @@ class AnswerResult extends React.Component {
             <div className={Styles.blue_container}>
             </div>
             <div className={Styles.container}>
-              <img style={{ marginLeft: "-20px" }} src={require("../../../assets/resultScore.png")}></img>
-              <div style={{ marginTop: "-160px" }}>得分率：{questionModuleInfo.moduleScore}%</div>
-              <div style={{ paddingTop: "14px", color: "#FF3030", fontSize: "50px" }}>{questionModuleInfo.moduleScore}分</div>
+              <img style={{ marginLeft: "-2rem" }} src={require("../../../assets/resultScore.png")}></img>
+              <div style={{ marginTop: "-16rem" }}>得分率：{questionModuleInfo.moduleScore}%</div>
+              <div style={{ paddingTop: "1.4rem", color: "#FF3030", fontSize: "5rem" }}>{questionModuleInfo.moduleScore}分</div>
               <div className={Styles.number}>满分：100分</div>
               <div className={Styles.time_container}><span>答题时间：</span><span>{finishEndtime.date}</span><span className={Styles.paddingLeft10}>{finishEndtime.time}</span></div>
               <div className={Styles.time_container}><span>截止时间：</span><span>{formatEndtime.date}</span><span className={Styles.paddingLeft10}>{formatEndtime.time}</span></div>
-              <div style={{ marginTop: "28px", fontSize: "@content-big-font-size" }}><span>阅卷人：</span><span>{questionModuleInfo.moduleCorrectorName}</span>
+              <div style={{ marginTop: "2.8rem", fontSize: "@content-big-font-size" }}><span>阅卷人：</span><span>{questionModuleInfo.moduleCorrectorName}</span>
                 <span className={Styles.paddingLeft20}>阅卷时间：</span><span>{reviewtime.date}</span><span className={Styles.paddingLeft10}>{reviewtime.time}</span></div>
             </div>
             <div className={Styles.border}></div>
@@ -74,7 +74,7 @@ class AnswerResult extends React.Component {
             </div>
           </div>
 
-          <div style={{ marginTop: "10px" }}>
+          <div style={{ marginTop: "1rem" }}>
             <TaskResult moduleID={this.state.taskid}></TaskResult>
           </div>
           {/* <TaskDescribe endtime={formatDate2(questionModuleInfo.taskEndTime)} describe={questionModuleInfo.taskRequire} /> */}

@@ -210,7 +210,7 @@ class Knowleadge extends Component {
             <div className={Styles.KnowLeadgeWrap}>
               <ReactEcharts
                 option={this.getOption()}
-                style={{ height: '550px', width: '100%' }}
+                style={{ height: '55rem', width: '100%' }}
                 shouldSetOption={needupdateEcharts}
               />
             </div>

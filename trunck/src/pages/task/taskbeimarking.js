@@ -139,11 +139,11 @@ export default class Taskbeimarking extends React.Component {
       return (
         <div className={Styles.task_item} onClick={e => { this.taskDetail(e, item.taskType, item.taskFinishStatus, item.taskStudentId) }}>
           <div>
-            <img style={{ width: "45px" }} src={this.getSubjectimg(item.subjectId)} alt="" />
+            <img style={{ width: "4.5rem" }} src={this.getSubjectimg(item.subjectId)} alt="" />
             <span className={Styles.title}>{item.taskName}</span>
             <span className={Styles.marking}><span>批阅</span><span><Icon type='right' size='lg' /></span></span>
           </div>
-          <div style={{ paddingLeft: "54px" }}>
+          <div style={{ paddingLeft: "5.4rem" }}>
             <span className={classnames(Styles.label, Styles.task_label)}>{convertTaskType(item.taskType)}</span>
             <span className={classnames(Styles.label, Styles.review_label)}>{CONSTANT.taskCorrectStartegy[item.correctorStrategy]}</span>
             <span className={Styles.startTime}>截止日期： <span>{item.taskEndTime}</span> </span>
