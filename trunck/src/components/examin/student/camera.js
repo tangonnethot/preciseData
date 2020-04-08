@@ -10,7 +10,8 @@ class Camera extends React.Component{
     }
     
     receiveAndroidUrl(flag,id,url){
-        if( flag ){
+      if(flag=="cancel") return;
+        if( flag=="true" ){
           message.success("上传成功");
           this.props.success(url); 
         }else{

@@ -376,11 +376,11 @@ class learningSituation extends React.Component {
             <div>
                 <TopNav title="学情分析" onLeftClick={this.back}></TopNav>
                 <SubjectNav onChange={this.changeSubject}></SubjectNav>
-                {selSubjet === 0 ? renderComprehensive() : <div>
+                {selSubjet == 0 ? renderComprehensive() : <div>
                     <div className={Styles.segment}>
                         <SegmentedControl selectedIndex={selView} values={["知识图谱", "知识点详情"]} onChange={this.changeSelView}></SegmentedControl>
                     </div>
-                    {selView === 0 ? renderKnowleadge() : renderKnowleadgeTable()}
+                    {selView == 0 ? renderKnowleadge() : renderKnowleadgeTable()}
                 </div>}
             </div >
         )
