@@ -27,6 +27,9 @@ class AnswerResult extends React.Component {
       }
     })
   }
+  back =(e) => {
+    this.props.history.push("/task");
+  }
 
 
   render() {
@@ -51,7 +54,7 @@ class AnswerResult extends React.Component {
     return (
       isNull(questionModuleInfo) ? <div /> :
         <div>
-          <TopNav title={questionModuleInfo.moduleName} onLeftClick={this.back}></TopNav>
+          <TopNav title={questionModuleInfo.moduleName} onLeftClick={e=>this.back(e)}></TopNav>
           <div>
             <div className={Styles.blue_container}>
             </div>
