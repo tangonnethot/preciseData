@@ -56,13 +56,21 @@ class AnswerResult extends React.Component {
             <div className={Styles.blue_container}>
             </div>
             <div className={Styles.container}>
-              <img style={{ marginLeft: "-2rem" }} src={require("../../../assets/resultScore.png")}></img>
-              <div style={{ marginTop: "-16rem" }}>得分率：{questionModuleInfo.moduleScore}%</div>
-              <div style={{ paddingTop: "1.4rem", color: "#FF3030", fontSize: "5rem" }}>{questionModuleInfo.moduleScore}分</div>
-              <div className={Styles.number}>满分：100分</div>
-              <div className={Styles.time_container}><span>答题时间：</span><span>{finishEndtime.date}</span><span className={Styles.paddingLeft10}>{finishEndtime.time}</span></div>
-              <div className={Styles.time_container}><span>截止时间：</span><span>{formatEndtime.date}</span><span className={Styles.paddingLeft10}>{formatEndtime.time}</span></div>
-              <div style={{ marginTop: "2.8rem", fontSize: "@content-big-font-size" }}><span>阅卷人：</span><span>{questionModuleInfo.moduleCorrectorName}</span>
+              <img className={Styles.bg} src={require("../../../assets/resultScore.png")}></img>
+              <div className={Styles.scoringRate} >得分率：{questionModuleInfo.moduleScore == 0 ? 0 : (questionModuleInfo.score/questionModuleInfo.moduleScore).toFixed(2)}%</div>
+              <div className={Styles.scoring} >{questionModuleInfo.score}分</div>
+              <div className={Styles.number}>满分：{questionModuleInfo.moduleScore}分</div>
+              <div className={Styles.time_container}>
+                答题时间：
+                {finishEndtime.date}&nbsp;
+                {finishEndtime.time}
+              </div>
+              <div className={Styles.time_container}>
+                 截止时间： 
+               {formatEndtime.date.substring(0,4) === '2099' ? '无': formatEndtime.date} &nbsp;
+                {formatEndtime.date.substring(0,4) === '2099' ? '': formatEndtime.time} 
+                </div>
+    <div style={{ marginTop: "2.8rem", fontSize: "@content-big-font-size" }}><span>阅卷人：</span><span>{console.log(questionModuleInfo)}{questionModuleInfo.moduleCorrectorName}</span>
                 <span className={Styles.paddingLeft20}>阅卷时间：</span><span>{reviewtime.date}</span><span className={Styles.paddingLeft10}>{reviewtime.time}</span></div>
             </div>
             <div className={Styles.border}></div>

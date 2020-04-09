@@ -215,8 +215,8 @@ export default class taskInfo extends React.Component {
                     <div style={{ paddingLeft: "5.4rem" }}>
                         <span className={classnames(Styles.label, Styles.task_label)}>{convertTaskType(obj.taskType)}</span>
                         <span className={classnames(Styles.label, Styles.review_label)}>{CONSTANT.taskCorrectStartegy[obj.taskCorrectStrategy]}</span>
-                        <span className={Styles.startTime}>截止日期： <span>{formatEndTime.date}</span>
-                            <span style={{ paddingLeft: "1rem" }}>{formatEndTime.time}</span></span>
+                        <span className={Styles.startTime}>截止日期： <span>{formatEndTime.date.substring(0,4) === '2099' ? '无' : formatEndTime.date}</span>
+                            <span style={{ paddingLeft: "1rem" }}>{formatEndTime.date.substring(0,4) === '2099' ? '' : formatEndTime.time}</span></span>
                     </div>
                 </div>
             );

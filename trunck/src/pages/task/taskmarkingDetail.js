@@ -49,6 +49,7 @@ export default class TaskmarkingDetail extends React.Component {
             parentId: item.topics[0].parentId,
             answerContent: item.topics[0].answerContent,
             topicId: item.topics[0].taskContentTopicId,
+            topicTag:item.topics[0].topicTag
           })
 
         } else {
@@ -61,6 +62,7 @@ export default class TaskmarkingDetail extends React.Component {
             parentId: item.parentId,
             answerContent: item.answerContent,
             topicId: item.taskContentTopicId,
+            topicTag:item.topicTag
           })
         }
         this.setState({ allScoreInfo })

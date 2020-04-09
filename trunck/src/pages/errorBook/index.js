@@ -53,7 +53,7 @@ export default class errorBook extends React.Component {
   };
 
   changeSubject = (subjectid) => {
-    if (subjectid === 0) subjectid = "";
+    if (subjectid == 0) subjectid = "";
     this.setState({
       selSubject: subjectid,
       loading:true,
