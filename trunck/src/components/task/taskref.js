@@ -55,7 +55,7 @@ export default class TaskRef extends React.Component {
         const {refModuleInfo} = this.props.task.moduleContentList[this.props.moduleID];
         return (
             isNull(content) ? <Empty></Empty> : <div>
-                <Attachment video={content.vedio} docs={content.attachment}></Attachment>
+                <Attachment video={content.video} docs={content.attachment}></Attachment>
                 <div dangerouslySetInnerHTML={{ __html: content.content }} className={Styles.ref_container}></div>
                 {refModuleInfo.answerStatus > 1 ? <div /> :
                     <div className={Styles.ref_btn_container}><button onClick={this.onComplete} className={Styles.complete_btn}>完成学习</button></div>}
