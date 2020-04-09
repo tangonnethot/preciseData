@@ -1,6 +1,5 @@
 .photoBtn{
     display: inline-block;
-    font-size: @content-small-font-size;
     i{
       background-repeat: no-repeat;
       background-position: center center;
@@ -9,15 +8,15 @@
       display: block;
       border:@border-width-thin @border-color dashed;
       background-image: url(../assets/photoBtn.png);
-      background-size: 3.6rem 3rem;
+      background-size: 4.5rem 3.8rem;
     }
     span{
       color: @text-font-color-secondary;
+      font-size: @camera-label-font-size;
     }
 }
 .addBtn{
   display: inline-block;
-  font-size: @content-small-font-size;
   i{
     background-repeat: no-repeat;
     background-position: center center;
@@ -26,9 +25,10 @@
     display: block;
     border:@border-width-thin @primary-color dashed;
     background-image: url(../assets/add.png);
-    background-size: 3.2rem 3.2rem;
+    background-size: 4.1rem 4.1rem;
   }
   span{
     color: @primary-color;
+    font-size: @camera-label-font-size;
   }
 }

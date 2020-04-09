@@ -47,6 +47,7 @@ const radiusBase = '5px';
 const radius8 = '8px';
 const long52="5.2rem";
 const long80="8rem";
+const long120="12rem";
 const heigth80 ="8rem";
 const heigth44 ="4.4rem";
 const spacing24="2.4rem" ;
@@ -134,6 +135,7 @@ module.exports = {
   '@content-small-font-size': fontSize24,
   //内容/标签 小字号 
   '@title-descibe-font-size': fontSize22,
+  '@camera-label-font-size':fontSize20,
   // 图标大小
   '@icon-width':heigth44,
   '@icon-height':heigth44,
@@ -217,8 +219,8 @@ module.exports = {
   '@margin-sm': spacing12,// Form controls and items
   '@margin-xs': spacing8, // small items
   '@margin-xss': spacing4, // more small
-  '@answer-pic-width':long80,//学生作答图片宽
-  '@answer-pic-height':long80,//学生作答图片高
+  '@answer-pic-width':long120,//学生作答图片宽
+  '@answer-pic-height':long120,//学生作答图片高
   '@history-answer-width':long52,
   '@history-answer-height':long52,
   '@line-height-lg': lineHeight50, 
