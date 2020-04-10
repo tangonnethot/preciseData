@@ -23,6 +23,17 @@ class TaskResult extends React.Component {
         })
     }
 
+    changeAnswer = (answer, topicId,id) => {
+        this.props.dispatch({
+            type: "task/updateRAnswerList",
+            payload: {
+                moduleid:this.props.moduleID,
+                topicId,
+                id,
+                answer
+            }
+        })
+    }
     render() {
         if (!this.props.task.moduleContentList[this.props.moduleID])
             return (<Spin />);
@@ -43,30 +54,37 @@ class TaskResult extends React.Component {
             let correctAnswer = [];
             let qtype = stemContent.type;
             if (qtype !== "1078") {
+                stemContent["_id"]=answerList[answeridx].id;
                 answer.push(answerList[answeridx].answerContent);
+                answerList[answeridx].correctContent && correctAnswer.push(answerList[answeridx].correctContent);
                 if (answerList[answeridx].examinesState == 2) {
                     score.push(answerList[answeridx].answerScore);
                 } else {
                     score.push(-1);
                 }
+                stemContent["_id"]=answerList[answeridx].id;
                 answeridx++;
             } else {
                 let childCount = stemContent.topics.length;
                 for (let j = 0; j < childCount; j++) {
                     answer.push(answerList[answeridx].answerContent);
+                    answerList[answeridx].correctContent && correctAnswer.push(answerList[answeridx].correctContent);
                     if (answerList[answeridx].examinesState == 2) {
                         score.push(answerList[answeridx].answerScore);
                     } else {
                         score.push(-1);
                     }
 
+                    stemContent[j]["_id"]=answerList[answeridx].id;
                     answeridx++;
                 }
             }
             return (<div className={Styles.ques_item}>
                 <Result
                     question={stemContent}
-                    optionClick={(ans, index) => _this.changeAnswer(ans, index)}
+                    optionClick={(ans, topicId) => {
+                        _this.changeAnswer(ans, topicId,stemContent["_id"])
+                    }}
                     userAnswer={answer.join(";")}
                     revisedAnswer={correctAnswer.join(";")}
                     userScore={score.join(";")}

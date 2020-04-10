@@ -6,13 +6,13 @@ import Camera from '../../student/camera';
 
 class DoAnswer extends Component {
   receiveSuccess=(url)=>{
-    const {revisedAnswer} = this.props;
-    let newAnswer =  revisedAnswer?revisedAnswer+","+url:url;
+    const {userAnswer} = this.props;
+    let newAnswer =  userAnswer?userAnswer+","+url:url;
     this.props.receiveSuccess(newAnswer)
   }
   delAnswerByIndex(index){
-    const {revisedAnswer,optionClick} = this.props;
-    let newAnswer =  revisedAnswer.split(",");
+    const {userAnswer,optionClick} = this.props;
+    let newAnswer =  userAnswer.split(",");
     newAnswer.splice(index,1);
     optionClick( newAnswer.join(",") ,this.props.question.id);
   }

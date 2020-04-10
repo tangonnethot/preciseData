@@ -1,16 +1,24 @@
+p{
+  -webkit-margin-before: 0em;
+  -webkit-margin-after: 0em;
+  -webkit-margin-start: 0em;
+  -webkit-margin-end: 0em;
+  margin-bottom: 0em;
+}
 .options{
   color: @text-font-color;
   padding: 0px;
   font-size: @content-font-size;
   .option{
     display: flex;
+    margin-bottom: @margin-xs;
     .optionChar{
       font-size: @content-small-font-size;
       flex-shrink: 0;
       width: 3.8rem;
       height: 3.8rem;
       border: @border-width-thin solid #dcdcdc;
-      margin: @margin-xs @margin-sm 0 0;
+      margin-right: @margin-sm;
       justify-content: center;
       align-items: center;
       display: inline-flex;
