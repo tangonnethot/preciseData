@@ -10,7 +10,9 @@ const Header = props => {
   const { question , questionIndex , userScore} = props;
   let degreeIndex=-1;
   Object.keys( constant.questionDifficultyLevel ).map( (key,index) => {
-    if( question.degree===key ) return degreeIndex=index;
+    if( question.degree==key ){
+      return degreeIndex=index;
+    }
   })
   return (
     <Row className={Style.header}>

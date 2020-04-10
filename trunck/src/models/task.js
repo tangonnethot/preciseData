@@ -5,7 +5,8 @@ import {
     getTaskDetails,
     getMarkingDetails,
     submitMarking,
-    getMarkingCount
+    getMarkingCount,
+    correctTask
 } from '../services/task';
 export default {
     namespace: "task",
@@ -184,7 +185,23 @@ export default {
 
             }))
             yield put({ type: "fetch/end" });
-        }
+        },
+        *updateRAnswerList({ payload }, { call, put, select }) {
+            const { moduleid , topicId , id , answer } = payload;
+            debugger
+            yield put({
+                type: 'updateReviseAnswerList',
+                payload: {
+                    moduleid,
+                    topicId,
+                    answer
+                }
+            })
+            yield call(correctTask, {
+                id,
+                correctContent:answer
+            });
+        },
     },
 
     reducers: {
@@ -216,6 +233,16 @@ export default {
             }
             return { ...state, ...state };
             // return { ...state, ...{ answerList: newanswerList } }
+        },
+        updateReviseAnswerList(state, action) {
+            let newanswerList = state.moduleContentList[action.payload.moduleid].answerList;
+            for (let index = 0; index < newanswerList.length; index++) {
+                if (newanswerList[index].topicId === action.payload.topicId) {
+                    newanswerList[index].correctContent = action.payload.answer;
+                    break;
+                }
+            }
+            return { ...state, ...state };
         },
         appendArray(state, action) {
             let taskList = state.taskList.concat(action.payload.taskList);
