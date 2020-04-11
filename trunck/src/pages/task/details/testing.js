@@ -76,7 +76,7 @@ export default class Testing extends React.Component {
         return (<Fragment>
             {this.state.showMask && <Fragment><div className={Styles.layout_mask} />
                 <div className={Styles.img_container}>
-                    <img className={Styles.answer_close} onClick={() => this.setState({ showMask: false })} src={require("../../../assets/closedialog.png")} />
+                    <img className={Styles.answer_close} onClick={() => {this.setState({ showMask: false }); this.props.history.push("/task") }} src={require("../../../assets/closedialog.png")} />
                     <img className={Styles.answer_pic} src={require("../../../assets/startAnswer.png")} />
                     <div className={Styles.publish_time}>答案公布时间：{showTime.date+" "+showTime.time}</div>
                    <div className={Styles.msg}>提交成功，但未到教师设置的答案公布时间，请耐心等待！</div>

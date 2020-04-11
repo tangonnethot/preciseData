@@ -74,8 +74,8 @@ export default {
       yield put({
         type:"save",
         payload:{
-          knowleadge:knowleadgeMap.data.knowledgeRateList,
-          taskStatistics:knowleadgeMap.data.taskStatistics
+          knowleadge:knowleadgeMap.data&&knowleadgeMap.data.knowledgeRateList,
+          taskStatistics:knowleadgeMap.data&&knowleadgeMap.data.taskStatistics
         }
       })
     }

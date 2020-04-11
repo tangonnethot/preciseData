@@ -60,7 +60,7 @@ class AnswerResult extends React.Component {
             </div>
             <div className={Styles.container}>
               <img className={Styles.bg} src={require("../../../assets/resultScore.png")}></img>
-              <div className={Styles.scoringRate} >得分率：{questionModuleInfo.moduleScore == 0 ? 0 : (questionModuleInfo.score/questionModuleInfo.moduleScore).toFixed(2)}%</div>
+              <div className={Styles.scoringRate} >得分率：{questionModuleInfo.moduleScore == 0 ? 0 : (questionModuleInfo.score/questionModuleInfo.moduleScore*100).toFixed(2)}%</div>
               <div className={Styles.scoring} >{questionModuleInfo.score}分</div>
               <div className={Styles.number}>满分：{questionModuleInfo.moduleScore}分</div>
               <div className={Styles.time_container}>

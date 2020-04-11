@@ -345,15 +345,15 @@ class learningSituation extends React.Component {
                     <div className={Styles.title}>知识点掌握情况</div>
                     <Row span={24} className={Styles.KnowsOverView}>
                         <Col span={8}>
-                            <Progress type="circle" percent={80} strokeColor={"#ff6755"} format={() => { if (taskStatistics.taskNum) return taskStatistics.taskNum + "个"; return "0个"; }} />
+                            <Progress type="circle" percent={80} strokeColor={"#ff6755"} format={() => { return (taskStatistics.taskNum||0) + "个";}} />
                             <div className={Styles.sub_title}>任务数</div>
                         </Col>
                         <Col span={8}>
-                            <Progress type="circle" percent={80} strokeColor={"#2cbafd"} format={() => { if (taskStatistics.topicCount) return taskStatistics.topicCount + "题"; return "0题"; }} />
+                            <Progress type="circle" percent={80} strokeColor={"#2cbafd"} format={() => { return (taskStatistics.topicNum||0) + "题"}} />
                             <div className={Styles.sub_title}>题量</div>
                         </Col>
                         <Col span={8}>
-                            <Progress type="circle" percent={80} strokeColor={"#1dc99a"} format={() => { if (taskStatistics.taskScore && taskStatistics.taskTotalScore) return taskStatistics.taskScore / taskStatistics.taskTotalScore + "%"; return "0%"; }} />
+                            <Progress type="circle" percent={80} strokeColor={"#1dc99a"} format={() => {return (taskStatistics.scoreRate||0) + "%"}} />
                             <div className={Styles.sub_title}>得分率</div>
                         </Col>
                     </Row>
