@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import ReactEcharts from 'echarts-for-react';
-import { Row, Col } from 'antd';
+import { Row, Col} from 'antd';
 import Styles from './index.less';
 import { connect } from 'dva';
 import { isNull } from '../../utils/utils';
@@ -16,6 +16,7 @@ class Knowleadge extends Component {
     super(props);
     this.state = {
       tabAtlas: 0,
+      tabAtlasIdx:0,
       selknowleadgedata: {},
       // tabAtlas: this.props.learningSituation.selKnowleadge.id,
       // selknowleadgedata: this.props.learningSituation.selKnowleadge,
@@ -28,18 +29,26 @@ class Knowleadge extends Component {
   convertSymbolSize = (item) => {
     // var scale =Math.Ceil(item.classTopicNum/50);
     // return 7+scale;
-    return 7;
+    return 10;
   }
 
   convertSymbolColor = (item) => {
-    if (item.classTopicAnswerScore > 60) {
-      return '#31cebc';
+    if(item.classTopicTotalScore>95){
+      return '#11a106';
     }
-
-    if (item.classTopicAnswerScore === 0) {
-      return '#333';
+    if(item.classTopicTotalScore>85){
+      return '#1dc99a';
     }
-    return "#ff6755";
+    if(item.classTopicTotalScore>75){
+      return '#d7e047';
+    }
+    if(item.classTopicTotalScore>60){
+      return '#ec7946';
+    }
+    if(item.classTopicTotalScore>0){
+      return '#eb4646';
+    }
+    return '#999';
   }
   convertNode = (item) => {
     var size = this.convertSymbolSize();
@@ -99,28 +108,33 @@ class Knowleadge extends Component {
     }
   }
 
-  RenderTabsAtlas = (tab, changeTabs) => {
-    if (!this.props.learningSituation.knowleadge || this.props.learningSituation.knowleadge.length <= 0) return;
-    if (isNull(tab)) tab = this.props.learningSituation.knowleadge[0].id;
-    return this.props.learningSituation.knowleadge.map((item) => {
+  RenderTabsAtlas = () => {  
+    let tabAIdx = this.state.tabAtlasIdx;
+    const {knowleadge} = this.props.learningSituation;
+    if (!knowleadge || knowleadge.length <= 0) return;
+    this.covertData(knowleadge[tabAIdx].id);
+    // this.showMainAtlas();
+    let _this = this; 
+    return knowleadge.map((item,index) => {
       return (
         <li
-          key={item.id}
-          className={tab === item.id ? Styles.act : ''}
-          onClick={() => {
-            changeTabs(item.id)
-          }}>
+          key={item.index}
+          className={tabAIdx === index ? Styles.act : ''}
+          onClick={() => { 
+            _this.changeTabeAtlas(item.id,index)
+          }}> 
           {item.name}
         </li>
       )
     })
   }
 
-  changeTabeAtlas = (idx) => {
-    this.covertData(idx);
-    var data = this.getKnowleadgeById(idx);
+  changeTabeAtlas = (knowId,idx) => {
+    this.covertData(knowId);
+    var data = this.getKnowleadgeById(knowId);
     this.setState({
-      tabAtlas: idx,
+      tabAtlas: knowId,
+      tabAtlasIdx:idx,
       selknowleadgedata: data
     });
   }
@@ -134,33 +148,15 @@ class Knowleadge extends Component {
     }
   }
 
-  // getAtlasTpl = (name, classScore, classCount, gradeScore, gradeCount) => {
-  //   return <div className={Styles.atlasWrap}>
-  //     <h3 className={Styles.atlasWraph3}>{name}</h3>
-  //     <h4 className={Styles.atlasWraph4}>班级得分率：<span>{classScore}</span></h4>
-  //     <h4 className={Styles.atlasWraph4}>班级题量：<span>{classCount}道</span></h4>
-  //     <h4 className={Styles.atlasWraph4}>年级得分率：<span>{gradeScore}</span></h4>
-  //     <h4 className={Styles.atlasWraph4}>年级题量：<span>{gradeCount}道</span></h4>
-  //     <h5 className={Styles.atlasWraph5}>图例</h5>
-  //     <ul className={Styles.atlasWrapul}>
-  //       <li>图像大小代表信度（与时间和题量等因素相关，题量越多，时间越近，信度越高）</li>
-  //       <li>红色代表得分率很差</li>
-  //       <li>绿色代表得分率较高</li>
-  //       <li>灰色代表得分率为0</li>
-  //     </ul>
-  //     <h5 className={Styles.atlasWraph5}>提示</h5>
-  //     <h6 className={Styles.atlasWraph6}>点击图谱可以查看详情</h6>
-  //   </div>
-  // }
 
-  showMainAtlas = () => {
-    // this.covertData(idx);
-    const { selknowleadgedata } = this.state;
-    if (isNull(selknowleadgedata)) {
-      return this.getAtlasTpl("", "0", "0", "0", "0");
-    }
-    return this.getAtlasTpl(selknowleadgedata.name, selknowleadgedata.classTopicTotalScore, selknowleadgedata.classTopicNum, selknowleadgedata.gradeTopicAnswerScore, selknowleadgedata.gradeTopicNum)
-  }
+  // showMainAtlas = () => {
+  //   // this.covertData(idx);
+  //   const { selknowleadgedata } = this.state;
+  //   if (isNull(selknowleadgedata)) {
+  //     return this.getAtlasTpl("", "0", "0", "0", "0");
+  //   }
+  //   return this.getAtlasTpl(selknowleadgedata.name, selknowleadgedata.classTopicTotalScore, selknowleadgedata.classTopicNum, selknowleadgedata.gradeTopicAnswerScore, selknowleadgedata.gradeTopicNum)
+  // }
 
   getOption = () => {
     // this.covertData(this.state.tabAtlas);
@@ -186,7 +182,8 @@ class Knowleadge extends Component {
             position: 'right',
             verticalAlign: 'middle',
             align: 'left',
-            fontSize: 9
+            color:"#333",
+            fontSize: 14
           }
         },
         force: {
@@ -198,6 +195,7 @@ class Knowleadge extends Component {
 
   render() {
     const { needupdateEcharts, tabAtlas } = this.state;
+
     return (
       <div className={Styles.container}>
         <div className={Styles.title}>
