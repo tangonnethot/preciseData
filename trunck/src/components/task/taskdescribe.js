@@ -6,7 +6,7 @@ export default class TaskDescribe extends React.Component {
         super(props);
     }
     render() {
-        let endTime = this.props.endtime.date + "&nbsp;" + this.props.endtime.time;
+        let endTime = this.props.endtime.date + "　" + this.props.endtime.time;
         if(this.props.endtime.date=="2099.12.31"){
             endTime ="无"
         }

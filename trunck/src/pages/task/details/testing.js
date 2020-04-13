@@ -30,25 +30,41 @@ export default class Testing extends React.Component {
         })
     }
 
-    answerComplete = (time, anserlist) => {
+    answerComplete = (time, anserlist) => {        
         let _this = this;
         submitTask({
             id: _this.props.task.moduleContentList[_this.state.taskid].questionModuleInfo.id,
             moduleAnswerTime: time,
             taskStudentTopicList: anserlist
         }).then(function (res) {
-            if (res.code == 200) {
-                Toast.success("提交成功", 2, () => {
+            switch(res.code){
+                case 200:
+                    Toast.success("提交成功", 2, () => {
+                        let showTime = _this.props.task.moduleContentList[_this.state.taskid].questionModuleInfo.answerDisplayTime;
+                        if (!isTimeArrived(showTime)) {
+                            _this.setState({ showMask: true });
+                            return;
+                        }
+                        _this.props.history.push("/taskresult?taskNo=" + _this.state.taskid)
+                    });
+                    break;
+                case 10001:
+                    Toast.fail('请勿重复提交', 2);
+                    break;
+                case 10002:
+                    Toast.fail('当前任务已超过教师设置的截止时间，不允许进行提交，您可以联系下教师', 2);
+                    break;
+                case 10003:
                     let showTime = _this.props.task.moduleContentList[_this.state.taskid].questionModuleInfo.answerDisplayTime;
                     if (!isTimeArrived(showTime)) {
                         _this.setState({ showMask: true });
                         return;
                     }
-                    _this.props.history.push("/taskresult?taskNo=" + _this.state.taskid)
-                });
-            } else {
-                Toast.fail('提交失败，请稍后重试', 2);
+                    break;
+                default:
+                    Toast.fail('提交失败，请稍后重试', 2);
             }
+          
         })
     }
 

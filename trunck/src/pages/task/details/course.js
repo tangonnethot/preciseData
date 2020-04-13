@@ -71,16 +71,26 @@ export default class CourseDetails extends React.Component {
             moduleAnswerTime: time,
             taskStudentTopicList: anserlist
         }).then(function (res) {
-            if (res.code == 200) {
-                Toast.success("提交成功", 2);
-                window.location.reload();
-
-                // _this.setState({
-                //     expandIndex: -1
-                // })
-            } else {
-                Toast.fail('提交失败，请稍后重试', 2);
-            }
+            switch(res.code){
+                case 200:
+                    Toast.success("提交成功", 2,()=>{
+                        window.location.reload();
+                    });
+                    break;
+                case 10001:
+                    Toast.fail('请勿重复提交', 2);
+                    break;
+                case 10002:
+                    Toast.fail('当前任务已超过教师设置的截止时间，不允许进行提交，您可以联系下教师', 2);
+                    break;
+                case 10003:
+                    Toast.fail('答案未到显示时间', 2,()=>{
+                        window.location.reload();
+                    });
+                    break;
+                default:
+                    Toast.fail('提交失败，请稍后重试', 2);
+            }        
         })
     }
 
