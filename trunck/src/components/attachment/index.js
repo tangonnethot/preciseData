@@ -11,8 +11,7 @@ export default class Attachment extends React.Component {
 
         if(type=="video"){
             playVideo(name,id);
-        }
-        if(getFileExtName(name)=="mp3"){
+        }else if(getFileExtName(name)=="mp3"){
             playAudio(url,name);
         }else{
             previewFile(url);

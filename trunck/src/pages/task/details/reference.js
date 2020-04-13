@@ -39,13 +39,15 @@ export default class Reference extends React.Component {
             taskStudentTopicList:[]
         }).then(function(res){
             if(res.code==200){
-                Toast.success("提交成功",2,()=>{_this.props.history.push("/task")});
+                Toast.success("提交成功",2,()=>{_this.props.history.replace("/task")});
             }else{
                 Toast.fail('提交失败，请稍后重试', 2);
             }
         })
     }
-
+    back = ()=>{
+        this.props.history.replace("/task")
+    }
     render() {
         const { loading} = this.props.task;
         if(!this.props.task.moduleContentList[this.state.taskid])
