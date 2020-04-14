@@ -122,7 +122,7 @@ export default class CourseDetails extends React.Component {
                     <Card.Body>
                         <TaskRef isCourse={true} moduleID={element.id} complete={this.refComplete.bind(this,element.id)}></TaskRef>
                         {element.answerStatus > 0 ? <div className={Styles.btn_container}>
-                            <button className={Styles.complete_btn} onClick={this.reduceCard}>完成学习</button>
+                            <Button className={Styles.complete_btn} onClick={this.reduceCard}>完成学习</Button>
                         </div> : <div />}
                     </Card.Body>
                 </Card>
@@ -144,7 +144,7 @@ export default class CourseDetails extends React.Component {
                         <Card.Body>
                             <TaskResult taskType={"course"} moduleID={element.id} footer={true}></TaskResult>
                             <div className={Styles.btn_container}>
-                                <button className={Styles.complete_btn} onClick={this.reduceCard}>完成学习</button>
+                                <Button className={Styles.complete_btn} onClick={this.reduceCard}>完成学习</Button>
                             </div>
                         </Card.Body>
                     </Card></div>

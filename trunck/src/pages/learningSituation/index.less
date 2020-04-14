@@ -14,14 +14,15 @@
         text-align: center;
     }
     .count{
-        margin-top: -18rem;
+        margin-top: -21rem;
         text-align: center;
-        font-size: @modular-font-size;
+        font-size: @nav-big-font-size;
     }
 
     .legendContainer{
         padding-top: 8rem;
-        text-align: center;
+        padding-left:5rem;
+        // text-align: center;
         .subjectIcon{
             display: inline-block;
             width:1rem;
@@ -56,19 +57,78 @@
         font-size: @tab-font-size;
     }
 }
+.accordion{
+    width: 100%;
+    :global{
+        .am-accordion{
+            border:none;
+        }  
+     .am-accordion-item{
+            // padding-left: 15px;
+            border: none;
+        }      
+        .am-accordion .am-accordion-item .am-accordion-header i{
 
-.table_header{
-    background-color: #ececec;
-    height: @item-height;
-    font-size: @title-descibe-font-size;
-    border-top: @border-width-thin solid @border-color;
-    border-bottom: @border-width-thin solid @border-color;
+            left:1rem;  
+          }
+          .am-accordion .am-accordion-item .am-accordion-content .am-accordion-content-box{
+              border: none;
+          }
+          .am-list-body{
+              border:none;
+          }
+    }
+    .table_header{
+        width: 100%;
+        background-color: #ececec;
+        height: @item-height;
+        font-size: @title-descibe-font-size;
+        // border-top: @border-width-thin solid @border-color;
+        // border-bottom: @border-width-thin solid @border-color;
+      
+    }
+    .table_row{
+        // margin-left: 15px;
+        background-color: @white-color;
+        height: @item-height;
+        font-size: @title-descibe-font-size;
+        width:100%;
+        // border-bottom: @border-width-thin solid @border-color;
+        // span{
+        //     width:30%;
+        //     display: inline-table;
+        // }
+    
+    }
+    .list_item{
+        
+    }
+    span{
+        // width:33%;
+        width:26rem;
+        text-overflow: ellipsis;
+        white-space: nowrap; 
+        overflow: hidden;
+        display: inline-block;
+    }
 }
-.table_row{
-    background-color: @white-color;
-    height: @item-height;
-    font-size: @title-descibe-font-size;
-    width:90%;
-    border-bottom: @border-width-thin solid @border-color;
+.header_accordion_panel{
+    :global{
+        .am-accordion-header{
+            border: none;
+            background-color:#ececec!important;
+            // margin-left: 15px;
+        }
+        
+    }
+}
+.row_accordion_panel{
+    :global{
+        .am-accordion-header{
+            border: none;
+            background-color:@white-color!important;
+        }
+        
+    } 
+}
 
-}

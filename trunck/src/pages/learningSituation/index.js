@@ -4,8 +4,8 @@ import TopNav from '../../components/nav';
 import SubjectNav from '../../components/nav/subject';
 import { goHome } from '../../utils/andriod';
 import { getUserID, getschoolYear,getOrgID,isNull} from "../../utils/utils";
-import { Row, Col, Progress, Table,Empty} from "antd";
-import { SegmentedControl } from "antd-mobile";
+import { Row,Col,Progress,Empty} from "antd";
+import { SegmentedControl,Accordion,List} from "antd-mobile";
 import ReactEcharts from 'echarts-for-react';
 import Styles from './index.less';
 import { connect } from 'dva';
@@ -16,7 +16,7 @@ class learningSituation extends React.Component {
             timeType: "4",
             selSubjet: "0",
             selView: 0,
-            count: 237
+            // count: 237
         };
         this.initData();
     }
@@ -32,7 +32,6 @@ class learningSituation extends React.Component {
                 timeType: timeType
             }
         });      
-      
     }
 
     back = () => {
@@ -169,7 +168,7 @@ class learningSituation extends React.Component {
         let xData=[],seriesData=[];
         this.props.situation.totalStatistics.forEach(element => {
             xData.push(element.subjectName);
-            let score = Math.ceil(element.taskScore/element.taskTotalScore*10000)/100;
+            let score = Math.round(element.taskScore/element.taskTotalScore*10000)/100;
             if(isNaN(score)) score =0;
             seriesData.push(score);
         });
@@ -217,74 +216,78 @@ class learningSituation extends React.Component {
 
     }
 
-    getColumnsData = (title) => {
-        return [
-            {
-                title: title,
-                dataIndex: "name",
-                key: "name"
-            }, {
-                title: "个人/年级题量",
-                dataIndex: "count",
-                key: "count"
-            }, {
-                title: "个人/年级得分率",
-                dataIndex: "score",
-                key: "score"
-            }
-        ]
-    }
+    // getColumnsData = (title) => {
+    //     return [
+    //         {
+    //             title: title,
+    //             dataIndex: "name",
+    //             key: "name"
+    //         }, {
+    //             title: "个人/年级题量",
+    //             dataIndex: "count",
+    //             key: "count"
+    //         }, {
+    //             title: "个人/年级得分率",
+    //             dataIndex: "score",
+    //             key: "score"
+    //         }
+    //     ]
+    // }
 
-    getTableData = (data,level) => {
-        let tableData =[];
-        data.forEach(element=>{
-            let childrenData=[];
-            let curLevel = level;            
-            if(element.hasOwnProperty("childKnowledges")){
-                // level++;
-                childrenData = this.getTableData(element.childKnowledges,level+1);
-            }
-            let itemData={};
-            itemData.key=element.id;
-            itemData.name=element.name;
-            itemData.level = level;
-            if(level===0){
-                itemData.count = "个人/年级题量";
-                itemData.score = "个人/年级得分率";
-            }else{
-                let sScore = Math.round(element.classTopicAnswerScore/element.classTopicTotalScore*10000)/100;
-                if(isNaN(sScore)) sScore =0;
-                let gScore = Math.round(element.gradeTopicAnswerScore/element.gradeTopicTotalScore*10000)/100;
-                if(isNaN(gScore)) gScore =0;
-                itemData.count = element.classTopicNum+"道 / " + element.gradeTopicNum + "道";
-                itemData.score = sScore+"% / "+gScore +"%";
-            }
-            if(childrenData.length>0) itemData.children = childrenData;
-            tableData.push(itemData);
-        })
-        return tableData;   
-    }
+    // getTableData = (data,level) => {
+    //     let tableData =[];
+    //     data.forEach(element=>{
+    //         let childrenData=[];
+    //         let curLevel = level;            
+    //         if(element.hasOwnProperty("childKnowledges")){
+    //             // level++;
+    //             childrenData = this.getTableData(element.childKnowledges,level+1);
+    //         }
+    //         let itemData={};
+    //         itemData.key=element.id;
+    //         itemData.name=element.name;
+    //         itemData.level = level;
+    //         if(level===0){
+    //             itemData.count = "个人/年级题量";
+    //             itemData.score = "个人/年级得分率";
+    //         }else{
+    //             let sScore = Math.round(element.classTopicAnswerScore/element.classTopicTotalScore*10000)/100;
+    //             if(isNaN(sScore)) sScore =0;
+    //             let gScore = Math.round(element.gradeTopicAnswerScore/element.gradeTopicTotalScore*10000)/100;
+    //             if(isNaN(gScore)) gScore =0;
+    //             itemData.count = element.classTopicNum+"道 / " + element.gradeTopicNum + "道";
+    //             itemData.score = sScore+"% / "+gScore +"%";
+    //         }
+    //         if(childrenData.length>0) itemData.children = childrenData;
+    //         tableData.push(itemData);
+    //     })
+    //     return tableData;   
+    // }
 
-    customExpandIcon=(props)=> {
-        if(props.record.children&& props.record.children.length > 0){
-            if (props.expanded) {
-                return <a style={{ color: 'black',marginRight:8 }} onClick={e => {
-                    props.onExpand(props.record, e);
-                }}><img src={require("../../assets/contract.png")}/></a>
-            } else {
-                return <a style={{ color: 'black' ,marginRight:8 }} onClick={e => {
-                    props.onExpand(props.record, e);
-                }}><img src={require("../../assets/expand.png")}/></a>
-            }
-        }else{
-            return <span style={{marginRight:8 }}></span>
-        }
-    }
+    // customExpandIcon=(props)=> {
+    //     if(props.record.children&& props.record.children.length > 0){
+    //         if (props.expanded) {
+    //             return <a style={{ color: 'black',marginRight:8 }} onClick={e => {
+    //                 props.onExpand(props.record, e);
+    //             }}><img src={require("../../assets/contract.png")}/></a>
+    //         } else {
+    //             return <a style={{ color: 'black' ,marginRight:8 }} onClick={e => {
+    //                 props.onExpand(props.record, e);
+    //             }}><img src={require("../../assets/expand.png")}/></a>
+    //         }
+    //     }else{
+    //         return <span style={{marginRight:8 }}></span>
+    //     }
+    // }
 
-    getRowClass=(record)=>{
-        if(record.level===0) return Styles.table_header;
-        return Styles.table_row;
-    }
+    // getRowClass=(record)=>{
+    //     if(record.level===0) return Styles.table_header;
+    //     return Styles.table_row;
+    // }
+
+    onChange = (key) => {
+        console.log(key);
+      }
 
     render() {
         const { selSubjet, selView } = this.state;
@@ -303,7 +306,7 @@ class learningSituation extends React.Component {
                                 <div className={Styles.legendContainer}>
                                     {totalStatistics && totalStatistics.map((item, index) => {
                                         let color = lengendColor[index%lengendColor.length];
-                                        return <div><div className={Styles.subjectIcon} style={{ backgroundColor: color}} />{item.subjectName||""} | {Math.ceil(item.taskNum / totalOverView.taskCount*10000)/100||0}% {item.taskNum||0}次</div>;
+                                        return <div><div className={Styles.subjectIcon} style={{ backgroundColor: color}} />{item.subjectName||""} | {Math.round(item.taskNum / totalOverView.taskCount*10000)/100||0}% {item.taskNum||0}次</div>;
                                     })}
 
                                 </div>
@@ -315,7 +318,7 @@ class learningSituation extends React.Component {
                                 <div className={Styles.legendContainer}>
                                 {totalStatistics && totalStatistics.map((item, index) => {
                                         let color = lengendColor[index%lengendColor.length];
-                                        return <div><div className={Styles.subjectIcon} style={{ backgroundColor: color}} />{item.subjectName||""} | {Math.ceil(item.topicCount / totalOverView.topicCount*10000)/100||0}% {item.topicCount||0}题</div>;
+                                        return <div><div className={Styles.subjectIcon} style={{ backgroundColor: color}} />{item.subjectName||""} | {Math.round(item.topicCount / totalOverView.topicCount*10000)/100||0}% {item.topicCount||0}题</div>;
                                     })}
                                 </div>
                             </Col>
@@ -326,7 +329,7 @@ class learningSituation extends React.Component {
                                 <div className={Styles.legendContainer}>
                                 {totalStatistics && totalStatistics.map((item, index) => {
                                         let color = lengendColor[index%lengendColor.length];
-                                        return <div><div className={Styles.subjectIcon} style={{ backgroundColor: color}} />{item.subjectName||""} | {Math.ceil(item.taskTotalTime / totalOverView.userTime*10000)/100||0}% {item.taskTotalTime||0}分钟</div>;
+                                        return <div><div className={Styles.subjectIcon} style={{ backgroundColor: color}} />{item.subjectName||""} | {Math.round(item.taskTotalTime / totalOverView.userTime*10000)/100||0}% {item.taskTotalTime||0}分钟</div>;
                                     })}
                                 </div>
                             </Col>
@@ -345,15 +348,15 @@ class learningSituation extends React.Component {
                     <div className={Styles.title}>知识点掌握情况</div>
                     <Row span={24} className={Styles.KnowsOverView}>
                         <Col span={8}>
-                            <Progress type="circle" percent={80} strokeColor={"#ff6755"} format={() => { return (taskStatistics.taskNum||0) + "个";}} />
+                            <Progress type="circle" percent={80} strokeColor={"#ff6755"} format={() => { return (taskStatistics&&taskStatistics.taskNum||0) + "个";}} />
                             <div className={Styles.sub_title}>任务数</div>
                         </Col>
                         <Col span={8}>
-                            <Progress type="circle" percent={80} strokeColor={"#2cbafd"} format={() => { return (taskStatistics.topicNum||0) + "题"}} />
+                            <Progress type="circle" percent={80} strokeColor={"#2cbafd"} format={() => { return (taskStatistics&&taskStatistics.topicNum||0) + "题"}} />
                             <div className={Styles.sub_title}>题量</div>
                         </Col>
                         <Col span={8}>
-                            <Progress type="circle" percent={80} strokeColor={"#1dc99a"} format={() => {return (taskStatistics.scoreRate||0) + "%"}} />
+                            <Progress type="circle" percent={80} strokeColor={"#1dc99a"} format={() => {return (Math.round(taskStatistics&&taskStatistics.scoreRate*100||0)/100) + "%"}} />
                             <div className={Styles.sub_title}>得分率</div>
                         </Col>
                     </Row>
@@ -364,11 +367,43 @@ class learningSituation extends React.Component {
             </div>)
         }
 
+        const renderPanelHeader=(name,count,score,level)=>{
+            let space = 1.5*(level+1)+"rem";
+            return (<div className={level==0?Styles.table_header:Styles.table_row}><span className={Styles.title} style={{paddingLeft:space}}>{name}</span><span>{count}</span><span>{score}</span></div>)
+        }
+
+        const renderAccordionData=(data,level)=>{
+            return data.map((element)=>{
+                let sScore = Math.round(element.classTopicAnswerScore/element.classTopicTotalScore*10000)/100;
+                if(isNaN(sScore)) sScore =0;
+                let gScore = Math.round(element.gradeTopicAnswerScore/element.gradeTopicTotalScore*10000)/100;
+                if(isNaN(gScore)) gScore =0;
+                let count = element.classTopicNum+"道 / " + element.gradeTopicNum + "道";
+                let score = sScore+"% / "+gScore +"%";
+
+                if(element.hasOwnProperty("childKnowledges")){
+                    const childrenDOM = renderAccordionData(element.childKnowledges,level+1);
+                    if(level==0){
+                        score = "个人/年级得分率";
+                        count = "个人/年级题量";
+                    }
+                    return (<Accordion><Accordion.Panel className={level==0?Styles.header_accordion_panel:Styles.row_accordion_panel} header={renderPanelHeader(element.name,count,score,level)}><List className="my-list">{childrenDOM}</List></Accordion.Panel></Accordion>)
+                }
+                let space = 1.5*(level+1)+"rem";
+                return(<List><List.Item className={Styles.list_item}><span style={{paddingLeft:space}}>{element.name}</span><span>{count}</span><span>{score}</span></List.Item></List>)
+            })         
+        }
+
         const renderKnowleadgeTable = () => {
             const {knowleadgeList}=this.props.situation;
-            return (<div styles={{ width: "100%" }}>
-            {isNull(knowleadgeList)?<Empty/>:
-            <Table columns={this.getColumnsData(knowleadgeList[0].name)} rowClassName={this.getRowClass} dataSource={this.getTableData(knowleadgeList,0)} expandIcon={(props) => this.customExpandIcon(props)} pagination={false} showHeader={false}></Table>}
+            if(isNull(knowleadgeList)) return (<div style={{ width: "100%" }}><Empty/></div>);
+            return (<div style={{ width: "100%" }}>
+                <Accordion className={Styles.accordion} defaultActiveKey="0" onChange={this.onChange}>
+                    {renderAccordionData(knowleadgeList,0)}
+                </Accordion>
+           
+            {/* <Table columns={this.getColumnsData(knowleadgeList[0].name)} rowClassName={this.getRowClass} dataSource={this.getTableData(knowleadgeList,0)} expandIcon={(props) => this.customExpandIcon(props)} pagination={false} showHeader={false}></Table> */}
+            {/* } */}
             </div>)
         }
 

@@ -27,7 +27,7 @@ class Knowleadge extends Component {
   linkes = [];
 
   convertSymbolSize = (item) => {
-    // var scale =Math.Ceil(item.classTopicNum/50);
+    // var scale =Math.round(item.classTopicNum/50);
     // return 7+scale;
     return 10;
   }
