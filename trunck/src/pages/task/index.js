@@ -14,7 +14,7 @@ import { Link } from 'dva/router';
 export default class taskInfo extends React.Component {
     constructor(props) {
         super(props);
-        this.cleanModalData();
+        this.cleanData();
         const dataSource = new ListView.DataSource({
             rowHasChanged: (row1, row2) => row1 !== row2,
             sectionHeaderHasChanged: (s1, s2) => s1 !== s2,
@@ -58,7 +58,7 @@ export default class taskInfo extends React.Component {
         }, 10000)
     }
 
-    cleanModalData = () => {
+    cleanData = () => {
         this.props.dispatch({
             type: "task/cleanTaskData"
         });
@@ -69,6 +69,8 @@ export default class taskInfo extends React.Component {
         let finishStatus = this.state.taskFinishStatus || "0";
         let subjectid = this.state.selSubject || "";
         if (subjectid == 0) subjectid = "";
+        // alert("getTaskInfo");
+        console.log(this.state.curPage);
         this.props.dispatch({
             type: "task/getTaskList",
             payload: {
@@ -92,19 +94,23 @@ export default class taskInfo extends React.Component {
     };
 
     changeSubject = (subjectid) => {
-        this.state.selSubject = subjectid;
-        this.props.dispatch({
-            type:"task/cleanTaskData"
+        this.cleanData();
+        this.setState({
+            selSubject:subjectid,
+            curPage:1
+        },()=>{
+            this.getTaskInfo();
         })
-        this.getTaskInfo();
     };
 
     changeComplete = (e) => {
-        this.state.taskFinishStatus = e.nativeEvent.selectedSegmentIndex;
-        this.props.dispatch({
-            type:"task/cleanTaskData"
+        this.cleanData();
+        this.setState({
+            taskFinishStatus:e.nativeEvent.selectedSegmentIndex,
+            curPage:1
+        },()=>{
+            this.getTaskInfo();
         })
-        this.getTaskInfo();
     }
 
     onShowDetails = (type, status, id,showTime) => {
@@ -222,7 +228,7 @@ export default class taskInfo extends React.Component {
             );
         };
 
-        const { taskFinishStatus, selSubject } = this.state;
+        const { taskFinishStatus} = this.state;
         return (
             <div className={Styles.taskContainer}>
                 <TopNav title="提分任务" onLeftClick={this.back}></TopNav>
