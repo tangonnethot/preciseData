@@ -10,3 +10,14 @@ html{
   font-size:1.6rem;
   
 }
+:global(#zmageControl>div) {
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding-top: 0.4rem;
+}
+:global(#zmageControl>div>svg) {
+  width: 5.2rem;
+  height: 5.2rem;
+  margin-right: 1rem;
+}

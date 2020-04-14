@@ -32,7 +32,7 @@ export default class AnswerSheet extends React.Component{
     render(){
         const { loading, questionModuleInfo } = this.props.task;
         console.log(questionModuleInfo);
-        return (<Spin spinning={loading}>
+        return (<Spin spinning={loading}  tip="数据加载中" >
             {isNull(questionModuleInfo) ? <div/> : <div>
                 <TopNav title={questionModuleInfo.moduleName} onLeftClick={this.back}></TopNav>
                 <TaskDescribe endtime={formatDate2(questionModuleInfo.taskEndTime)} describe={questionModuleInfo.taskRequire} />

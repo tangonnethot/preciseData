@@ -1,5 +1,5 @@
 import React , { Fragment } from 'react';
-import { Stem , ChoiceOptions , ResultAnswer , VideoAnalysis } from '../parts';
+import { Stem , ChoiceOptions , ResultAnswer , ResultAnalysis , VideoAnalysis } from '../parts';
 import Style from './index.less';
 
 const Choice = props => {
@@ -11,6 +11,7 @@ const Choice = props => {
           { question.stem && <Stem text={question.stem} /> }
           { question.options && <ChoiceOptions {...props } /> }
           { question.options && <ResultAnswer {...props} /> }
+          { question.analysis && <ResultAnalysis {...props} /> }
           { question.videoAddress && <VideoAnalysis {...props} /> }
         </Fragment>
       }

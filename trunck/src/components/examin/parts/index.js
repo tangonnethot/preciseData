@@ -15,6 +15,7 @@ import {
 } from './answer';
 import {
   VideoAnalysis,
+  ResultAnalysis,
   ErrorAnalysis
 } from './analysis';
 export {
@@ -30,5 +31,6 @@ export {
   HistoryAnswer,
   RevisedAnswer,
   VideoAnalysis ,
+  ResultAnalysis,
   ErrorAnalysis
 }

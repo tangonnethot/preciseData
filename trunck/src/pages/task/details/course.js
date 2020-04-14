@@ -152,7 +152,7 @@ export default class CourseDetails extends React.Component {
 
             }
         }
-        return (<Spin spinning={loading}>
+        return (<Spin spinning={loading}  tip="数据加载中" >
             {isNull(taskModuleInfo) ? <div /> : <div clasNam={Styles.course_container}>
                 <TopNav title={taskModuleInfo.taskName} onLeftClick={this.back}></TopNav>
                 <TaskDescribe endtime={formatDate2(taskModuleInfo.taskEndTime)} describe={taskModuleInfo.taskRequire} />

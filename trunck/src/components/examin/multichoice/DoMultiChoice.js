@@ -6,7 +6,7 @@ const DoMultiChoice = props => {
   const { question } = props;
   return (
     <div className={Style.multiChoice}>
-      { question && question.stem && <Stem text={question.stem} /> }
+      { question && <Stem text={question.stem} /> }
       { question && question.options && <MultiChoiceOptionsDo {...props} /> }
     </div>
   )

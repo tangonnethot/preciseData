@@ -1,6 +1,6 @@
 import React , { Fragment } from 'react';
 import { Spin} from 'antd';
-import { Stem , UserAnswer , RevisedAnswer , ResultAnswer , VideoAnalysis } from '../parts';
+import { Stem , UserAnswer , RevisedAnswer , ResultAnswer, ResultAnalysis , VideoAnalysis } from '../parts';
 import Style from './index.less'
 class Question extends React.Component {
   constructor(props){
@@ -43,6 +43,7 @@ class Question extends React.Component {
                   />
               }
               { question.options && <ResultAnswer {...this.props} /> }
+              { question.analysis && <ResultAnalysis {...this.props} /> }
               { question.videoAddress && <VideoAnalysis {...this.props} /> }
             </div>
           </Spin>

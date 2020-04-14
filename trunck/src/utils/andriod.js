@@ -13,6 +13,11 @@
 export const playAudio = (url,name,isSeek)=>{
     PlayerHelper.startAudio(url,name,isSeek);
 }
+ /** 关闭音频播放
+ */
+export const releaseAudio = ()=>{
+     window.PlayerHelper && PlayerHelper.releaseAudio();
+}
 /**
  * 视频播放
  * @param {string} name 视频名称

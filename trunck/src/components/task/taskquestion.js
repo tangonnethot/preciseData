@@ -14,8 +14,8 @@ export default class TaskQuestion extends React.Component {
         startTime();
         if (this.props.taskType == "course")
             this.getModuleInfo();
+        this.props.onRef && this.props.onRef(this);
     }
-
     getModuleInfo = () => {
         if (!this.props.moduleID) return;
         this.props.dispatch({
@@ -116,7 +116,7 @@ export default class TaskQuestion extends React.Component {
 
     render() {
         if(!this.props.task.moduleContentList[this.props.moduleID])
-            return(<Spin/>);
+            return(<Spin  tip="数据加载中" />);
         const { questionModuleInfo,answerList } = this.props.task.moduleContentList[this.props.moduleID];
         const { questionContent } =questionModuleInfo;
         let _this = this;

@@ -50,13 +50,16 @@ export default class TaskRef extends React.Component {
     render() {
         const content = this.convertContent();
         if(!this.props.task.moduleContentList[this.props.moduleID])
-            return(<Spin/>);
+            return(<Spin  tip="数据加载中" />);
 
         const {refModuleInfo} = this.props.task.moduleContentList[this.props.moduleID];
         return (
             isNull(content) ? <Empty></Empty> : <div>
                 <Attachment video={content.video} docs={content.attachment}></Attachment>
-                <div dangerouslySetInnerHTML={{ __html: content.content }} className={Styles.ref_container}></div>
+                <div className={Styles.ref_container}>
+                    <div className={Styles.title}>任务内容：</div>
+                    <div dangerouslySetInnerHTML={{ __html: content.content }}></div>
+                </div>
                 {refModuleInfo.answerStatus > 1 ? <div /> :
                     <div className={Styles.ref_btn_container}><button onClick={this.onComplete} className={Styles.complete_btn}>完成学习</button></div>}
             </div>

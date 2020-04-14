@@ -36,7 +36,7 @@ class TaskResult extends React.Component {
     }
     render() {
         if (!this.props.task.moduleContentList[this.props.moduleID])
-            return (<Spin />);
+            return (<Spin  tip="数据加载中" />);
         const { questionContent } = this.props.task.moduleContentList[this.props.moduleID].questionModuleInfo;
         const { answerList } = this.props.task.moduleContentList[this.props.moduleID];
         let _this = this;
@@ -53,7 +53,7 @@ class TaskResult extends React.Component {
             let score = [];
             let correctAnswer = [];
             let qtype = stemContent.type;
-            if (qtype !== "1078") {
+            if (qtype != "1078") {
                 stemContent["_id"]=answerList[answeridx].id;
                 answer.push(answerList[answeridx].answerContent);
                 answerList[answeridx].correctContent && correctAnswer.push(answerList[answeridx].correctContent);
@@ -75,7 +75,7 @@ class TaskResult extends React.Component {
                         score.push(-1);
                     }
 
-                    stemContent[j]["_id"]=answerList[answeridx].id;
+                    stemContent.topics[j]["_id"]=answerList[answeridx].id;
                     answeridx++;
                 }
             }

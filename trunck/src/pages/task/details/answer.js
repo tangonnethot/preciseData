@@ -35,7 +35,7 @@ class AnswerResult extends React.Component {
   render() {
     const { loading } = this.props.task;
     if (!this.props.task.moduleContentList[this.state.taskid])
-      return (<Spin></Spin>);
+      return (<Spin  tip="数据加载中" ></Spin>);
 
     const { questionModuleInfo } = this.props.task.moduleContentList[this.state.taskid];
     const { answerList } = this.props.task.moduleContentList[this.state.taskid];
