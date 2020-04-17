@@ -1,8 +1,8 @@
 import React from 'react';
-import { WhiteSpace, ListView, Icon } from 'antd-mobile';
+import { WhiteSpace, ListView, Icon,Toast } from 'antd-mobile';
 import { Empty, Spin } from 'antd';
 import TopNav from '../../components/nav';
-import { convertTaskType } from '../../utils/utils';
+import { convertTaskType, isTimeArrived } from '../../utils/utils';
 import CONSTANT from '../../utils/constant';
 import Styles from './index.less';
 import { connect } from 'dva';
@@ -57,7 +57,7 @@ export default class Taskmarking extends React.Component {
           dataSource: state.dataSource.cloneWithRows(listData),
           hasMore,
           isLoading: false,
-          loading:false
+          loading: false
         });
       })
   }
@@ -107,8 +107,13 @@ export default class Taskmarking extends React.Component {
 
   }
 
-  markDetail = (e, id, correctorStrategy) => {
-    this.props.history.push("/taskmarkingDetail?studentModuleId=" + id + '&correctorStrategy=' + correctorStrategy);
+  markDetail = (e, id, correctorStrategy, showTime) => {
+    if (isTimeArrived(showTime))
+      this.props.history.push("/taskmarkingDetail?studentModuleId=" + id + '&correctorStrategy=' + correctorStrategy);
+    else {
+      Toast.info("未到答案公布时间，请耐心等待");
+    }
+
   }
 
   getSubjectimg = (id) => {
@@ -146,7 +151,7 @@ export default class Taskmarking extends React.Component {
   render() {
     const row = (item, index) => {
       return (
-        <div className={Styles.task_item} onClick={e => { this.markDetail(e, item.taskStudentModuleId, item.correctorStrategy) }}>
+        <div className={Styles.task_item} onClick={e => { this.markDetail(e, item.taskStudentModuleId, item.correctorStrategy, item.taskAnswerDisplayTime) }}>
           <div>
             <img className={Styles.icon} src={this.getSubjectimg(item.subjectId)} alt="" />
             <span className={Styles.title}>{item.taskName}</span>
@@ -155,7 +160,7 @@ export default class Taskmarking extends React.Component {
           <div style={{ paddingLeft: "5.4rem" }}>
             <span className={classnames(Styles.label, Styles.task_label)}>{convertTaskType(item.taskType)}</span>
             <span className={classnames(Styles.label, Styles.review_label)}>{CONSTANT.taskCorrectStartegy[item.correctorStrategy]}</span>
-            <span className={Styles.startTime}>截止日期： <span>{item.taskEndTime && item.taskEndTime.substring(0,16)}</span> </span>
+            <span className={Styles.startTime}>截止日期： <span>{item.taskEndTime && (item.taskEndTime.substring(0, 16)).substring(0, 4) === '2099' ? '无' :item.taskEndTime.substring(0, 16) }</span> </span>
           </div>
         </div>
       )

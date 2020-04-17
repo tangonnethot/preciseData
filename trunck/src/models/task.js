@@ -162,13 +162,17 @@ export default {
             yield put({ type: 'fetch/end' });
         },
         //批阅任务
-        *submitMarking({ payload }, { call, put, select }) {
+        *submitMarking({ payload , callback}, { call, put, select }) {
             yield put({ type: 'fetch/start' });
             let { data } = yield call(submitMarking, payload)
             data && (yield put({
                 type: 'fetchAfter'
             }))
             yield put({ type: 'fetch/end' });
+
+            if (callback && typeof callback === 'function') {
+                callback();
+              }
         },
         *getMarkingCount({ payload }, { call, put, select }) {
             yield put({ type: 'fetch/start' });

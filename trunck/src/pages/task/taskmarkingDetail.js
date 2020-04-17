@@ -82,9 +82,11 @@ export default class TaskmarkingDetail extends React.Component {
     const { allScoreInfo } = this.state;
     this.props.dispatch({
       type: "task/submitMarking",
-      payload: allScoreInfo
+      payload: allScoreInfo,
+      callback: (res) => {  
+           this.props.history.push("/taskmarking");
+      }
     })
-    this.props.history.push("/taskmarking");
   }
 
   totalScore = () => {
