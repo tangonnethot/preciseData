@@ -188,6 +188,7 @@ class learningSituation extends React.Component {
             yAxis: {
                 type: 'value'
             },
+            // renderer:"canvas",
             series: [{
                 data: data.sData,
                 type: 'bar',
@@ -348,15 +349,15 @@ class learningSituation extends React.Component {
                     <div className={Styles.title}>知识点掌握情况</div>
                     <Row span={24} className={Styles.KnowsOverView}>
                         <Col span={8}>
-                            <Progress type="circle" percent={80} strokeColor={"#ff6755"} format={() => { return (taskStatistics&&taskStatistics.taskNum||0) + "个";}} />
+                            <Progress type="circle" percent={100} strokeColor={"#ff6755"} format={() => { return (taskStatistics&&taskStatistics.taskNum||0) + "个";}} />
                             <div className={Styles.sub_title}>任务数</div>
                         </Col>
                         <Col span={8}>
-                            <Progress type="circle" percent={80} strokeColor={"#2cbafd"} format={() => { return (taskStatistics&&taskStatistics.topicNum||0) + "题"}} />
+                            <Progress type="circle" percent={100} strokeColor={"#2cbafd"} format={() => { return (taskStatistics&&taskStatistics.topicNum||0) + "题"}} />
                             <div className={Styles.sub_title}>题量</div>
                         </Col>
                         <Col span={8}>
-                            <Progress type="circle" percent={80} strokeColor={"#1dc99a"} format={() => {return (Math.round(taskStatistics&&taskStatistics.scoreRate*100||0)/100) + "%"}} />
+                            <Progress type="circle" percent={taskStatistics&&taskStatistics.scoreRate||0} strokeColor={"#1dc99a"} format={() => {return (Math.round(taskStatistics&&taskStatistics.scoreRate*100||0)/100) + "%"}} />
                             <div className={Styles.sub_title}>得分率</div>
                         </Col>
                     </Row>
@@ -387,10 +388,10 @@ class learningSituation extends React.Component {
                         score = "个人/年级得分率";
                         count = "个人/年级题量";
                     }
-                    return (<Accordion><Accordion.Panel className={level==0?Styles.header_accordion_panel:Styles.row_accordion_panel} header={renderPanelHeader(element.name,count,score,level)}><List className="my-list">{childrenDOM}</List></Accordion.Panel></Accordion>)
+                    return (<Accordion><Accordion.Panel className={level==0?Styles.header_accordion_panel:Styles.row_accordion_panel} header={renderPanelHeader(element.name,count,score,level)}><List>{childrenDOM}</List></Accordion.Panel></Accordion>)
                 }
                 let space = 1.5*(level+1)+"rem";
-                return(<List><List.Item className={Styles.list_item}><span style={{paddingLeft:space}}>{element.name}</span><span>{count}</span><span>{score}</span></List.Item></List>)
+                return(<List.Item className={Styles.list_item}><span style={{paddingLeft:space}}>{element.name}</span><span>{count}</span><span>{score}</span></List.Item>)
             })         
         }
 

@@ -22,6 +22,7 @@
     .legendContainer{
         padding-top: 8rem;
         padding-left:5rem;
+        // overflow: hidden;
         // text-align: center;
         .subjectIcon{
             display: inline-block;
@@ -30,6 +31,11 @@
             border-radius: @radius-base;
             margin-right: 1rem;
         }      
+    }
+    :global{
+        .ant-progress-circle.ant-progress-status-success .ant-progress-text{
+            color:#333;
+        }
     }
 }
 
