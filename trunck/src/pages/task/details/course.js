@@ -1,13 +1,15 @@
 import React from 'react'
-import { Card, Toast } from 'antd-mobile'
+import { Card, Toast , Modal} from 'antd-mobile'
 import { Spin, Button } from 'antd'
 import { getPageQuery } from '../../../utils/utils'
 import { connect } from 'dva';
 import TopNav from '../../../components/nav';
 import { TaskDescribe, TaskRef, TaskQuestion, TaskResult } from "../../../components/task";
-import { formatDate2, isNull, getUserID, startTime } from '../../../utils/utils';
+import { isNull, getUserID, startTime } from '../../../utils/utils';
 import Styles from './course.less';
 import { submitTask, saveTask } from "../../../services/task"
+import { goHome , releaseAudio } from "../../../utils/andriod";
+const alert = Modal.alert;
 
 @connect(({ task }) => ({ task }))
 export default class CourseDetails extends React.Component {
@@ -106,12 +108,48 @@ export default class CourseDetails extends React.Component {
                 _this.setState({
                     expandIndex: -1
                 });
+                if( _this.state.exitStatus ) _this.exit();
             } else {
                 Toast.fail('提交失败，请稍后重试', 2);
+                if( _this.state.exitStatus ) _this.setState({
+                    exitStatus:false
+                });
             }
         })
     }
-
+    back = ()=>{
+        if( this.state.expandIndex == -1 ){
+            this.exit();
+        }else{
+            if( this.props.task.taskModuleInfo.taskStudentModuleList[this.state.expandIndex].moduleType == 1 ){
+                this.exit();    
+            }else{
+                this.alertInstance = alert('退出', '是否保存当前作答？', [
+                    { text: '不保存', onPress: () => this.exit() },
+                    { text: '保存并退出', onPress: () => {
+                        this.setState({
+                            exitStatus:true
+                        })
+                        this[`child${this.state.expandIndex}`].onSave()
+                    } },
+                ])
+            }
+        }
+    }
+    exit = () => {
+        if( this.props.history && this.props.history.length == 1 ){
+            goHome();
+        }else{
+            this.props.history.replace("/task")
+        }
+    }
+    onRef=(ref,key)=>{
+        this[key]=ref;
+    }
+    componentWillUnmount(){
+        releaseAudio();
+        this.alertInstance && this.alertInstance.close();
+    }
     render() {
         const { taskModuleInfo, loading } = this.props.task;
         const renderCard = (element, idx) => {
@@ -134,7 +172,12 @@ export default class CourseDetails extends React.Component {
                         <Card.Header title={element.moduleName}
                             extra={<Button type="primary" onClick={this.expand.bind(this, idx)}>开始做答</Button>} />
                         <Card.Body>
-                            <TaskQuestion taskType={"course"} moduleID={element.id} complete={this.answerComplete.bind(this, element.id)} saveAnswer={this.saveAnswer.bind(this, element.id)}></TaskQuestion>
+                            <TaskQuestion 
+                                onRef={(ref)=>this.onRef(ref,`child${idx}`)} 
+                                taskType={"course"} 
+                                moduleID={element.id} 
+                                complete={this.answerComplete.bind(this, element.id)} 
+                                saveAnswer={this.saveAnswer.bind(this, element.id)}></TaskQuestion>
                         </Card.Body>
                     </Card></div>
                 } else {
@@ -155,7 +198,7 @@ export default class CourseDetails extends React.Component {
         return (<Spin spinning={loading}  tip="数据加载中" >
             {isNull(taskModuleInfo) ? <div /> : <div clasNam={Styles.course_container}>
                 <TopNav title={taskModuleInfo.taskName} onLeftClick={this.back}></TopNav>
-                <TaskDescribe endtime={formatDate2(taskModuleInfo.taskEndTime)} describe={taskModuleInfo.taskRequire} />
+                <TaskDescribe endtime={taskModuleInfo.taskEndTime} describe={taskModuleInfo.taskRequire} />
                 {taskModuleInfo.taskStudentModuleList.map((element, index) => renderCard(element, index))}
                 <div style={{ height: "6rem", backgroundColor: "#f9f9f9" }}></div>
             </div>

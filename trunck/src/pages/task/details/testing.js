@@ -5,7 +5,7 @@ import { Toast , Modal } from 'antd-mobile';
 import { getPageQuery } from '../../../utils/utils';
 import TopNav from '../../../components/nav';
 import { TaskDescribe, TaskQuestion } from "../../../components/task";
-import { formatDate2, isNull, isTimeArrived } from '../../../utils/utils';
+import { dateFormat , isNull, isTimeArrived } from '../../../utils/utils';
 import { submitTask, saveTask } from "../../../services/task";
 import Styles from "./testing.less"
 import { goHome , releaseAudio } from "../../../utils/andriod";
@@ -48,11 +48,6 @@ export default class Testing extends React.Component {
                         _this.props.dispatch({
                             type: "task/fetch/end"
                         })
-                        let showTime = _this.props.task.moduleContentList[_this.state.taskid].questionModuleInfo.answerDisplayTime;
-                        if (!isTimeArrived(showTime)) {
-                            _this.setState({ showMask: true });
-                            return;
-                        }
                         _this.props.history.replace("/taskresult?taskNo=" + _this.state.taskid)
                     });
                     break;
@@ -72,11 +67,7 @@ export default class Testing extends React.Component {
                     _this.props.dispatch({
                         type: "task/fetch/end"
                     })
-                    let showTime = _this.props.task.moduleContentList[_this.state.taskid].questionModuleInfo.answerDisplayTime;
-                    if (!isTimeArrived(showTime)) {
-                        _this.setState({ showMask: true });
-                        return;
-                    }
+                    _this.setState({ showMask: true });
                     break;
                 default:
                     _this.props.dispatch({
@@ -114,7 +105,6 @@ export default class Testing extends React.Component {
         })
     }
     back = ()=>{
-        releaseAudio();
         this.alertInstance = alert('退出', '是否保存当前作答？', [
             { text: '不保存', onPress: () => this.exit() },
             { text: '保存并退出', onPress: () => this.child.onSave() },
@@ -131,6 +121,7 @@ export default class Testing extends React.Component {
         this.child=ref;
     }
     componentWillUnmount(){
+        releaseAudio();
         this.alertInstance && this.alertInstance.close();
     }
     render() {
@@ -138,13 +129,13 @@ export default class Testing extends React.Component {
         if (!this.props.task.moduleContentList[this.state.taskid])
             return (<Spin  tip="数据加载中" ></Spin>)
         const { questionModuleInfo } = this.props.task.moduleContentList[this.state.taskid];
-        const showTime = formatDate2(questionModuleInfo.answerDisplayTime);
+        const showTime = dateFormat(questionModuleInfo.answerDisplayTime,'yyyy.MM.dd hh:mm');
         return (<Fragment>
             {this.state.showMask && <Fragment><div className={Styles.layout_mask} />
                 <div className={Styles.img_container}>
                     <img className={Styles.answer_close} onClick={() => {this.setState({ showMask: false }); window.history.go(-1); }} src={require("../../../assets/closedialog.png")} />
                     <img className={Styles.answer_pic} src={require("../../../assets/startAnswer.png")} />
-                    <div className={Styles.publish_time}>答案公布时间：{showTime.date+" "+showTime.time}</div>
+                    <div className={Styles.publish_time}>答案公布时间：{showTime}</div>
                    <div className={Styles.msg}>提交成功，但未到教师设置的答案公布时间，请耐心等待！</div>
                 </div>
                
@@ -152,7 +143,7 @@ export default class Testing extends React.Component {
             <Spin spinning={loading}  tip="数据加载中" >
                 {isNull(questionModuleInfo) ? <div /> : <div>
                     <TopNav title={questionModuleInfo.moduleName} onLeftClick={this.back}></TopNav>
-                    <TaskDescribe endtime={formatDate2(questionModuleInfo.taskEndTime)} describe={questionModuleInfo.taskRequire} question={questionModuleInfo.questionContent.testPaperTop} />
+                    <TaskDescribe endtime={questionModuleInfo.taskEndTime} describe={questionModuleInfo.taskRequire} question={questionModuleInfo.questionContent.testPaperTop} />
                     <TaskQuestion 
                         onRef={this.onRef} 
                         moduleID={this.state.taskid} 
