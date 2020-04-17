@@ -4,7 +4,7 @@ import { Spin} from 'antd';
 import { getPageQuery } from '../../../utils/utils';
 import TopNav from '../../../components/nav';
 import { TaskDescribe, TaskQuestion } from "../../../components/task";
-import { formatDate2, isNull } from '../../../utils/utils';
+import { isNull } from '../../../utils/utils';
 @connect(({ task }) => ({ task }))
 export default class AnswerSheet extends React.Component{
     constructor(props){
@@ -35,7 +35,7 @@ export default class AnswerSheet extends React.Component{
         return (<Spin spinning={loading}  tip="数据加载中" >
             {isNull(questionModuleInfo) ? <div/> : <div>
                 <TopNav title={questionModuleInfo.moduleName} onLeftClick={this.back}></TopNav>
-                <TaskDescribe endtime={formatDate2(questionModuleInfo.taskEndTime)} describe={questionModuleInfo.taskRequire} />
+                <TaskDescribe endtime={questionModuleInfo.taskEndTime} describe={questionModuleInfo.taskRequire} />
                 <TaskQuestion taskType={"testing"} complete={this.refComplete}></TaskQuestion>
             </div>
             }

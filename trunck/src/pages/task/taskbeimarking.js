@@ -1,8 +1,8 @@
 import React from 'react';
-import { WhiteSpace, ListView, Icon } from 'antd-mobile';
+import { WhiteSpace, ListView, Icon, Toast } from 'antd-mobile';
 import { Empty } from 'antd';
 import TopNav from '../../components/nav';
-import { convertTaskType } from '../../utils/utils';
+import { convertTaskType, isTimeArrived } from '../../utils/utils';
 import CONSTANT from '../../utils/constant';
 import Styles from './index.less';
 import { connect } from 'dva';
@@ -71,32 +71,19 @@ export default class Taskbeimarking extends React.Component {
     window.history.go(-1)
   };
 
-  taskDetail = (e, type, status, id) => {
-    if (status >= 1 && (type !== 1 || type !== "1"))
-      this.props.history.push("/taskresult?taskNo=" + id);
-    else {
+  taskDetail = (e, type, id, showTime) => {
+    if (isTimeArrived(showTime)) {
       switch (type) {
         case 1:
         case "1":
           this.props.history.push("/taskcourse?taskNo=" + id);
           break;
-        case 2:
-        case "2":
-          this.props.history.push("/tasktesting?taskNo=" + id);
-          break;
-        case 3:
-        case "3":
-          this.props.history.push("/tasktesting?taskNo=" + id);
-          break;
-        case 4:
-        case "4":
-          this.props.history.push("/tasktesting?taskNo=" + id);
-          break;
         default:
-          this.props.history.push("/taskcourse?taskNo=" + id);
+          this.props.history.push("/taskresult?taskNo=" + id);
       }
+    } else {
+      Toast.info("未到答案公布时间，请耐心等待");
     }
-
 
   }
 
@@ -137,7 +124,7 @@ export default class Taskbeimarking extends React.Component {
   render() {
     const row = (item, index) => {
       return (
-        <div className={Styles.task_item} onClick={e => { this.taskDetail(e, item.taskType, item.taskFinishStatus, item.taskStudentId) }}>
+        <div className={Styles.task_item} onClick={e => { this.taskDetail(e, item.taskType, item.taskStudentId, item.taskAnswerDisplayTime) }}>
           <div>
             <img style={{ width: "4.5rem" }} src={this.getSubjectimg(item.subjectId)} alt="" />
             <span className={Styles.title}>{item.taskName}</span>
@@ -146,7 +133,7 @@ export default class Taskbeimarking extends React.Component {
           <div style={{ paddingLeft: "5.4rem" }}>
             <span className={classnames(Styles.label, Styles.task_label)}>{convertTaskType(item.taskType)}</span>
             <span className={classnames(Styles.label, Styles.review_label)}>{CONSTANT.taskCorrectStartegy[item.correctorStrategy]}</span>
-            <span className={Styles.startTime}>截止日期： <span>{item.taskEndTime}</span> </span>
+            <span className={Styles.startTime}>截止日期： <span>{item.taskEndTime && (item.taskEndTime.substring(0, 16)).substring(0, 4) === '2099' ? '无' : item.taskEndTime.substring(0, 16)}</span> </span>
           </div>
         </div>
       )

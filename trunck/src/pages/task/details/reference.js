@@ -6,7 +6,7 @@ import { Toast} from 'antd-mobile';
 import { getPageQuery } from '../../../utils/utils';
 import TopNav from '../../../components/nav';
 import { TaskDescribe, TaskRef } from "../../../components/task";
-import { formatDate2, isNull, getUserID } from '../../../utils/utils';
+import { isNull, getUserID } from '../../../utils/utils';
 import {submitTask} from "../../../services/task";
 import { goHome , releaseAudio } from "../../../utils/andriod";
 @connect(({ task }) => ({ task }))
@@ -58,12 +58,14 @@ export default class Reference extends React.Component {
         })
     }
     back = ()=>{
-        releaseAudio();
         if( this.props.history && this.props.history.length == 1 ){
             goHome();
         }else{
             this.props.history.replace("/task")
         }
+    }
+    componentWillUnmount(){
+        releaseAudio();
     }
     render() {
         const { loading} = this.props.task;
@@ -75,7 +77,7 @@ export default class Reference extends React.Component {
         return (<Spin spinning={loading}  tip="数据加载中" >
             {isNull(refModuleInfo) ? <div/> : <div>
                 <TopNav title={refModuleInfo.moduleName} onLeftClick={this.back}></TopNav>
-                <TaskDescribe endtime={formatDate2(refModuleInfo.taskEndTime)} describe={refModuleInfo.taskRequire} />
+                <TaskDescribe endtime={refModuleInfo.taskEndTime} describe={refModuleInfo.taskRequire} />
                 <TaskRef isCourse={false} moduleID={this.state.taskid} complete={this.refComplete}></TaskRef>
             </div>
             }

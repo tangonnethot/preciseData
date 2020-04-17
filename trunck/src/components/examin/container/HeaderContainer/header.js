@@ -26,10 +26,10 @@ const Header = props => {
       {
         userScore !== undefined && <Fragment>
           {
-            userScore === -1 && <div className={classnames(Style.userScore,Style.unmark)}>未阅</div>
+            userScore == -1 && <div className={classnames(Style.userScore,Style.unmark)}>未阅</div>
           }
           {
-            userScore === 0 && <div className={classnames(Style.userScore,Style.wrong)}>错误</div>
+            userScore == 0 && <div className={classnames(Style.userScore,Style.wrong)}>错误</div>
           }
           {
             userScore > 0 && <div className={classnames(Style.userScore)}>{userScore}分</div>

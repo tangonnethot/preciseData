@@ -31,6 +31,9 @@ export const isNull = parameter => {
   if (isArray(parameter)) {
     if (parameter.length === 0) return true;
   }
+  if(typeof parameter ==="string"){
+    if(!parameter) return true;
+  }
   return false;
 };
 

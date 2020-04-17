@@ -1,13 +1,14 @@
 import React from 'react'
 import Styles from './index.less'
+import { dateFormat } from '../../utils/utils';
 
 export default class TaskDescribe extends React.Component {
     constructor(props) {
         super(props);
     }
     render() {
-        let endTime = this.props.endtime.date + "　" + this.props.endtime.time;
-        if(this.props.endtime.date=="2099.12.31"){
+        let endTime = dateFormat(this.props.endtime,'yyyy.MM.dd hh:mm');
+        if(endTime && endTime.split(" ")[0]=="2099.12.31"){
             endTime ="无"
         }
         return (
