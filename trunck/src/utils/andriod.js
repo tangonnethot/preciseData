@@ -73,3 +73,7 @@ window.receiveAndroidUrl=(flag,filename,path,id)=>{
     }
     delete window._arrCB[id];
 };
+
+window.onNavBack=()=>{
+    window.nav.onBack()
+};

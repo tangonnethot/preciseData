@@ -4,6 +4,7 @@ import Styles from './index.less'
 export default class TopNav extends React.Component {
     constructor(props) {
         super(props);
+        window.nav = this;
     }
     onBack=()=>{
         if(typeof this.props.onLeftClick == "function"){
