@@ -9,7 +9,6 @@ import { isNull, getUserID, startTime } from '../../../utils/utils';
 import Styles from './course.less';
 import { submitTask, saveTask } from "../../../services/task"
 import { goHome , releaseAudio } from "../../../utils/andriod";
-const alert = Modal.alert;
 
 @connect(({ task }) => ({ task }))
 export default class CourseDetails extends React.Component {
@@ -19,7 +18,8 @@ export default class CourseDetails extends React.Component {
         let { taskNo } = params;
         this.getCourseDetail(taskNo);
         this.state = {
-            expandIndex: -1
+            expandIndex: -1,
+            exitModalStatus:false
         }
     }
 
@@ -104,11 +104,12 @@ export default class CourseDetails extends React.Component {
             taskStudentTopicList: answerlist
         }).then(function (res) {
             if (res.code == 200) {
-                Toast.success("提交成功", 2);
-                _this.setState({
-                    expandIndex: -1
+                Toast.success("提交成功", 2,()=>{
+                    _this.setState({
+                        expandIndex: -1
+                    });
+                    if( _this.state.exitStatus ) _this.exit();
                 });
-                if( _this.state.exitStatus ) _this.exit();
             } else {
                 Toast.fail('提交失败，请稍后重试', 2);
                 if( _this.state.exitStatus ) _this.setState({
@@ -124,15 +125,7 @@ export default class CourseDetails extends React.Component {
             if( this.props.task.taskModuleInfo.taskStudentModuleList[this.state.expandIndex].moduleType == 1 ){
                 this.exit();    
             }else{
-                this.alertInstance = alert('退出', '是否保存当前作答？', [
-                    { text: '不保存', onPress: () => this.exit() },
-                    { text: '保存并退出', onPress: () => {
-                        this.setState({
-                            exitStatus:true
-                        })
-                        this[`child${this.state.expandIndex}`].onSave()
-                    } },
-                ])
+                this.changeExitStatus();
             }
         }
     }
@@ -148,7 +141,11 @@ export default class CourseDetails extends React.Component {
     }
     componentWillUnmount(){
         releaseAudio();
-        this.alertInstance && this.alertInstance.close();
+    }
+    changeExitStatus = () => {
+        this.setState({
+            'exitModalStatus': !this.state['exitModalStatus']
+        });
     }
     render() {
         const { taskModuleInfo, loading } = this.props.task;
@@ -201,6 +198,19 @@ export default class CourseDetails extends React.Component {
                 <TaskDescribe endtime={taskModuleInfo.taskEndTime} describe={taskModuleInfo.taskRequire} />
                 {taskModuleInfo.taskStudentModuleList.map((element, index) => renderCard(element, index))}
                 <div style={{ height: "6rem", backgroundColor: "#f9f9f9" }}></div>
+                <Modal
+                    visible={this.state.exitModalStatus}
+                    transparent
+                    onClose={()=>this.changeExitStatus()}
+                    title="退出"
+                    footer={[{text:'不保存',onPress:()=>this.exit()},{ text: '保存并退出', onPress: () => {
+                        this.setState({
+                            exitStatus:true
+                        })
+                        this[`child${this.state.expandIndex}`].onSave()
+                    } }]}
+                    >是否保存当前作答？
+                </Modal>
             </div>
             }
         </Spin>)

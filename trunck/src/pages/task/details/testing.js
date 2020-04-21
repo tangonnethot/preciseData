@@ -9,7 +9,6 @@ import { dateFormat , isNull, isTimeArrived } from '../../../utils/utils';
 import { submitTask, saveTask } from "../../../services/task";
 import Styles from "./testing.less"
 import { goHome , releaseAudio } from "../../../utils/andriod";
-const alert = Modal.alert;
 @connect(({ task }) => ({ task }))
 export default class Testing extends React.Component {
     constructor(props) {
@@ -18,7 +17,8 @@ export default class Testing extends React.Component {
         let { taskNo } = params;
         this.state = {
             taskid: taskNo,
-            showMask: false
+            showMask: false,
+            exitModalStatus:false
         }
         this.getQuestionTaskDetail(taskNo);
     }
@@ -105,10 +105,7 @@ export default class Testing extends React.Component {
         })
     }
     back = ()=>{
-        this.alertInstance = alert('退出', '是否保存当前作答？', [
-            { text: '不保存', onPress: () => this.exit() },
-            { text: '保存并退出', onPress: () => this.child.onSave() },
-        ])
+        this.changeExitStatus();
     }
     exit = () => {
         if( this.props.history && this.props.history.length == 1 ){
@@ -122,7 +119,11 @@ export default class Testing extends React.Component {
     }
     componentWillUnmount(){
         releaseAudio();
-        this.alertInstance && this.alertInstance.close();
+    }
+    changeExitStatus = () => {
+        this.setState({
+            'exitModalStatus': !this.state['exitModalStatus'],
+        });
     }
     render() {
         const { loading } = this.props.task;
@@ -152,6 +153,14 @@ export default class Testing extends React.Component {
                         saveAnswer={this.saveAnswer.bind(this)}></TaskQuestion>
                 </div>}
             </Spin>
+            <Modal
+                visible={this.state.exitModalStatus}
+                transparent
+                onClose={()=>this.changeExitStatus()}
+                title="退出"
+                footer={[{text:'不保存',onPress:()=>this.exit()},{ text: '保存并退出', onPress: () => this.child.onSave() }]}
+                >是否保存当前作答？
+            </Modal>
         </Fragment>
         )
     }
