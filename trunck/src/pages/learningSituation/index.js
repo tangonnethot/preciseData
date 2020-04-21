@@ -325,12 +325,12 @@ class learningSituation extends React.Component {
                             </Col>
                             <Col span={8}>
                                 <ReactEcharts option={this.getTimeOption()}></ReactEcharts>
-                                <div className={Styles.count}>{totalOverView.userTime || "0分钟"}</div>
+                                <div className={Styles.count}>{totalOverView.userTime>60 ? `${parseInt(totalOverView.userTime/60)}时${totalOverView.userTime%60}分` : `${totalOverView.userTime}分钟`}</div>
                                 <div className={Styles.textCenter}>学习用时</div>
                                 <div className={Styles.legendContainer}>
                                 {totalStatistics && totalStatistics.map((item, index) => {
                                         let color = lengendColor[index%lengendColor.length];
-                                        return <div><div className={Styles.subjectIcon} style={{ backgroundColor: color}} />{item.subjectName||""} | {Math.round(item.taskTotalTime / totalOverView.userTime*10000)/100||0}% {item.taskTotalTime||0}分钟</div>;
+                                        return <div><div className={Styles.subjectIcon} style={{ backgroundColor: color}} />{item.subjectName||""} | {Math.round(item.taskTotalTime / totalOverView.userTime*10000)/100||0}% {item.taskTotalTime>60 ? `${parseInt(item.taskTotalTime/60)}时${item.taskTotalTime%60}分` : `${item.taskTotalTime}分钟`}</div>;
                                     })}
                                 </div>
                             </Col>

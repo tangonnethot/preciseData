@@ -103,10 +103,10 @@ export default class Taskmarktopic extends React.Component {
                     setTimeout(() => {
                       resolve();
                     }, 200); 
-                    this.part(value, index);
+                    this.part(parseFloat(value).toFixed(1) / 1, index);
                   }),
                 },
-              ], 'default', null, ['请输入分值，最小单位0.5分'])}
+              ], 'default', null, ['请输入分值，最小分值为0.5分'])}
           ><span></span>部分对了</div>
         </div>
       </div>
