@@ -326,7 +326,8 @@ class learningSituation extends React.Component {
                                 </div>
                             </Col>
                             <Col span={8}>
-                                <ReactEcharts option={this.getTimeOption()}></ReactEcharts>
+
+                                <ReactEcharts option={this.getTimeOption()} style={{overflow:"hidden"}}></ReactEcharts>
                                 <div className={Styles.count}>{totalOverView.userTime>60 ? `${parseInt(totalOverView.userTime/60)}时${totalOverView.userTime%60}分` : `${totalOverView.userTime}分钟`}</div>
                                 <div className={Styles.textCenter}>学习用时</div>
                                 <div className={Styles.legendContainer}>
