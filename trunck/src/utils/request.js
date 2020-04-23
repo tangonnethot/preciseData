@@ -65,17 +65,22 @@ function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
     return response;
   }
-  debugger
-  if(response.status==500){
+  
+  if(response.status>=500 && response.status<600){
     notification.error({
       description: '您的网络发生异常，无法连接服务器',
       message: '网络异常',
     });
     return Promise.reject("network Error");
   }
-  const error = new Error(response.statusText);
-  error.response = response;
-  throw error;
+  // const error = new Error(response.statusText);
+  // error.response = response;
+  notification.error({
+    description: response.statusText||"网络错误，请稍后重试",
+    message: response.status,
+  });
+  return Promise.reject("server Error");
+  // throw error;
 }
  
 

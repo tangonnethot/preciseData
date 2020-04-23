@@ -24,7 +24,7 @@ export default class taskInfo extends React.Component {
             dataSource,
             taskFinishStatus: 0,
             selSubject: 0,
-            height: document.documentElement.clientHeight * 3 / 4,
+            // height: document.documentElement.clientHeight * 3 / 4,
             showMarqueeIndex: 0
         }
         this.props.dispatch({
@@ -69,8 +69,6 @@ export default class taskInfo extends React.Component {
         let finishStatus = this.state.taskFinishStatus || "0";
         let subjectid = this.state.selSubject || "";
         if (subjectid == 0) subjectid = "";
-        // alert("getTaskInfo");
-        console.log(this.state.curPage);
         this.props.dispatch({
             type: "task/getTaskList",
             payload: {
@@ -175,7 +173,7 @@ export default class taskInfo extends React.Component {
 
         const row = (item) => {
             if (index > taskList.length - 1) {
-                return (<div />)
+                return (<div></div>)
             }
             const obj = taskList[index++];
             if (isNull(obj)) return (<div></div>);
@@ -219,14 +217,13 @@ export default class taskInfo extends React.Component {
                             你的试卷已被批阅，赶紧<span className={Styles.red}><Link to="/taskbeimarking">去看看</Link></span>吧！</div>
                         }
                     </div>}
+
                 <ListView
-                    ref={el => this.lv = el}
+                    ref={el =>{this.lv = el}}
                     dataSource={this.state.dataSource.cloneWithRows(taskList)}
                     renderRow={row}
-                    style={{
-                        height: this.state.height,
-                        overflow: 'auto',
-                    }}
+                    className={Styles.listview_body}
+
                     pageSize={10}
                     renderFooter={() => (
                         <div style={{ padding: 30, textAlign: "center" }}>
