@@ -164,14 +164,11 @@ export default {
         //批阅任务
         *submitMarking({ payload , callback}, { call, put, select }) {
             yield put({ type: 'fetch/start' });
-            let { data } = yield call(submitMarking, payload)
-            data && (yield put({
-                type: 'fetchAfter'
-            }))
+            let  data  = yield call(submitMarking, payload)
             yield put({ type: 'fetch/end' });
 
             if (callback && typeof callback === 'function') {
-                callback();
+                callback(data);
               }
         },
         *getMarkingCount({ payload }, { call, put, select }) {

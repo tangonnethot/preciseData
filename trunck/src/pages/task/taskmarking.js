@@ -153,7 +153,7 @@ export default class Taskmarking extends React.Component {
                       ? "上滑加载更多"
                       : this.state.dataSource._cachedRowCount > 0
                         ? "已经到底了"
-                        : <Empty description='暂无数据' />}
+                        : "已完成所有批改任务"}
                 </div>
               )}
               renderRow={row}

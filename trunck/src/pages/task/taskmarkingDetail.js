@@ -6,6 +6,7 @@ import CONSTANT from '../../utils/constant';
 import { getPageQuery } from "../../utils/utils";
 import classnames from 'classnames';
 import Taskmarktopic from '../../components/task/taskmarktopic';
+import { Toast } from 'antd-mobile';
 
 @connect(({ task }) => ({ task }))
 export default class TaskmarkingDetail extends React.Component {
@@ -83,8 +84,14 @@ export default class TaskmarkingDetail extends React.Component {
     this.props.dispatch({
       type: "task/submitMarking",
       payload: allScoreInfo,
-      callback: (res) => {  
-           this.props.history.push("/taskmarking");
+      callback: (res) => {
+          if( res.code == 200 ){
+            Toast.success('批阅成功',2,()=>{
+              this.props.history.replace("/taskmarking");
+            })
+          }else{
+            Toast.fail("提交失败，请稍后重试",2)
+          }           
       }
     })
   }
