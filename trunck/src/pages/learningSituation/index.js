@@ -186,7 +186,9 @@ class learningSituation extends React.Component {
                 data: data.xData
             },
             yAxis: {
-                type: 'value'
+                type: 'value',
+                min: 0,
+                max: 100,
             },
             // renderer:"canvas",
             series: [{

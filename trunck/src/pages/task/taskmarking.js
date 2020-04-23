@@ -116,44 +116,15 @@ export default class Taskmarking extends React.Component {
 
   }
 
-  getSubjectimg = (id) => {
-    switch (id) {
-      case 100:
-      case "100":
-        return require("../../assets/chi.png");
-      case 103:
-      case "103":
-        return require("../../assets/math.png");
-      case 104:
-      case "104":
-        return require("../../assets/eng.png");
-      case 105:
-      case "105":
-        return require("../../assets/politics.png");
-      case 106:
-      case "106":
-        return require("../../assets/math.png");
-      case 107:
-      case "107":
-        return require("../../assets/chem.png");
-      case 165:
-      case "165":
-        return require("../../assets/math.png");
-      case 166:
-      case "166":
-        return require("../../assets/math.png");
-      case 265:
-      case "265":
-        return require("../../assets/history.png");
-    }
-  }
 
   render() {
     const row = (item, index) => {
       return (
         <div className={Styles.task_item} onClick={e => { this.markDetail(e, item.taskStudentModuleId, item.correctorStrategy, item.taskAnswerDisplayTime) }}>
           <div>
-            <img className={Styles.icon} src={this.getSubjectimg(item.subjectId)} alt="" />
+            <span className={classnames(Styles.subject,Styles['subject_'+item.subjectId])}>
+              {item.subjectName&&item.subjectName.length>0&&item.subjectName.charAt(0)}
+            </span>
             <span className={Styles.title}>{item.taskName}</span>
             <span className={Styles.marking}>批阅<Icon type='right' size='lg' /></span>
           </div>

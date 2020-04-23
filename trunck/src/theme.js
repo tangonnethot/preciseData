@@ -228,4 +228,14 @@ module.exports = {
   '@line-height-sm': lineHeight36,
   '@line-height-xs': lineHeight30,
   '@line-height-xss': lineHeight26,
+  '@subject-color-100':'#6bbafb',//语文
+  '@subject-color-103':'#ffa877',//数学
+  '@subject-color-104':'#83e0f4',//英文
+  '@subject-color-106':'#fe83ad',//物理
+  '@subject-color-107':'#a892f6',//化学
+  '@subject-color-167':'#7d9df6',//历史
+  '@subject-color-165':'#e39cf6',//生物
+  '@subject-color-105':'#79d57b',//政治
+  '@subject-color-166':'#fdc461',//地理
+  '@subject-color-default':'#fd898e'
 };

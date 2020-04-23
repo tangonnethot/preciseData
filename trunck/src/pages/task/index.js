@@ -151,37 +151,6 @@ export default class taskInfo extends React.Component {
 
     }
 
-    getSubjectimg = (id) => {
-        switch (id) {
-            case 100:
-            case "100":
-                return require("../../assets/chi.png");
-            case 103:
-            case "103":
-                return require("../../assets/math.png");
-            case 104:
-            case "104":
-                return require("../../assets/eng.png");
-            case 105:
-            case "105":
-                return require("../../assets/politics.png");
-            case 106:
-            case "106":
-                return require("../../assets/math.png");
-            case 107:
-            case "107":
-                return require("../../assets/chem.png");
-            case 165:
-            case "165":
-                return require("../../assets/math.png");
-            case 166:
-            case "166":
-                return require("../../assets/math.png");
-            case 265:
-            case "265":
-                return require("../../assets/history.png");
-        }
-    }
 
     onEndReached = (page, lastpage) => {
         this.state.curPage++;
@@ -214,7 +183,9 @@ export default class taskInfo extends React.Component {
             return (
                 <div key={obj.taskNo} className={Styles.task_item} onClick={this.onShowDetails.bind(this, obj.taskType, obj.taskFinishStatus, obj.id,obj.taskAnswerDisplayTime)}>
                     <div>
-                        <img style={{ width: "4.5rem" }} src={this.getSubjectimg(obj.subjectId)} alt="" />
+                        <span className={classnames(Styles.subject,Styles['subject_'+obj.subjectId])}>
+                            {obj.subjectName&&obj.subjectName.length>0&&obj.subjectName.charAt(0)}
+                        </span>
                         <span className={Styles.title}>{obj.taskName.length < 25 ? obj.taskName : obj.taskName.substring(0,25)+'...'}</span>
                         <span className={Styles.endTime}>{formatDate1(obj.taskStartTime)}</span>
                     </div>
