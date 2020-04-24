@@ -11,12 +11,12 @@
  * @param {string} isSeek 进度条是否允许拖动，true为可以拖动，false为不可拖动
  */
 export const playAudio = (url,name,isSeek)=>{
-    PlayerHelper.startAudio(url,name,isSeek);
+    window.PlayerHelper && window.PlayerHelper.startAudio(url,name,isSeek);
 }
  /** 关闭音频播放
  */
 export const releaseAudio = ()=>{
-     window.PlayerHelper && PlayerHelper.releaseAudio();
+     window.PlayerHelper && window.PlayerHelper.releaseAudio();
 }
 /**
  * 视频播放
@@ -24,22 +24,21 @@ export const releaseAudio = ()=>{
  * @param {string} id 视频OSS id
  */
 export const playVideo=(name,id)=>{
-    PlayerHelper.startVideo(name,id);
+    window.PlayerHelper && window.PlayerHelper.startVideo(name,id);
 }
 
 /**
  * 返回Andriod端的首页
  */
 export const goHome=()=>{
-    PlayerHelper.goHome();
+    window.PlayerHelper && window.PlayerHelper.goHome();
 }
 
 /**
  * 拍照上传?此处是否应该有上传成功的回调？？？
  */
 export const takeCamera=(qid)=>{
-
-    window.ASPrecise && ASPrecise.takeCamera(qid);
+    window.ASPrecise && window.ASPrecise.takeCamera(qid);
 }
 
 /**
@@ -48,7 +47,7 @@ export const takeCamera=(qid)=>{
  */
 export const upload=(qid,fileName)=>{
     let aliUrl="";
-    ASPrecise.uploadAccessory(qid,aliUrl,fileName);
+    window.ASPrecise && window.ASPrecise.uploadAccessory(qid,aliUrl,fileName);
 }
 
 /**
@@ -56,7 +55,7 @@ export const upload=(qid,fileName)=>{
  * @param {String} url 预览文档的路径
  */
 export const previewFile=(url)=>{
-    PlayerHelper.reviewFile(url) 
+    window.PlayerHelper && window.PlayerHelper.reviewFile(url) 
 }
 
 

@@ -49,7 +49,7 @@ const long52="5.2rem";
 const long80="8rem";
 const long120="12rem";
 const heigth80 ="8rem";
-const heigth44 ="4.4rem";
+const heigth40 ="4rem";
 const spacing24="2.4rem" ;
 const spacing20="2.0rem" ;
 const spacing16="1.6rem" ;
@@ -137,8 +137,8 @@ module.exports = {
   '@title-descibe-font-size': fontSize22,
   '@camera-label-font-size':fontSize20,
   // 图标大小
-  '@icon-width':heigth44,
-  '@icon-height':heigth44,
+  '@icon-width':heigth40,
+  '@icon-height':heigth40,
 
   //白色字体
   '@white-color': '#fff',

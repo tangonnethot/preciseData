@@ -109,7 +109,7 @@ export default class Taskmarking extends React.Component {
 
   markDetail = (e, id, correctorStrategy, showTime) => {
     if (isTimeArrived(showTime))
-      this.props.history.push("/taskmarkingDetail?studentModuleId=" + id + '&correctorStrategy=' + correctorStrategy);
+      this.props.history.replace("/taskmarkingDetail?studentModuleId=" + id + '&correctorStrategy=' + correctorStrategy);
     else {
       Toast.info("未到答案公布时间，请耐心等待");
     }

@@ -50,7 +50,10 @@ export default class TaskmarkingDetail extends React.Component {
             parentId: item.topics[0].parentId,
             answerContent: item.topics[0].answerContent,
             topicId: item.topics[0].taskContentTopicId,
-            topicTag:item.topics[0].topicTag
+            topicTag:item.topics[0].topicTag,
+            sort:item.sort,
+            studentName:answerDetailsInfo.studentName,
+            studentId:answerDetailsInfo.studentId,
           })
 
         } else {
@@ -63,7 +66,10 @@ export default class TaskmarkingDetail extends React.Component {
             parentId: item.parentId,
             answerContent: item.answerContent,
             topicId: item.taskContentTopicId,
-            topicTag:item.topicTag
+            topicTag:item.topicTag,
+            sort:item.sort,
+            studentName:answerDetailsInfo.studentName,
+            studentId:answerDetailsInfo.studentId,
           })
         }
         this.setState({ allScoreInfo })
@@ -169,8 +175,9 @@ export default class TaskmarkingDetail extends React.Component {
     this.isSubmit();
 
   }
-
-
+  back=()=>{
+    this.props.history.replace("/taskmarking");
+  }
   render() {
     const { answerDetailsInfo } = this.props.task;
     let params = getPageQuery();
@@ -193,7 +200,7 @@ export default class TaskmarkingDetail extends React.Component {
     }
     return (
       <div className={Styles.taskmarkingDetailContainer}>
-        {answerDetailsInfo && <TopNav title={answerDetailsInfo.moduleName}></TopNav>}
+        {answerDetailsInfo && <TopNav title={answerDetailsInfo.moduleName} onLeftClick={this.back}></TopNav>}
         <div className={Styles.topicNum}>
           <div className={Styles.topicNumInfo}>
             <span className={Styles.topicNumInfoL}>待批阅题目{answerDetailsInfo && answerDetailsInfo.topics.length}道，总分{this.totalScore()}分</span>
