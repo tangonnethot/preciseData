@@ -66,12 +66,11 @@ export default class TaskQuestion extends React.Component {
 
                 let newarrContent =arrContent.map(element=>{
                     if("A"<=element&&element<="Z")
-                         return String.fromCharCode(element.charCodeAt()-16);
+                         return element.charCodeAt()-64
                     if("a"<=element&&element<="z"){
-                        return String.fromCharCode(element.charCodeAt()-48);
+                        return element.charCodeAt()-96;
                     }
-                    if("0"<element && element<10)
-                        return element;
+                    return element;
                 })
                 element.answerContent = newarrContent.join(",");
                 // if(element.answerContent){
@@ -106,7 +105,7 @@ export default class TaskQuestion extends React.Component {
             let arrAnswer = answerContent.split("");
             let newData =arrAnswer.map(element=>{
                 if(!isNaN(parseInt(element)))
-                    return String.fromCharCode(element.charCodeAt()+16);
+                    return String.fromCharCode(parseInt(element)+64);
                 return element;
             })
             return newData.join(",");            

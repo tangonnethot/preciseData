@@ -189,7 +189,6 @@ export default {
         },
         *updateRAnswerList({ payload }, { call, put, select }) {
             const { moduleid , topicId , id , answer } = payload;
-            debugger
             yield put({
                 type: 'updateReviseAnswerList',
                 payload: {
