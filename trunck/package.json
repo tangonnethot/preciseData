@@ -35,6 +35,6 @@
     "react-zmage": "^0.8.5-beta.31",
     "redbox-react": "^1.4.3",
     "roadhog": "^2.5.0-beta.4",
-    "webpack": "^3.12.0"
+    "webpack": "^5.94.0"
   }
 }
